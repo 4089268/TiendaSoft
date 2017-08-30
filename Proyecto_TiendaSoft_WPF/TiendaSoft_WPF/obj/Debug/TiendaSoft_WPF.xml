@@ -1,0 +1,190 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+TiendaSoft_WPF
+</name>
+</assembly>
+<members>
+<member name="M:TiendaSoft_WPF.Page_NuevoProducto.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_NuevoProducto">
+	<summary>
+Page_NuevoProducto
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_product_catalagoProducto.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_product_catalagoProducto">
+	<summary>
+Page_product_catalagoProducto
+</summary>
+</member><member name="M:TiendaSoft_WPF.Application.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="M:TiendaSoft_WPF.Application.Main">
+	<summary>
+Application Entry Point.
+</summary>
+</member><member name="T:TiendaSoft_WPF.Application">
+	<summary>
+Application
+</summary>
+</member><member name="M:TiendaSoft_WPF.Header_Ticket.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Header_Ticket">
+	<summary>
+Header_Ticket
+</summary>
+</member><member name="M:TiendaSoft_WPF.Form_LogIn.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Form_LogIn">
+	<summary>
+Form_LogIn
+</summary>
+</member><member name="M:TiendaSoft_WPF.Frm_Ventas.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Frm_Ventas">
+	<summary>
+Frm_Ventas
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_productos.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_productos">
+	<summary>
+Page_productos
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_Configuracion.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_Configuracion">
+	<summary>
+Page_Configuracion
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_conf_cajeros.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_conf_cajeros">
+	<summary>
+Page_conf_cajeros
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_conf_ticket.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_conf_ticket">
+	<summary>
+Page_conf_ticket
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_ventas.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_ventas">
+	<summary>
+Page_ventas
+</summary>
+</member><member name="M:TiendaSoft_WPF.UserControl1.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.UserControl1">
+	<summary>
+UserControl1
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_product_catalagoDepartamentos.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_product_catalagoDepartamentos">
+	<summary>
+Page_product_catalagoDepartamentos
+</summary>
+</member><member name="M:TiendaSoft_WPF.Frm_Busqueda.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Frm_Busqueda">
+	<summary>
+Frm_Busqueda
+</summary>
+</member><member name="M:TiendaSoft_WPF.MainWindow.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.MainWindow">
+	<summary>
+MainWindow
+</summary>
+</member><member name="M:TiendaSoft_WPF.modal_EditarPaquete.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.modal_EditarPaquete">
+	<summary>
+modal_EditarPaquete
+</summary>
+</member><member name="M:TiendaSoft_WPF.Frm_Cobrar.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Frm_Cobrar">
+	<summary>
+Frm_Cobrar
+</summary>
+</member><member name="P:TiendaSoft_WPF.My.MyWpfExtension.Application">
+	<summary>
+ Devuelve el objeto de aplicación de la aplicación en ejecución
+ </summary>
+</member><member name="P:TiendaSoft_WPF.My.MyWpfExtension.Computer">
+	<summary>
+ Devuelve información sobre el equipo host.
+ </summary>
+</member><member name="P:TiendaSoft_WPF.My.MyWpfExtension.User">
+	<summary>
+ Devuelve información sobre el usuario actual.  Si desea ejecutar la aplicación con las credenciales 
+ del usuario de Windows actual, llame a My.User.InitializeWithWindowsUser().
+ </summary>
+</member><member name="P:TiendaSoft_WPF.My.MyWpfExtension.Log">
+	<summary>
+ Devuelve el registro de la aplicación. El archivo de configuración de la aplicación puede configurar los agentes de escucha.
+ </summary>
+</member><member name="P:TiendaSoft_WPF.My.MyWpfExtension.Windows">
+	<summary>
+ Devuelve la colección de Windows definida en el proyecto.
+ </summary>
+</member><member name="T:TiendaSoft_WPF.My.MyWpfExtension">
+	<summary>
+ Módulo utilizado para definir las propiedades disponibles en el espacio de nombres My de WPF
+ </summary>
+	<remarks></remarks>
+</member><member name="P:TiendaSoft_WPF.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:TiendaSoft_WPF.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:TiendaSoft_WPF.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>
