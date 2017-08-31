@@ -6,13 +6,37 @@ TiendaSoft_WPF
 </name>
 </assembly>
 <members>
-<member name="M:TiendaSoft_WPF.Page_NuevoProducto.InitializeComponent">
+<member name="M:TiendaSoft_WPF.Frm_Cobrar.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:TiendaSoft_WPF.Page_NuevoProducto">
+</member><member name="T:TiendaSoft_WPF.Frm_Cobrar">
 	<summary>
-Page_NuevoProducto
+Frm_Cobrar
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_conf_cajeros.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_conf_cajeros">
+	<summary>
+Page_conf_cajeros
+</summary>
+</member><member name="M:TiendaSoft_WPF.Frm_Busqueda.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Frm_Busqueda">
+	<summary>
+Frm_Busqueda
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_product_catalagoDepartamentos.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_product_catalagoDepartamentos">
+	<summary>
+Page_product_catalagoDepartamentos
 </summary>
 </member><member name="M:TiendaSoft_WPF.Page_product_catalagoProducto.InitializeComponent">
 	<summary>
@@ -21,6 +45,14 @@ InitializeComponent
 </member><member name="T:TiendaSoft_WPF.Page_product_catalagoProducto">
 	<summary>
 Page_product_catalagoProducto
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_NuevoProducto.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_NuevoProducto">
+	<summary>
+Page_NuevoProducto
 </summary>
 </member><member name="M:TiendaSoft_WPF.Application.InitializeComponent">
 	<summary>
@@ -34,29 +66,13 @@ Application Entry Point.
 	<summary>
 Application
 </summary>
-</member><member name="M:TiendaSoft_WPF.Header_Ticket.InitializeComponent">
+</member><member name="M:TiendaSoft_WPF.UserControl1.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:TiendaSoft_WPF.Header_Ticket">
+</member><member name="T:TiendaSoft_WPF.UserControl1">
 	<summary>
-Header_Ticket
-</summary>
-</member><member name="M:TiendaSoft_WPF.Form_LogIn.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:TiendaSoft_WPF.Form_LogIn">
-	<summary>
-Form_LogIn
-</summary>
-</member><member name="M:TiendaSoft_WPF.Frm_Ventas.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:TiendaSoft_WPF.Frm_Ventas">
-	<summary>
-Frm_Ventas
+UserControl1
 </summary>
 </member><member name="M:TiendaSoft_WPF.Page_productos.InitializeComponent">
 	<summary>
@@ -66,61 +82,21 @@ InitializeComponent
 	<summary>
 Page_productos
 </summary>
-</member><member name="M:TiendaSoft_WPF.Page_Configuracion.InitializeComponent">
+</member><member name="M:TiendaSoft_WPF.Header_Ticket.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:TiendaSoft_WPF.Page_Configuracion">
+</member><member name="T:TiendaSoft_WPF.Header_Ticket">
 	<summary>
-Page_Configuracion
+Header_Ticket
 </summary>
-</member><member name="M:TiendaSoft_WPF.Page_conf_cajeros.InitializeComponent">
+</member><member name="M:TiendaSoft_WPF.Frm_Ventas.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:TiendaSoft_WPF.Page_conf_cajeros">
+</member><member name="T:TiendaSoft_WPF.Frm_Ventas">
 	<summary>
-Page_conf_cajeros
-</summary>
-</member><member name="M:TiendaSoft_WPF.Page_conf_ticket.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:TiendaSoft_WPF.Page_conf_ticket">
-	<summary>
-Page_conf_ticket
-</summary>
-</member><member name="M:TiendaSoft_WPF.Page_ventas.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:TiendaSoft_WPF.Page_ventas">
-	<summary>
-Page_ventas
-</summary>
-</member><member name="M:TiendaSoft_WPF.UserControl1.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:TiendaSoft_WPF.UserControl1">
-	<summary>
-UserControl1
-</summary>
-</member><member name="M:TiendaSoft_WPF.Page_product_catalagoDepartamentos.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:TiendaSoft_WPF.Page_product_catalagoDepartamentos">
-	<summary>
-Page_product_catalagoDepartamentos
-</summary>
-</member><member name="M:TiendaSoft_WPF.Frm_Busqueda.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:TiendaSoft_WPF.Frm_Busqueda">
-	<summary>
-Frm_Busqueda
+Frm_Ventas
 </summary>
 </member><member name="M:TiendaSoft_WPF.MainWindow.InitializeComponent">
 	<summary>
@@ -130,6 +106,30 @@ InitializeComponent
 	<summary>
 MainWindow
 </summary>
+</member><member name="M:TiendaSoft_WPF.Page_ventas.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_ventas">
+	<summary>
+Page_ventas
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_conf_ticket.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_conf_ticket">
+	<summary>
+Page_conf_ticket
+</summary>
+</member><member name="M:TiendaSoft_WPF.Page_Configuracion.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:TiendaSoft_WPF.Page_Configuracion">
+	<summary>
+Page_Configuracion
+</summary>
 </member><member name="M:TiendaSoft_WPF.modal_EditarPaquete.InitializeComponent">
 	<summary>
 InitializeComponent
@@ -138,13 +138,13 @@ InitializeComponent
 	<summary>
 modal_EditarPaquete
 </summary>
-</member><member name="M:TiendaSoft_WPF.Frm_Cobrar.InitializeComponent">
+</member><member name="M:TiendaSoft_WPF.Form_LogIn.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:TiendaSoft_WPF.Frm_Cobrar">
+</member><member name="T:TiendaSoft_WPF.Form_LogIn">
 	<summary>
-Frm_Cobrar
+Form_LogIn
 </summary>
 </member><member name="P:TiendaSoft_WPF.My.MyWpfExtension.Application">
 	<summary>

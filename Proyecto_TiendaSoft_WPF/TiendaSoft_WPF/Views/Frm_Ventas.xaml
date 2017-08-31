@@ -5,8 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="900"
-      Title="Ventas" Loaded="Page_Loaded">
-    <Grid>
+      Title="Ventas" Loaded="Page_Loaded">     
+        
+        
+    <Grid Name="RootLayout">
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="30"/>
@@ -26,7 +28,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="btn_busqueda" Grid.Column="0" Margin="1" Content="F1=BUSQUEDA" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14"/>
+            <Button x:Name="btn_busqueda" Grid.Column="0" Margin="1" Content="F1=BUSQUEDA" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14" />
             <Button x:Name="btn_imprimir" Grid.Column="1" Margin="1,0,1,1.4" Content="F2=IMPRIMIR" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14" Height="28" VerticalAlignment="Bottom"/>
             <Button x:Name="btn_cobrar" Grid.Column="2" Margin="1,0,1,1.4" Content="F10=COBRAR" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14" Height="28" VerticalAlignment="Bottom"/>
             <Button x:Name="btn_salir" Grid.Column="3" Margin="1" Content="ESC=SALIR" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14"/>

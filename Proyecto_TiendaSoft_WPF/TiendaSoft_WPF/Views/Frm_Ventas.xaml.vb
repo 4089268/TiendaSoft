@@ -14,6 +14,7 @@ Imports Point.Point
 Imports System.Globalization
 
 Class Frm_Ventas
+    Property MyCommand As New RoutedCommand
 
     Property imp_cobrar As Decimal = 0
 
@@ -23,6 +24,95 @@ Class Frm_Ventas
     Dim xagranel As Boolean = False
     Dim si_graba As Boolean = False
 
+    Public Shared CustomRoutedCommand As New RoutedCommand()
+
+    Private Sub ExecutedCustomCommand(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
+        MessageBox.Show("Custom Command Executed")
+    End Sub
+
+    Private Sub CanExecuteCustomCommand(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        Dim target As Control = TryCast(e.Source, Control)
+
+        If target IsNot Nothing Then
+            e.CanExecute = True
+        Else
+            e.CanExecute = False
+        End If
+    End Sub
+
+    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
+
+        Dim customCommandBinding As New CommandBinding(CustomRoutedCommand, AddressOf ExecutedCustomCommand, AddressOf CanExecuteCustomCommand)
+        Me.CommandBindings.Add(customCommandBinding)
+
+        Dim OpenCmdKeyBinding As New KeyBinding(CustomRoutedCommand, Key.I, ModifierKeys.Control)
+        Me.InputBindings.Add(OpenCmdKeyBinding)
+
+        Dim dt As New DataTable
+        dt.Columns.Add(New DataColumn("id_producto", GetType(Int32)))
+        dt.Columns.Add(New DataColumn("codigo", GetType(String)))
+        dt.Columns.Add(New DataColumn("descripcion", GetType(String)))
+        dt.Columns.Add(New DataColumn("precio_v", GetType(Decimal)))
+        dt.Columns.Add(New DataColumn("precio_c", GetType(Decimal)))
+        dt.Columns.Add(New DataColumn("cantidad", GetType(Decimal)))
+        dt.Columns.Add(New DataColumn("importe", GetType(Decimal)))
+        dt.Columns.Add(New DataColumn("existencia", GetType(Decimal)))
+
+        ds.Tables.Add(dt)
+
+        grd_venta.AutoGenerateColumns = False
+        grd_venta.Columns.Clear()
+        grd_venta.IsReadOnly = False
+        grd_venta.CanUserAddRows = False
+
+        Dim TextBoxColumn1 As New DataGridTextColumn
+        TextBoxColumn1.Header = "Código"
+        TextBoxColumn1.Binding = New Binding("codigo")
+        TextBoxColumn1.Width = 139
+        TextBoxColumn1.IsReadOnly = True
+
+        Dim TextBoxColumn2 As New DataGridTextColumn
+        TextBoxColumn2.Header = "Descripción"
+        TextBoxColumn2.Binding = New Binding("descripcion")
+        TextBoxColumn2.Width = New DataGridLength(1, DataGridLengthUnitType.Star)
+        TextBoxColumn2.IsReadOnly = True
+
+        Dim TextBoxColumn3 As New DataGridTextColumn
+        TextBoxColumn3.Header = "Precio"
+        TextBoxColumn3.Width = 89
+        TextBoxColumn3.Binding = New Binding("precio_v")
+        TextBoxColumn3.IsReadOnly = True
+
+        Dim TextBoxColumn4 As New DataGridTextColumn
+        TextBoxColumn4.Header = "Cant"
+        TextBoxColumn4.Binding = New Binding("cantidad")
+        TextBoxColumn4.Width = 89
+        TextBoxColumn4.IsReadOnly = True
+
+        Dim TextBoxColumn5 As New DataGridTextColumn
+        TextBoxColumn5.Header = "Importe"
+        TextBoxColumn5.Binding = New Binding("importe")
+        TextBoxColumn5.Width = 89
+        TextBoxColumn5.IsReadOnly = True
+
+
+        Dim TextBoxColumn6 As New DataGridTextColumn
+        TextBoxColumn6.Header = "Existencia"
+        TextBoxColumn6.Width = 89
+        TextBoxColumn6.Binding = New Binding("existencia")
+        TextBoxColumn6.IsReadOnly = True
+
+
+        grd_venta.Columns.Add(TextBoxColumn1)
+        grd_venta.Columns.Add(TextBoxColumn2)
+        grd_venta.Columns.Add(TextBoxColumn3)
+        grd_venta.Columns.Add(TextBoxColumn4)
+        grd_venta.Columns.Add(TextBoxColumn5)
+        grd_venta.Columns.Add(TextBoxColumn6)
+
+        grd_venta.ItemsSource = ds.Tables(0).DefaultView
+
+    End Sub
 
     Private Sub txt_codigo_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_codigo.KeyDown
 
@@ -86,195 +176,22 @@ Class Frm_Ventas
 
                 If Not xagranel And si_graba Then
                     Me.btn_graba_Click(sender, e)
-                    'Me.btn_registrar(sender, e)
                     txt_cant.IsEnabled = xagranel
                 Else
                     txt_cant.IsEnabled = xagranel
                     Dim request = New TraversalRequest(FocusNavigationDirection.Next)
                     request.Wrapped = True
                     DirectCast(sender, TextBox).MoveFocus(request)
-                    'txt_cant.Focus()
                 End If
-
-
-
                 e.Handled = True
 
-
-
-
             End If
-
-
-
-
-            '    e.Key = Key.Tab
-            '    'Me.SelectNextControl(Me.ActiveControl, True, True, True, False)
-            '    'Forms.SendKeys.Send("{TAB}")
-            '    '            acceptableKey = False
-            '    'Keyboard.send()
-
-
-
-            'End If
-
-            '            if (char.IsNumber(e.KeyChar) == false)
-            '            {
-            '                e.Handled = true;
-            '            }
-            '//backspace working code
-            '            if (e.KeyChar == (char)Keys.Back)
-            '            {
-            '                e.Handled = false;
-            '            }
-
-
         Else
-            'acceptableKey = False
             e.Handled = True
 
         End If
 
-
-        ' End If
-
-        '    If (e.Key >= Forms.Keys.D0 And e.KeyCode <= Keys.D9) _
-        'OrElse (e.KeyCode = Keys.Up) _
-        'OrElse (e.KeyCode = Keys.Down) _
-        'OrElse (e.KeyCode = Keys.Enter) _
-        'OrElse (e.KeyCode = Keys.Escape) _
-        'OrElse (e.KeyCode >= Keys.NumPad0 And e.KeyCode <= Keys.NumPad9) _
-        '    OrElse (e.KeyCode >= Keys.F1) OrElse (e.KeyCode >= Keys.F2) OrElse e.KeyCode = Keys.Back Then
-
-        '        If e.KeyCode = Keys.Up Then
-        '            txt_cant.Text = CStr(CDec(txt_cant.Text) + 1)
-        '        End If
-
-        '        If e.KeyCode = Keys.Down Then
-        '            txt_cant.Text = CStr(IIf(CDec(txt_cant.Text) > 1, CDec(txt_cant.Text) - 1, CDec(txt_cant.Text)))
-        '        End If
-
-
-
-        '        If e.KeyCode = Keys.Escape Then
-        '            btn_salir_Click(sender, e)
-        '        End If
-
-        '        If e.KeyCode = Keys.F1 Then
-        '            btn_busca_Click(sender, e)
-        '        End If
-
-        '        If e.KeyCode = Keys.F2 Then
-        '            btn_comun_Click(sender, e)
-        '            'btn_busca_Click(sender, e)
-        '        End If
-
-        '        If e.KeyCode = Keys.Enter Then
-        '            SendKeys.Send("{TAB}")
-        '            acceptableKey = False
-        '        Else
-        '            acceptableKey = True
-        '        End If
-        '    Else
-        '        acceptableKey = False
-        '    End If
-
     End Sub
-
-    'Private Sub grd_prod_KeyDown(sender As Object, e As KeyEventArgs) Handles grd_prod.KeyDown
-
-    '    If e.Key = Key.Up Then
-
-    '        Dim txtBox As TextBox = e.Source
-    '        If txtBox.Name = "txt_codigo" Then
-
-    '            txt_cant.Text = CStr(CDec(txt_cant.Text) + 1)
-
-
-    '        End If
-    '    End If
-
-    '    'if(txtBox != null)
-    '    '{
-    '    '    this.txtBlock.Text = txtBox.Text;
-    '    '    this.txtBlock.Background = new SolidColorBrush(Colors.LightGray);
-    '    '}
-
-
-    'End Sub
-
-    'Private Sub txt_codigo_LostFocus(sender As Object, e As RoutedEventArgs) Handles txt_codigo.LostFocus
-
-    '    Dim xcod As String = TryCast(sender.text, String)
-    '    Dim cn As New SqlConnection(My.Settings.TiendaSoftConnectionString)
-    '    Dim cmd As New SqlCommand()
-
-
-    '    cn.Open()
-    '    cmd.CommandType = CommandType.Text
-    '    cmd.CommandText = "select id_producto,codigo,descripcion,isnull(precio_v,0) as precio_v,isnull(precio_c,0) as precio_c,isnull(existencia,0) as existencia, agranel from Opr_Productos where isnull(inactivo,0)=0 and codigo='" + xcod + "'"
-    '    cmd.Connection = cn
-    '    cmd.Parameters.Clear()
-    '    Try
-    '        Dim reader As SqlDataReader = cmd.ExecuteReader()
-    '        si_graba = False
-    '        If reader.HasRows Then
-    '            Do While reader.Read()
-    '                txt_codigo.Tag = reader("id_producto")
-    '                'txt_desc.Text = reader("descripcion")
-    '                txt_desc.Content = reader("descripcion")
-    '                txt_pre.Text = reader("precio_v")
-    '                txt_pre.Tag = reader("precio_c")
-    '                txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
-    '                txt_exis.Text = reader("existencia")
-    '                xagranel = reader("agranel")
-    '                si_graba = True
-    '            Loop
-
-    '        Else
-    '            'MessageBox.Show("El código capturado, no existe en el Inventario")
-    '            si_graba = False
-    '        End If
-    '        reader.Close()
-    '    Finally
-    '        cn.Close()
-    '        'si_graba = False
-    '    End Try
-
-
-    '    If Not xagranel And si_graba Then
-    '        'Me.btn_registrar(sender, e)
-    '        txt_cant.IsEnabled = xagranel
-    '    Else
-    '        txt_cant.IsEnabled = xagranel
-    '        txt_cant.Focus()
-    '    End If
-
-
-    'End Sub
-
-
-    'Private Sub txt_desc_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles txt_desc.PreviewKeyDown
-
-    '    If e.Key = Key.OemPlus OrElse e.Key = Key.OemMinus OrElse (e.Key >= Key.D0 And e.Key <= Key.D9) Then
-
-
-    '        If e.Key = Key.OemPlus Then
-    '            txt_cant.Text = CStr(CDec(txt_cant.Text) + 1)
-    '        End If
-
-    '        If e.Key = Key.OemMinus Then
-    '            txt_cant.Text = CStr(IIf(CDec(txt_cant.Text) > 1, CDec(txt_cant.Text) - 1, CDec(txt_cant.Text)))
-    '        End If
-
-    '    Else
-    '        'acceptableKey = False
-    '        e.Handled = False
-
-    '    End If
-
-
-    'End Sub
 
     Private Sub txt_codigo_GotFocus(sender As Object, e As RoutedEventArgs) Handles txt_codigo.GotFocus
         txt_desc.Content = ""
@@ -289,7 +206,6 @@ Class Frm_Ventas
 
             Dim dr As DataRow
 
-            'dr = ds.Tables(tab_venta.SelectedIndex).NewRow()
             dr = ds.Tables(0).NewRow()
             dr("id_producto") = txt_codigo.Tag
             dr("codigo") = txt_codigo.Text
@@ -300,7 +216,6 @@ Class Frm_Ventas
             dr("importe") = txt_pre.Text * txt_cant.Text
             dr("existencia") = txt_exis.Text
 
-            'Dim mis_rows = ds.Tables(tab_venta.SelectedIndex).Select("codigo=" + "'" + txt_codigo.Text + "'")
             Dim mis_rows = ds.Tables(0).Select("codigo=" + "'" + txt_codigo.Text + "'")
             If mis_rows.Count > 0 Then
                 For Each rows In mis_rows
@@ -308,13 +223,11 @@ Class Frm_Ventas
                     rows.Item("importe") = rows.Item("cantidad") * rows.Item("precio_v")
                 Next
             Else
-                'ds.Tables(tab_venta.SelectedIndex).Rows.Add(dr)
                 ds.Tables(0).Rows.Add(dr)
 
             End If
 
             Me.Despliega_Totales()
-            'grd_venta.Refresh()
 
             txt_codigo.Text = ""
             txt_codigo.Tag = ""
@@ -327,10 +240,6 @@ Class Frm_Ventas
 
             grd_venta.ItemsSource = ds.Tables(0).DefaultView
 
-            'grd_venta1.DataMember = ds.Tables.Item(tab_venta.SelectedIndex).TableName
-            'grd_venta..DataMember = ds.Tables(tab_venta.SelectedIndex).TableName
-            'SendKeys.Send("{TAB}")
-            'SendKeys.Send = Enter
             si_graba = False
             txt_codigo.Focus()
         Else
@@ -340,85 +249,12 @@ Class Frm_Ventas
 
     End Sub
 
-    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
-        Dim dt As New DataTable
-        dt.Columns.Add(New DataColumn("id_producto", GetType(Int32)))
-        dt.Columns.Add(New DataColumn("codigo", GetType(String)))
-        dt.Columns.Add(New DataColumn("descripcion", GetType(String)))
-        dt.Columns.Add(New DataColumn("precio_v", GetType(Decimal)))
-        dt.Columns.Add(New DataColumn("precio_c", GetType(Decimal)))
-        dt.Columns.Add(New DataColumn("cantidad", GetType(Decimal)))
-        dt.Columns.Add(New DataColumn("importe", GetType(Decimal)))
-        dt.Columns.Add(New DataColumn("existencia", GetType(Decimal)))
-
-        ds.Tables.Add(dt)
-
-        grd_venta.AutoGenerateColumns = False
-        grd_venta.Columns.Clear()
-        grd_venta.IsReadOnly = False
-        grd_venta.CanUserAddRows = False
-
-
-        Dim TextBoxColumn1 As New DataGridTextColumn
-        TextBoxColumn1.Header = "Código"
-        TextBoxColumn1.Binding = New Binding("codigo")
-        TextBoxColumn1.Width = 139
-        TextBoxColumn1.IsReadOnly = True
-
-        Dim TextBoxColumn2 As New DataGridTextColumn
-        TextBoxColumn2.Header = "Descripción"
-        TextBoxColumn2.Binding = New Binding("descripcion")
-        TextBoxColumn2.Width = New DataGridLength(1, DataGridLengthUnitType.Star) 'ajustable
-        TextBoxColumn2.IsReadOnly = True
-
-        Dim TextBoxColumn3 As New DataGridTextColumn
-        TextBoxColumn3.Header = "Precio"
-        TextBoxColumn3.Width = 89
-        TextBoxColumn3.Binding = New Binding("precio_v")
-        TextBoxColumn3.IsReadOnly = True
-
-        Dim TextBoxColumn4 As New DataGridTextColumn
-        TextBoxColumn4.Header = "Cant"
-        TextBoxColumn4.Binding = New Binding("cantidad")
-        TextBoxColumn4.Width = 89
-        TextBoxColumn4.IsReadOnly = True
-
-        Dim TextBoxColumn5 As New DataGridTextColumn
-        TextBoxColumn5.Header = "Importe"
-        TextBoxColumn5.Binding = New Binding("importe")
-        TextBoxColumn5.Width = 89
-        TextBoxColumn5.IsReadOnly = True
-
-
-        Dim TextBoxColumn6 As New DataGridTextColumn
-        TextBoxColumn6.Header = "Existencia"
-        TextBoxColumn6.Width = 89
-        TextBoxColumn6.Binding = New Binding("existencia")
-        TextBoxColumn6.IsReadOnly = True
-
-
-        grd_venta.Columns.Add(TextBoxColumn1)
-        grd_venta.Columns.Add(TextBoxColumn2)
-        grd_venta.Columns.Add(TextBoxColumn3)
-        grd_venta.Columns.Add(TextBoxColumn4)
-        grd_venta.Columns.Add(TextBoxColumn5)
-        grd_venta.Columns.Add(TextBoxColumn6)
-
-
-        grd_venta.ItemsSource = ds.Tables(0).DefaultView
-
-
-
-    End Sub
 
     Private Sub Despliega_Totales()
         Dim xart As Decimal = 0
         Dim xtot As Decimal = 0
 
-        'For i = 0 To ds.Tables(tab_venta.SelectedIndex).Rows.Count - 1
         For i = 0 To ds.Tables(0).Rows.Count - 1
-            'xart = xart + ds.Tables(tab_venta.SelectedIndex).Rows(i).Item("cantidad")
-            'xtot = xtot + ds.Tables(tab_venta.SelectedIndex).Rows(i).Item("importe")
             Try
                 xart = xart + ds.Tables(0).Rows(i).Item("cantidad")
                 xtot = xtot + ds.Tables(0).Rows(i).Item("importe")
@@ -435,12 +271,10 @@ Class Frm_Ventas
     Private Sub btn_cobrar_Click(sender As Object, e As RoutedEventArgs) Handles btn_cobrar.Click
 
         Dim xform As New Frm_Cobrar(Me.imp_cobrar)
-        'xform.ShowDialog()
+
         Dim result = xform.ShowDialog()
         If result = True Then
-            'If xform.ShowDialog() = DialogResult.OK Then
-            'MessageBox.Show("Dio Aceptar a grabar...")
-            'If ds.Tables(tab_venta.SelectedIndex).Rows.Count > 0 Then
+            
             Dim cn As New SqlConnection(My.Settings.TiendaSoftConnectionString)
             Dim cmd As New SqlCommand()
 
@@ -466,7 +300,6 @@ Class Frm_Ventas
             Dim dr1 As DataRow
             dr1 = dss.Tables(0).NewRow()
             dr1("fecha") = Date.Now()
-            'dr1("id_operador") = _Id_Operador
             dr1("id_operador") = 1
             dr1("total") = imp_pagar
             dr1("pago") = imp_pago
@@ -475,7 +308,6 @@ Class Frm_Ventas
 
 
             Dim dt2 As DataTable
-            'dt2 = ds.Tables(tab_venta.SelectedIndex).Copy()
             dt2 = ds.Tables(0).Copy()
 
             dt2.TableName = "TMP_DETVENTAS"
@@ -504,70 +336,13 @@ Class Frm_Ventas
                 cn.Close()
             End Try
 
-            'Dim dsLog As DataSet = Variables.Current.usp_Guarda_XML("Tmp_Ventas".ToUpper, "1", dss)
-
-            'Dim dsLog As DataSet = clsCallProcedures.usp_Guarda_XML(Me.TableName.ToUpper, CurrentAccion.ToString.ToUpper, Me.DataEnvironment)
-            'clsDataLayer.Browse(dsLog)
-            'tLog = dsLog.Tables(0).Copy
-            'Dim oFrmLog As New clsControles.frmShowTransactLog(tLog)
-            'lContinuar = oFrmLog.SinErrores
-
-            'For j = 0 To ds.Tables(tab_venta.SelectedIndex).Rows.Count - 1
-            '    xid_prod = ds.Tables(tab_venta.SelectedIndex).Rows(j).Item("id_producto")
-            '    xpre1 = ds.Tables(tab_venta.SelectedIndex).Rows(j).Item("precio")
-            '    xcant = ds.Tables(tab_venta.SelectedIndex).Rows(j).Item("cantidad")
-            '    ximpo = ds.Tables(tab_venta.SelectedIndex).Rows(j).Item("importe")
-            '    xpre2 = ds.Tables(tab_venta.SelectedIndex).Rows(j).Item("precio2")
-            '    xexis = ds.Tables(tab_venta.SelectedIndex).Rows(j).Item("existencia")
-
-            '    cn.Open()
-            '    cmd.CommandType = CommandType.Text
-            '    cmd.CommandText = "Insert Into dbo.Tmp_DetVentas (id_producto,precio_v,precio_c, cantidad, " & _
-            '                        "importe, existencia) values (" + xid_prod.ToString + "," + _
-            '                        xpre1.ToString + "," + xpre2.ToString + "," + xcant.ToString + "," + _
-            '                        ximpo.ToString + "," + xexis.ToString + ")"
-
-            '    cmd.Connection = cn
-            '    cmd.Parameters.Clear()
-
-            '    Try
-            '        cmd.ExecuteNonQuery()
-            '    Catch ex As Exception
-            '        sw_grabo = False
-            '        MessageBox.Show("!Error al grabar..." + Chr(13) + ex.Message)
-            '    Finally
-            '        cn.Close()
-            '    End Try
-            'Next j
+            
 
             If sw_grabo Then
                 ds.Tables(0).Rows.Clear()
-                'If tab_venta.SelectedIndex = 0 Then
-                'If tab_venta.SelectedIndex = 0 Then
-
-                '    ds.Tables(tab_venta.SelectedIndex).Rows.Clear()
-                'Else
-
-                '    Dim dt As DataTable = ds.Tables(tab_venta.SelectedIndex)
-                '    ds.Tables.Remove(dt)
-
-                '    Dim xval_ant As Int16 = tab_venta.SelectedIndex
-
-                '    Dim pg As TabPage = tab_venta.TabPages(tab_venta.SelectedIndex)
-                '    tab_venta.TabPages.Remove(pg)
-
-                '    tab_venta.SelectedIndex = xval_ant - 1
-
-                'End If
                 Me.Despliega_Totales()
             End If
-            'End If
 
-            'clsDataLayer.Browse(ds)
-            'lbl_articulos.Text = xart
-            'lbl_total.Text = FormatCurrency(xtot, 2)
-            'Me.imp_cobrar = xtot
-            'MessageBox.Show("cobre")
         End If
 
 
@@ -581,7 +356,6 @@ Class Frm_Ventas
 
             printDialog.PrintDocument(paginator, "Ticket")
         End If
-
 
     End Sub
 
@@ -616,10 +390,7 @@ Class Frm_Ventas
 
     End Sub
 
-
-
     Private Sub grd_venta_UnloadingRow(sender As Object, e As DataGridRowEventArgs) Handles grd_venta.UnloadingRow
-        'MessageBox.Show("unloading row")
         Me.Despliega_Totales()
     End Sub
 
@@ -628,9 +399,28 @@ Class Frm_Ventas
         Dim result = xform.ShowDialog()
         If result = True Then
 
-
         End If
+
     End Sub
+
+    'Metodo que captura cuadno se presiona las teclas f1  a f12
+    Private Function prueba(x As String) As Boolean
+        MessageBox.Show("hola-mundo:_ " & x)
+        Return True
+    End Function
+    Private Sub Shorcuts_pressed(sender As Object, e As KeyEventArgs)
+        Console.WriteLine(">>>" & sender.name & " - " & e.Key.ToString)
+        Select Case e.Key
+            Case Key.F1
+                btn_busqueda_Click(sender, Nothing)
+            Case Key.F2
+                btn_imprimir_Click(sender, Nothing)
+            Case Key.F10
+                btn_cobrar_Click(sender, Nothing)
+        End Select
+
+    End Sub
+
 End Class
 
 
@@ -667,8 +457,9 @@ Public Class Paginador_Ticket
         Me.fontSize = fontSize
         Me.margin = margin
         Me._pageSize = New Size(pageSize.Width, pageSize.Height + 80)
-        ''Me._pageSize = pageSize
         PaginateData()
+
+
     End Sub
 
     Private Function GetFormattedText(ByVal text As String) As FormattedText
@@ -804,5 +595,4 @@ Public Class Paginador_Ticket
     End Sub
 
 End Class
-
 
