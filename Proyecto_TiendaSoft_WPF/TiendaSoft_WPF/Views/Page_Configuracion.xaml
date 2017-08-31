@@ -56,7 +56,12 @@
                     <Label Content="Ticket" FontSize="12"  HorizontalContentAlignment="Center" />
                 </StackPanel>
             </Button>
-            
+            <Button Name="btn_datosEmp"  Width="96" Margin="30,10,10,10" Background="Snow" BorderBrush="Snow">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="2" >
+                    <Image Source="/TiendaSoft_WPF;component/Imagenes/information.png" Margin="0" Height="40" />
+                    <Label Content="Datos Empersa" FontSize="12"  HorizontalContentAlignment="Center" />
+                </StackPanel>
+            </Button>
             
         </StackPanel>
 

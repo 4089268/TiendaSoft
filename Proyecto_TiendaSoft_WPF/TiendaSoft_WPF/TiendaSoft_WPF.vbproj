@@ -120,6 +120,9 @@
     <Compile Include="Views\Configuracion\Page_conf_cajeros.xaml.vb">
       <DependentUpon>Page_conf_cajeros.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Configuracion\Page_conf_DatosEmpreza.xaml.vb">
+      <DependentUpon>Page_conf_DatosEmpreza.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Configuracion\Page_conf_ticket.xaml.vb">
       <DependentUpon>Page_conf_ticket.xaml</DependentUpon>
     </Compile>
@@ -177,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Configuracion\Page_conf_cajeros.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Configuracion\Page_conf_DatosEmpreza.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -370,6 +377,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\fondo_gris.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\information.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

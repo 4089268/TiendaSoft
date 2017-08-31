@@ -11,5 +11,5 @@
 Option Strict Off
 Option Explicit On
 
-<Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("imagenes/fondo_gris.png")> 
+<Assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("imagenes/information.png")> 
 
