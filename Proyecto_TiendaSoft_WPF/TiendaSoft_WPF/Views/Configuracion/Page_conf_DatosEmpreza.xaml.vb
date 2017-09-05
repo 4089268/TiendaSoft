@@ -30,7 +30,7 @@ Class Page_conf_DatosEmpreza
             Dim dataSet As New DataSet
 
             DataAdapter.Fill(dataSet, "Resultado")
-            'DataGrid1.ItemsSource = dataSet.Tables(0).DefaultView
+
 
             tb_nombre.Text = dataSet.Tables(0).Rows(0).Item("nombre_comercial")
             tb_ciudad.Text = dataSet.Tables(0).Rows(0).Item("ciudad")

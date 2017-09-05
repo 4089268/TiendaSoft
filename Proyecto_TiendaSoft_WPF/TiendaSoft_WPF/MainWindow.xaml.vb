@@ -14,9 +14,7 @@ Class MainWindow
             dispatcherTimer.Start()
 
             label_NombreOperador.Content = xNombreUsuario
-
             VerificarOpciones()
-
         Else
             Me.Close()
         End If
@@ -56,7 +54,6 @@ Class MainWindow
         barManager.Bars(0).ItemLinks(8).IsEnabled = CBool(opcion5)
         barManager.Bars(0).ItemLinks(9).IsEnabled = CBool(opcion5)
         barManager.Bars(0).ItemLinks(10).IsEnabled = CBool(opcion6)
-
         barManager.Bars(0).ItemLinks(13).IsEnabled = xAdmin
 
         barManager.Bars(0).ItemLinks(0).IsVisible = CBool(opcion1)
@@ -70,7 +67,6 @@ Class MainWindow
         barManager.Bars(0).ItemLinks(8).IsVisible = CBool(opcion5)
         barManager.Bars(0).ItemLinks(9).IsVisible = CBool(opcion5)
         barManager.Bars(0).ItemLinks(10).IsVisible = CBool(opcion6)
-
         barManager.Bars(0).ItemLinks(13).IsVisible = xAdmin
 
         barManager.Bars(0).ItemLinks(11).IsEnabled = True ''btn Salir
@@ -101,7 +97,6 @@ Class MainWindow
                 restaurarBotones()
                 Me.Close()
         End Select
-
     End Sub
 
     Private Sub restaurarBotones()

@@ -42,11 +42,33 @@
     Public Property MostrarFecha As Boolean
     Public Property FechaTamañoFuente As Integer
     Public Property FechaEspacio As Integer
-    Public Property FechaPosision As Integer
+
+    'Cabecera
+    Public Property MostrarCabecera As Boolean
+    Public Property CabeceraTamañoFuente As Integer
+    Public Property CabeceraEspacio As Integer
+
+    'Productos
+    Public Property ProductosTamañoFuente As Integer
+    Public Property ProductosEspacio As Integer
+
+    'Total
+    Public Property CambioTamañoFuente As Integer
+    Public Property CambioEspacio As Integer
+
+    'Cambio
+    Public Property TotalTamañoFuente As Integer
+    Public Property TotalEspacio As Integer
 
     'Linea
     Public Property MostrarLinea As Boolean
     Public Property LineaTamaño As Integer
     Public Property LineaEspacio As Integer
+
+    'Linea2
+    Public Property MostrarLineab As Boolean
+    Public Property LineaTamañob As Integer
+    Public Property LineaEspaciob As Integer
+
 
 End Class
