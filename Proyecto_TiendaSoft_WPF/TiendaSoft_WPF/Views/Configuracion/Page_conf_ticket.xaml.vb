@@ -401,12 +401,14 @@ Class Page_conf_ticket
 #End Region
 
 #Region " *** Handles methods *** "
-    Sub buttons_click(sender As Object, e As RoutedEventArgs) Handles btn_regresar.Click, btn_guardarCambios.Click
+    Sub buttons_click(sender As Object, e As RoutedEventArgs) Handles btn_regresar.Click, btn_guardarCambios.Click, btn_imprimir.Click
         Select Case sender.name
             Case "btn_regresar"
                 navService.Source = New Uri("Views/Page_Configuracion.xaml", UriKind.Relative)
             Case "btn_guardarCambios"
                 GuardarCambios()
+            Case "btn_imprimir"
+                Imprimir()
         End Select
     End Sub
 
@@ -583,6 +585,14 @@ Class Page_conf_ticket
             navService.Source = New Uri("Views/Page_Configuracion.xaml", UriKind.Relative)
         End If
 
+    End Sub
+
+    Private Sub Imprimir()
+        Dim printDialog As New PrintDialog()
+        If printDialog.ShowDialog() = True Then
+            Dim paginator As New Paginador_Ticket(New Typeface("Calibri"), 16, 40, New Size(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight))
+            printDialog.PrintDocument(paginator, "Ticket")
+        End If
     End Sub
 
 End Class

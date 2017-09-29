@@ -119,10 +119,12 @@ Class MainWindow
 
 
     Private Sub saliendo(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
-        If (MessageBox.Show("Esta saliendo del sistema, ¿Desea continuar?", "Saliendo", MessageBoxButton.YesNo, MessageBoxImage.Warning) = MessageBoxResult.Yes) Then
+        Dim formSaliendo As New Frm_Saliendo
+        If (formSaliendo.ShowDialog()) Then
             Dim form As New Form_LogIn
             form.Show()
         Else
+            btn_Salir.IsEnabled = True
             e.Cancel = True
         End If
     End Sub

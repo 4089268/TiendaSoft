@@ -4,10 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="900"
-      Title="Ventas" Loaded="Page_Loaded">     
-        
-        
+      d:DesignHeight="500" d:DesignWidth="900" Title="Ventas" Loaded="Page_Loaded">     
+                
     <Grid Name="RootLayout">
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -26,21 +24,18 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                
             </Grid.ColumnDefinitions>
-
+            
             <Button x:Name="btn_busqueda" Grid.Column="0" Margin="1" Content="F1=BUSQUEDA" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14" />
             <Button x:Name="btn_imprimir" Grid.Column="1" Margin="1,0,1,1.4" Content="F2=IMPRIMIR" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14" Height="28" VerticalAlignment="Bottom"/>
             <Button x:Name="btn_cobrar" Grid.Column="2" Margin="1,0,1,1.4" Content="F10=COBRAR" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14" Height="28" VerticalAlignment="Bottom"/>
-            <Button x:Name="btn_salir" Grid.Column="3" Margin="1" Content="ESC=SALIR" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14"/>
-
+            <Button x:Name="btn_entrada" Grid.Column="3" Margin="1,0,1,1.4" Content="ENTRADAS" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14" Height="28" VerticalAlignment="Bottom"/>
+            <Button x:Name="btn_salida" Grid.Column="4" Margin="1,0,1,1.4" Content="SALIDAS" FontFamily="Tahoma" FontWeight="Bold" Foreground="Navy" FontSize="14" Height="28" VerticalAlignment="Bottom"/>
+            
         </Grid>
 
-        <!--<TabControl x:Name="tab_venta" Grid.Row="2" Grid.ColumnSpan="5"  TabStripPlacement="Bottom" >
-            <TabItem Header="Venta 1" FontFamily="Tahoma" FontWeight="Bold">
-            </TabItem>
-            <TabItem Header="Nueva Venta" FontFamily="Tahoma" FontWeight="Bold">
-            </TabItem>
-        </TabControl>-->
 
         <Grid x:Name="grd_prod" Grid.Row="2" >
             <Grid.ColumnDefinitions>
@@ -55,8 +50,6 @@
             </Grid.ColumnDefinitions>
 
             <TextBox x:Name="txt_codigo" Grid.Column="0" Grid.ColumnSpan="2" Margin="1" FontFamily="Tahoma" FontSize="11" FontWeight="Bold" Foreground="Navy" VerticalContentAlignment="Center" />
-            <!--<Button x:Name="btn_busca" Grid.Column="1" Margin="1" FontFamily="Tahoma" FontSize="11" FontWeight="Bold" Foreground="Navy" VerticalContentAlignment="Center" />-->
-            <!--<TextBox x:Name="txt_desc" Grid.Column="2" Margin="1" FontFamily="Tahoma" FontSize="11" FontWeight="Bold" Foreground="Navy" VerticalContentAlignment="Center" IsEnabled="False" IsReadOnly="True" />-->
             <Label x:Name="txt_desc"  Grid.Column="2" Margin="1" Background="White" FontFamily="Tahoma" FontSize="11" FontWeight="Bold" Foreground="Navy" />
             <TextBox x:Name="txt_pre" Grid.Column="3" Margin="1" FontFamily="Tahoma" FontSize="11" FontWeight="Bold" Foreground="Navy" VerticalContentAlignment="Center" IsReadOnly="True" IsEnabled="False" />
             <TextBox x:Name="txt_cant" Grid.Column="4" Margin="1" Text="1" FontFamily="Tahoma" FontSize="11" FontWeight="Bold" Foreground="Navy" VerticalContentAlignment="Center" IsEnabled="False" HorizontalContentAlignment="Right" />
@@ -95,5 +88,6 @@
             <Label x:Name="lbl_total" Grid.Column="7" Grid.ColumnSpan="3"  Content="0.00" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="20" Foreground="Black" FontWeight="Bold"/>
 
         </Grid>
+        
     </Grid>
 </Page>

@@ -22,15 +22,20 @@
         <TextBox x:Name="txt_paga" Grid.Row="1" Grid.Column="1" Margin="2" FontFamily="Tahoma" FontSize="18" />
         <Label Content="Su cambio:" VerticalContentAlignment="Top" Grid.Row="2" HorizontalContentAlignment="Right" FontFamily="Tahoma" FontSize="20"/>
         <TextBox x:Name="txt_cambio" Grid.Row="2" Grid.Column="1" Margin="2" FontFamily="Tahoma" FontSize="18" IsEnabled="False" IsReadOnly="True"/>
-        <Button x:Name="btn_cobrar" Margin="2" Content="         C O B R A R" Grid.Row="3" FontFamily="Tahoma" FontSize="16" Foreground="Navy" FontWeight="Bold">
-        <Button.Background>
-            <ImageBrush ImageSource="/Point;component/Imagenes/Aceptar.ico" TileMode="Tile" Opacity="0.9" AlignmentX="Left" Stretch="Uniform" />
-        </Button.Background>
+        
+        <Button x:Name="btn_cobrar" Margin="2"  Grid.Row="3" FontFamily="Tahoma" FontSize="16" Foreground="Navy" FontWeight="Bold">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/TiendaSoft_WPF;component/Imagenes/acept.png"  Width="25"/>
+                <Label Content="COBRAR"/>
+            </StackPanel>
+
         </Button>
-        <Button x:Name="btn_cancelar" Margin="2" Content="        CANCELAR" Grid.Row="3" Grid.Column="1" FontFamily="Tahoma" FontSize="16" Foreground="Navy" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" >
-            <Button.Background>
-                <ImageBrush ImageSource="/Point;component/Imagenes/Cancelar.ico" TileMode="Tile" Opacity="0.9" AlignmentX="Left" Stretch="Uniform" />
-            </Button.Background>
+        
+        <Button x:Name="btn_cancelar" Margin="2" Grid.Row="3" Grid.Column="1" FontFamily="Tahoma" FontSize="16" Foreground="Navy" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" >
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/TiendaSoft_WPF;component/Imagenes/cancel.png" Width="25" />
+                <Label Content="CANCELAR"/>
+            </StackPanel>
         </Button>
 
     </Grid>

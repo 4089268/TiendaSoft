@@ -1,15 +1,16 @@
 ﻿<Window x:Class="Form_LogIn"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LOG IN" Width="400" Height="220" BorderThickness="0" UseLayoutRounding="False" ResizeMode="NoResize" ShowInTaskbar="True" Background="WhiteSmoke"  Icon="Imagenes/keyIcon.png" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="LOG IN" Width="400" Height="240" BorderThickness="0" UseLayoutRounding="False" ResizeMode="NoResize" ShowInTaskbar="True" Background="WhiteSmoke"  Icon="Imagenes/keyIcon.png" WindowStartupLocation="CenterScreen" WindowStyle="None">
 
     <Border BorderBrush="#424242" BorderThickness="2">
         <Grid x:Name="rootGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height ="60"/>
-                <RowDefinition Height ="120"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height ="*"/>
+                <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
+            
             
             <StackPanel Grid.Row="0" Background="#424242" Orientation="Horizontal">
                 <Image Source="Imagenes/cash_register.png" Width="50" HorizontalAlignment="Left" Margin="45,0,0,0"/>
@@ -17,13 +18,14 @@
             </StackPanel>
                         
             <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0">
+                <Label Content="Comenzar Nuevo Turno"  HorizontalAlignment="Left" FontSize="20" FontWeight="Medium" Margin="45,0,0,0"/>
                 
-                <StackPanel Orientation="Horizontal" Margin="10,5" Height="50" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="50" HorizontalAlignment="Center">
                     <Image          Grid.Row="1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="30" Source="Imagenes/user.png" />
                     <TextBox        Grid.Row="1" Name="tb_usuario" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center" Width="258" Height="29" Text="chava" VerticalContentAlignment="Center"/>                    
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10,5" Height="50" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="50" HorizontalAlignment="Center">
                     <Image          Grid.Row="1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="30" Source="Imagenes/pass.png" />
                     <PasswordBox    Grid.Row="1" Name="tb_password" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center" Width="258" Height="29" Password="chava" VerticalContentAlignment="Center"/>
                 </StackPanel>

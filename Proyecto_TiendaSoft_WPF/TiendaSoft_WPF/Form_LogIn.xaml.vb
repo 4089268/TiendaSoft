@@ -33,19 +33,46 @@ Public Class Form_LogIn
                 xNombreUsuario = Split(Logearse.ToString, "#")(1).ToString
                 xOpciones = Split(Logearse.ToString, "#")(2).ToString
                 xAdmin = IIf(Split(Logearse.ToString, "#")(3).ToString = "1", True, False)
+                Dim xStatus As Int16 = CInt(Split(Logearse.ToString, "#")(4).ToString)
 
-                Dim form As New MainWindow
-                form.Show()
-                Me.Close()
-            Else
-                MessageBox.Show("Usuario y/o Contraseña Incorrecto")
+                Select Case (xStatus)
+                    Case 0
+                        IniciarSesion()
+                    Case 1
+                        MessageBox.Show("Usuario ya esta en uso", "", MessageBoxButton.OK, MessageBoxImage.Hand)
+                    Case 2
+                        ReanudarSesion()
+                End Select
+
             End If
+
+        Else
+            MessageBox.Show("Usuario y/o Contraseña Incorrecto", "", MessageBoxButton.OK, MessageBoxImage.Exclamation)
         End If
+
 
     End Sub
     Private Sub btn_salir_onclic() Handles btn_salir.Click
         Me.Close()
     End Sub
 
+    Private Sub IniciarSesion()
+        Me.Visibility = Windows.Visibility.Hidden
+        Dim xform As New Frm_Inicio
+        If (xform.ShowDialog()) Then
+            Dim yform As New MainWindow
+            yform.Show()
+            Me.Close()
+        Else
+            Me.Visibility = Windows.Visibility.Visible
+        End If
 
+    End Sub
+    Private Sub ReanudarSesion()
+        Dim xForm As New Frm_Reanudar
+        xForm.Show()
+
+        Me.Close()
+
+    End Sub
 End Class

@@ -117,6 +117,9 @@
     <Compile Include="Form_LogIn.xaml.vb">
       <DependentUpon>Form_LogIn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Page1.xaml.vb">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Configuracion\Page_conf_cajeros.xaml.vb">
       <DependentUpon>Page_conf_cajeros.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,19 @@
       <DependentUpon>Page_conf_ticket.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Conf_Impresion.vb" />
+    <Compile Include="Views\Turnos\Frm_Corte.xaml.vb">
+      <DependentUpon>Frm_Corte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Turnos\Frm_Inicio.xaml.vb">
+      <DependentUpon>Frm_Inicio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Turnos\Frm_Reanudar.xaml.vb">
+      <DependentUpon>Frm_Reanudar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Turnos\Frm_Saliendo.xaml.vb">
+      <DependentUpon>Frm_Saliendo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Paginador_Ticket.vb" />
     <Compile Include="Views\Plantillas\Header_Ticket.xaml.vb">
       <DependentUpon>Header_Ticket.xaml</DependentUpon>
     </Compile>
@@ -179,6 +195,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Configuracion\Page_conf_cajeros.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +208,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Configuracion\Page_conf_ticket.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Turnos\Frm_Corte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Turnos\Frm_Inicio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Turnos\Frm_Reanudar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Turnos\Frm_Saliendo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,6 +416,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\cash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\doorOpen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\acept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

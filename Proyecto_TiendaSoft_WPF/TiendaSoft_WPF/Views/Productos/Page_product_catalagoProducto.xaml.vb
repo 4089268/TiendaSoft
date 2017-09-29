@@ -2,6 +2,7 @@
 Imports System.Data
 Imports System.Globalization
 Imports System.IO
+Imports System.Threading
 
 Class Page_product_catalagoProducto
     Dim tablaDatos As DataTable
@@ -10,6 +11,9 @@ Class Page_product_catalagoProducto
     Sub Layout_onLoaded() Handles rootLayout.Loaded
         cargarUI()
         cargarDatos()
+
+        Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
+        Thread.CurrentThread.CurrentUICulture = New CultureInfo("en-US")
 
         habilitarCampos(False)
         tb_existencia.IsEnabled = False
@@ -67,7 +71,7 @@ Class Page_product_catalagoProducto
             cb_departa.SelectedIndex = 0
 
             'cargar Catalago tipoProductos
-           
+
 
         Else
             MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
@@ -149,7 +153,7 @@ Class Page_product_catalagoProducto
         If (sender.name = "tb_codigo") Then
             regex = New System.Text.RegularExpressions.Regex("[^0-9]+")
         Else
-            regex = New System.Text.RegularExpressions.Regex("[^0-9.]+")
+            regex = New System.Text.RegularExpressions.Regex("([^0-9,]+).([^0-9]{2}+)")
         End If
         e.Handled = regex.IsMatch(e.Text)
 
@@ -199,11 +203,11 @@ Class Page_product_catalagoProducto
                 Dim bitmapImage As New BitmapImage
                 Dim bytes As Byte() = CType(dataRow.Item("foto1"), Byte())
                 Dim ms As New System.IO.MemoryStream(bytes)
-                BitmapImage.BeginInit()
-                BitmapImage.CacheOption = BitmapCacheOption.OnLoad
-                BitmapImage.StreamSource = ms
-                BitmapImage.EndInit()
-                img1.Source = BitmapImage
+                bitmapImage.BeginInit()
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad
+                bitmapImage.StreamSource = ms
+                bitmapImage.EndInit()
+                img1.Source = bitmapImage
 
             Catch ex As Exception
                 img1.Source = New BitmapImage

@@ -82,7 +82,7 @@
                         
                 </StackPanel>
                 <TextBox Grid.Row="4"  Grid.Column="1" Width="150" Margin="3" HorizontalAlignment="Left" x:Name="tb_precioComp" HorizontalContentAlignment="Right" Text="{Binding Value, StringFormat=\{0:C\}}"/>
-                <dxe:SpinEdit Grid.Row="5"  Grid.Column="1" Width="150" Margin="2,3,0,3" HorizontalAlignment="Left" Background="White" BorderBrush="Gray" Increment="5" IsFloatValue="False" MinValue="0" MaxValue="500" x:Name="cb_ganancia"/>
+                <dxe:SpinEdit Grid.Row="5"  Grid.Column="1" Width="150" Margin="2,3,0,3" HorizontalAlignment="Left" Background="White" BorderBrush="Gray" Increment="5" MinValue="0" MaxValue="100000" x:Name="cb_ganancia" MaskCulture="es-US" MaskIgnoreBlank="False"/>
                 <TextBox Grid.Row="6"  Grid.Column="1" Width="150" Margin="3" HorizontalAlignment="Left" x:Name="tb_precioVent"  HorizontalContentAlignment="Right" />
                 <TextBox Grid.Row="7"  Grid.Column="1" Width="150" Margin="3" HorizontalAlignment="Left" x:Name="tb_precioMayo" HorizontalContentAlignment="Right"/>
                 <ComboBox Grid.Row="8" Grid.Column="1" Width="220" Margin="3" HorizontalAlignment="Left" x:Name="cb_departa" DisplayMemberPath = "descripcion" SelectedValuePath = "id_familia"/>

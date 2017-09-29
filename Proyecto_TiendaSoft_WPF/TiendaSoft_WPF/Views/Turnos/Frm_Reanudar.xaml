@@ -1,0 +1,44 @@
+﻿<Window x:Class="Frm_Reanudar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="REAUNUDAR" Width="400" Height="240" BorderThickness="0" UseLayoutRounding="False" ResizeMode="NoResize" ShowInTaskbar="True" Background="WhiteSmoke" WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/TiendaSoft_WPF;component/Imagenes/cash_register.ico">
+    <Border BorderBrush="#424242" BorderThickness="2">
+        <Grid x:Name="rootGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="45"/>
+                <RowDefinition Height ="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Background="#424242" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Label Content="TURNO ACTIVO" VerticalAlignment="Center" FontSize="22" Foreground="WhiteSmoke" FontWeight="Bold" Width="400" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0">
+                <Label Content="Este usuario tiene un turno activo desea..." FontWeight="Normal" FontSize="16" Margin="10,5"/>
+                
+                <Button x:Name="btn_continuar"  Width="210" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,5" Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/TiendaSoft_WPF;component/Imagenes/refresh.png"  Height="25"/>
+                        <Label Content="Continuar Con El Turno Actual" />
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btn_nuevo"  Width="250" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,5" Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/TiendaSoft_WPF;component/Imagenes/new.png" Height="20"/>
+                        <Label Content="Terminar el Turno y Empezar Uno Nuevo" />
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btn_cancelar"  Width="160" Height="32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,5" Grid.Row="1" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/TiendaSoft_WPF;component/Imagenes/cancel.png"  Height="20" Margin="0,0,5,0"/>
+                        <Label Content="Cancelar" />
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</Window>
