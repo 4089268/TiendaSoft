@@ -421,6 +421,15 @@ Class Frm_Ventas
 
     End Sub
 
+    Private Sub btn_entradas() Handles btn_entrada.Click
+        Dim xForm As New Frm_SalidaDinero(1)
+        xForm.ShowDialog()
+    End Sub
+    Private Sub btn_salidas() Handles btn_salida.Click
+        Dim xForm As New Frm_SalidaDinero(2)
+        xForm.ShowDialog()
+    End Sub
+
 End Class
 
 

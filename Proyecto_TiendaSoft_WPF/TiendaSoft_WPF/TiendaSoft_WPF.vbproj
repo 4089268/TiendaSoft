@@ -117,9 +117,6 @@
     <Compile Include="Form_LogIn.xaml.vb">
       <DependentUpon>Form_LogIn.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page1.xaml.vb">
-      <DependentUpon>Page1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Configuracion\Page_conf_cajeros.xaml.vb">
       <DependentUpon>Page_conf_cajeros.xaml</DependentUpon>
     </Compile>
@@ -179,6 +176,9 @@
     <Compile Include="Views\Productos\Page_product_catalagoProducto.xaml.vb">
       <DependentUpon>Page_product_catalagoProducto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Ventas\Frm_SalidaDinero.xaml.vb">
+      <DependentUpon>Frm_SalidaDinero.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,10 +192,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Form_LogIn.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Page1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -272,6 +268,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Productos\Page_product_catalagoProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Ventas\Frm_SalidaDinero.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
