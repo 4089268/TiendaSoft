@@ -21,7 +21,7 @@
 
         <!-- Row 0 HEADER -->
         <Image Source="Imagenes/cash_register.png"       Grid.Row="0" HorizontalAlignment="Left" Margin="35,3,3,3"/>
-        <Label Content="Punto de Venta"         Grid.Row="0" HorizontalAlignment="Left" Margin="100,0,0,0" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"/>
+        <Label Name="lbl_nombre" Content="Punto de Venta"         Grid.Row="0" HorizontalAlignment="Left" Margin="120,0,0,0" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"/>
         <StackPanel Orientation="Horizontal"    Grid.Row="0" HorizontalAlignment="Right" Margin="0,8,10,8" VerticalAlignment="Center" Background="#eeeeee" Height="64" Width="250">
             <Label Content="Atiende:"           FontSize="15" VerticalAlignment="Center" Margin="5" FontWeight="Bold"/>
             <Label Name="label_NombreOperador" Content="Administrador"      FontSize="15" VerticalAlignment="Center" Width="167" />            
@@ -31,21 +31,21 @@
         <dxb:BarManager Grid.Row="1" Name="barManager" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AllowQuickCustomization="False" AllowHotCustomization="False" AllowCustomization="False" AllowUIAutomationSupport="False" >
             <dxb:BarManager.Items>
                 <dxb:BarItemSeparator Name="separador" />
-                <dxb:BarButtonItem Content="Ventas" Name="btn_ventas" Glyph="Imagenes/ventas.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
+                <dxb:BarButtonItem Content="Ventas"     Name="btn_ventas" Glyph="Imagenes/ventas.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
                     <dxb:BarButtonItem.ContentTemplate>
                         <DataTemplate>
                             <Label Content="VENTAS" FontSize="14" FontWeight="Medium"/>
                         </DataTemplate>
                     </dxb:BarButtonItem.ContentTemplate>
                 </dxb:BarButtonItem>
-                <dxb:BarButtonItem Content="Productos"      Name="btn_productos" Glyph="Imagenes/basket.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
+                <dxb:BarButtonItem Content="Productos"      Name="btn_productos" Glyph="Imagenes/inventario.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
                     <dxb:BarButtonItem.ContentTemplate>
                         <DataTemplate>
                             <Label Content="PRODUCTOS" FontSize="14" FontWeight="Medium" Padding="4" />
                         </DataTemplate>
                     </dxb:BarButtonItem.ContentTemplate>
                 </dxb:BarButtonItem>
-                <dxb:BarButtonItem Content="Inventario"     Name="btn_inventario" Glyph="Imagenes/inventario.png" GlyphSize="Default"  BarItemDisplayMode="ContentAndGlyph" >
+                <dxb:BarButtonItem Content="Inventario"     Name="btn_inventario" Glyph="Imagenes/trolley.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
                     <dxb:BarButtonItem.ContentTemplate>
                         <DataTemplate>
                             <Label Content="INVENTARIO" FontSize="14" FontWeight="Medium" />
@@ -73,7 +73,22 @@
                         </DataTemplate>
                     </dxb:BarButtonItem.ContentTemplate>
                 </dxb:BarButtonItem>
-                <dxb:BarButtonItem Content="Reportes"       Name="btn_Salir" Glyph="Imagenes/exit.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
+                <dxb:BarButtonItem Content="Cuentas"        Name="btn_cuentas" Glyph="Imagenes/cards.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
+                    <dxb:BarButtonItem.ContentTemplate>
+                        <DataTemplate>
+                            <Label Content="CUENTAS" FontSize="14" FontWeight="Medium"/>
+                        </DataTemplate>
+                    </dxb:BarButtonItem.ContentTemplate>
+                </dxb:BarButtonItem>
+                <dxb:BarButtonItem Content="Gastos"         Name="btn_gastos" Glyph="Imagenes/check.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
+                    <dxb:BarButtonItem.ContentTemplate>
+                        <DataTemplate>
+                            <Label Content="GASTOS" FontSize="14" FontWeight="Medium"/>
+                        </DataTemplate>
+                    </dxb:BarButtonItem.ContentTemplate>
+                </dxb:BarButtonItem>
+                
+                <dxb:BarButtonItem Content="Salir"          Name="btn_Salir" Glyph="Imagenes/exit.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
                     <dxb:BarButtonItem.ContentTemplate>
                         <DataTemplate>
                             <Label Content="SALIR" FontSize="14" FontWeight="Medium"/>
@@ -83,36 +98,39 @@
                 <dxb:BarButtonItem Content="Configuracion"  Name="btn_configuracion" Glyph="Imagenes/gear.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
                     <dxb:BarButtonItem.ContentTemplate>
                         <DataTemplate>
-                            <Label Content="COINFIGURACION" FontSize="14" FontWeight="Medium" />
+                            <Label Content="CONFIGURACION" FontSize="14" FontWeight="Medium" />
                         </DataTemplate>
                     </dxb:BarButtonItem.ContentTemplate>
                 </dxb:BarButtonItem>
                 
                 <!-- Configuracion -->
                 <dxb:BarButtonItem Content="Configurar Usuarios"    Name="subItem1" Glyph="Imagenes/users.png" GlyphSize="Large"/>
-
             </dxb:BarManager.Items>
             
             <dxb:BarManager.Bars>
-                <dxb:Bar Caption="Main" IsMainMenu="True" UseWholeRow="True">
+                <dxb:Bar Caption="Main" IsMainMenu="True" >
                     <dxb:Bar.ItemLinks>
-                        <dxb:BarButtonItemLink      BarItemName="btn_ventas" />
-                        <dxb:BarItemLinkSeparator   BarItemName="separador" />
-                        <dxb:BarButtonItemLink      BarItemName="btn_productos" />
-                        <dxb:BarItemLinkSeparator   BarItemName="separador" />
-                        <dxb:BarButtonItemLink      BarItemName="btn_inventario" />
-                        <dxb:BarItemLinkSeparator   BarItemName="separador" />
-                        <dxb:BarButtonItemLink      BarItemName="bnt_factura" />
-                        <dxb:BarItemLinkSeparator   BarItemName="separador" />
-                        <dxb:BarButtonItemLink      BarItemName="btn_corte" />
-                        <dxb:BarItemLinkSeparator   BarItemName="separador" />
-                        <dxb:BarButtonItemLink      BarItemName="btn_reportes" />
-                        <dxb:BarButtonItemLink      BarItemName="btn_configuracion"  Alignment="Far"/>
-                        <dxb:BarItemLinkSeparator   BarItemName="separador"  Alignment="Far"/>
-                        <dxb:BarButtonItemLink      BarItemName="btn_Salir"  Alignment="Far"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_ventas"        Name="ventas" />
+                        <dxb:BarItemLinkSeparator   BarItemName="separador"         Name="sventas"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_productos"     Name="productos"/>
+                        <dxb:BarItemLinkSeparator   BarItemName="separador"         Name="sproductos"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_inventario"    Name="inventario"/>
+                        <dxb:BarItemLinkSeparator   BarItemName="separador"         Name="sinventario"/>
+                        <dxb:BarButtonItemLink      BarItemName="bnt_factura"       Name="factura"/>
+                        <dxb:BarItemLinkSeparator   BarItemName="separador"         Name="sfactura"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_cuentas"       Name="cuentas"/>
+                        <dxb:BarItemLinkSeparator   BarItemName="separador"         Name="scuentas"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_gastos"        Name="gastos"/>
+                        <dxb:BarItemLinkSeparator   BarItemName="separador"         Name="sgastos"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_reportes"      Name="reportes"/>
+                        <dxb:BarItemLinkSeparator   BarItemName="separador"         Name="sreportes"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_corte"         Name="corte"/>
+                        
+                        
+                        <dxb:BarButtonItemLink      BarItemName="btn_configuracion" Name="config" Alignment="Far"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_Salir"         Name="salir" Alignment="Far"/>
                     </dxb:Bar.ItemLinks>
                 </dxb:Bar>
-
             </dxb:BarManager.Bars>
         </dxb:BarManager>
 

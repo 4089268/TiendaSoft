@@ -1,42 +1,93 @@
 ﻿<Window x:Class="Frm_Cobrar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Cobrar" Height="165" Width="295" ShowInTaskbar="False" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    Title="Cobrar" Height="350" Width="500" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize" Icon="/Bloquera_TF;component/Imagenes/inMoney.png">
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140"/>
-            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-
-        <TextBox x:Name="txt_importe" Text="Importe: 85.00" Grid.Row="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" FontFamily="Tahoma" FontSize="23" FontWeight="Bold" Background="SkyBlue" Foreground="White"/>
-        <Label Content="Pago con:" VerticalContentAlignment="Top" Grid.Row="1" HorizontalContentAlignment="Right" FontFamily="Tahoma" FontSize="20"/>
-        <TextBox x:Name="txt_paga" Grid.Row="1" Grid.Column="1" Margin="2" FontFamily="Tahoma" FontSize="18" />
-        <Label Content="Su cambio:" VerticalContentAlignment="Top" Grid.Row="2" HorizontalContentAlignment="Right" FontFamily="Tahoma" FontSize="20"/>
-        <TextBox x:Name="txt_cambio" Grid.Row="2" Grid.Column="1" Margin="2" FontFamily="Tahoma" FontSize="18" IsEnabled="False" IsReadOnly="True"/>
+        <TextBox x:Name="txt_importe" Text="Importe: 85.00" Grid.Row="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" FontFamily="Tahoma" FontSize="27" FontWeight="ExtraBold" Background="SkyBlue" Foreground="White" VerticalContentAlignment="Center"/>
         
-        <Button x:Name="btn_cobrar" Margin="2"  Grid.Row="3" FontFamily="Tahoma" FontSize="16" Foreground="Navy" FontWeight="Bold">
+        <StackPanel Grid.Row="1" Orientation="Vertical" Grid.ColumnSpan="2">
+            <Label Content=" Tipo de Pago: " Margin="10,5,0,-5" FontWeight="Medium" FontSize="14"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button  Grid.Row="4" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" Background="Transparent" Margin="30,0" BorderThickness="0" IsEnabled="False" Name="btn_efectivo"> 
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Bloquera_TF;component/Imagenes/cash.png"  Width="50"/>
+                        <Label Content="Efectivo" FontSize="12" FontWeight="Medium"/>
+                    </StackPanel>
+                </Button>
+
+                <Button  Grid.Row="4" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" Background="Transparent" Margin="30,0" BorderThickness="0" Name="btn_credito">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Bloquera_TF;component/Imagenes/credit-card.png"  Width="40"/>
+                        <Label Content="Credito" FontSize="12" FontWeight="Medium"/>
+                    </StackPanel>   
+                </Button>
+
+            </StackPanel>                        
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Orientation="Vertical" Background="WhiteSmoke">
+            <Grid VerticalAlignment="Top" Name="grid_Efectivo" HorizontalAlignment="Stretch"  Visibility="Visible" Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>                    
+                </Grid.RowDefinitions>
+                <Label Content="Pago con:"  VerticalContentAlignment="Top" HorizontalContentAlignment="Right" FontFamily="Tahoma" FontSize="20" Grid.Column="0" Grid.Row="0"/>
+                <Label Content="Su cambio:" VerticalContentAlignment="Top"  HorizontalContentAlignment="Right" FontFamily="Tahoma" FontSize="20" Grid.Column="0" Grid.Row="1"/>
+                <TextBox x:Name="txt_paga"   Margin="3,4,15,4" FontFamily="Tahoma" FontSize="18" Grid.Column="1" Grid.Row="0"/>
+                <TextBox x:Name="txt_cambio" Margin="3,4,15,4" FontFamily="Tahoma" FontSize="18" IsEnabled="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1"/>
+            </Grid>
+            <Grid Name="grid_Credito" HorizontalAlignment="Stretch" Height="80" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Cuenta: "  VerticalContentAlignment="Top" HorizontalContentAlignment="Right" FontFamily="Tahoma" FontSize="20" Grid.Column="0" Grid.Row="0" Height="35"/>
+                <Button Name="btn_buscarCuenta" Grid.Column="1" Height="35" Padding="5">
+                    <Image  Source="/Bloquera_TF;component/Imagenes/search2.png"/>    
+                </Button>
+                <TextBox Name="tb_cuenta"  Margin="0,4,15,4" FontFamily="Tahoma" FontSize="18" Grid.Column="2" Grid.Row="0" Height="35"/>
+
+                <Label Name="tb_NombreCred"  Margin="4,4,4,4" FontFamily="Tahoma" FontSize="10" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Height="20" Content="" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" VerticalAlignment="Top"/>
+
+            </Grid>
+        </StackPanel>
+        
+        <Button x:Name="btn_cobrar" Margin="10"  Grid.Row="3"  Grid.Column="0" FontSize="16" Foreground="Navy" FontWeight="Medium"  Background="WhiteSmoke" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/TiendaSoft_WPF;component/Imagenes/acept.png"  Width="25"/>
+                <Image Source="/Bloquera_TF;component/Imagenes/acept.png"  Width="25"/>
                 <Label Content="COBRAR"/>
             </StackPanel>
-
         </Button>
-        
-        <Button x:Name="btn_cancelar" Margin="2" Grid.Row="3" Grid.Column="1" FontFamily="Tahoma" FontSize="16" Foreground="Navy" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" >
+
+        <Button x:Name="btn_cancelar" Margin="10" Grid.Row="3" Grid.Column="1" FontSize="16" Foreground="Navy" FontWeight="Medium" Background="WhiteSmoke"  VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/TiendaSoft_WPF;component/Imagenes/cancel.png" Width="25" />
+                <Image Source="/Bloquera_TF;component/Imagenes/cancel.png" Width="25" />
                 <Label Content="CANCELAR"/>
             </StackPanel>
         </Button>
 
+        <Border Name="modal" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="5"  Background="#bb000000" Visibility="Collapsed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
     </Grid>
 </Window>

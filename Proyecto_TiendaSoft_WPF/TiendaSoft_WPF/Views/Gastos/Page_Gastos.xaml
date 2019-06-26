@@ -1,0 +1,55 @@
+﻿<Page x:Class="Page_Gastos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="1000"
+      Title="Page_Gastos">
+    <Page.Resources>
+        <DataGridTemplateColumn Header=""  x:Name="img" x:Key="img"  >
+            <DataGridTemplateColumn.CellTemplate >
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Name="image" Source="/Bloquera_TF;component/Imagenes/creditCard1.png" Height="20"  HorizontalAlignment="Center"/>
+                        <Label Content="{Binding nombre}" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+    </Page.Resources>
+
+    <Grid Name="rootLayout" Background="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            
+        </Grid.RowDefinitions>
+        <Label Content="GASTOS" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="White" FontWeight="Bold" Background="Gray"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="20,0,0,0">
+            
+            <Button Name="btn_agregarInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_Agregar.png" Width="22"/>
+                    <Label Content="Agregar Gastos" FontSize="12" FontWeight="Medium"/>
+                </StackPanel>
+            </Button>
+            
+            <Button Name="btn_remplazarInv"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_ajustar.png" Width="22"/>
+                    <Label Content="Tipos de gastos" FontSize="12" FontWeight="Medium"/>
+                </StackPanel>
+            </Button>
+            
+        </StackPanel>
+
+        <DataGrid  Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,20,5,0" />
+        
+        <Border Name="modal" Grid.Row="0" Grid.RowSpan="3"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#bb000000" Visibility="Collapsed"/>
+    </Grid>
+    
+</Page>

@@ -53,27 +53,66 @@ Partial Friend NotInheritable Class MySettings
         End Get
     End Property
     
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("Server=INSPIRON; Database=PDV; User Id=salvador; Password=j6r3uwb9;")>  _
-    Public ReadOnly Property TiendaSoftConnectionString() As String
+    <Global.System.Configuration.UserScopedSettingAttribute(), _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.Configuration.DefaultSettingValueAttribute("ds")> _
+    Public Property Server() As String
         Get
-            Return CType(Me("TiendaSoftConnectionString"),String)
+            Return CType(Me("Server"), String)
         End Get
+        Set(value As String)
+            Me("Server") = value
+        End Set
+    End Property
+
+    <Global.System.Configuration.UserScopedSettingAttribute(), _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.Configuration.DefaultSettingValueAttribute("PDV")> _
+    Public Property Database() As String
+        Get
+            Return CType(Me("Database"), String)
+        End Get
+        Set(value As String)
+            Me("Database") = value
+        End Set
+    End Property
+
+    <Global.System.Configuration.UserScopedSettingAttribute(), _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.Configuration.DefaultSettingValueAttribute("asd")> _
+    Public Property user() As String
+        Get
+            Return CType(Me("user"), String)
+        End Get
+        Set(value As String)
+            Me("user") = value
+        End Set
+    End Property
+
+    <Global.System.Configuration.UserScopedSettingAttribute(), _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.Configuration.DefaultSettingValueAttribute("j6r3uwb9")> _
+    Public Property password() As String
+        Get
+            Return CType(Me("password"), String)
+        End Get
+        Set(value As String)
+            Me("password") = value
+        End Set
     End Property
 End Class
 
 Namespace My
-    
-    <Global.Microsoft.VisualBasic.HideModuleNameAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()>  _
+
+    <Global.Microsoft.VisualBasic.HideModuleNameAttribute(), _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()> _
     Friend Module MySettingsProperty
-        
-        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.TiendaSoft_WPF.MySettings
+
+        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
+        Friend ReadOnly Property Settings() As Global.Bloquera_TF.MySettings
             Get
-                Return Global.TiendaSoft_WPF.MySettings.Default
+                Return Global.Bloquera_TF.MySettings.Default
             End Get
         End Property
     End Module

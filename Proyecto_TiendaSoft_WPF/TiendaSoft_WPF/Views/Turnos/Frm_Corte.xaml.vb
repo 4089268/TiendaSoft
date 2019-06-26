@@ -12,7 +12,7 @@ Public Class Frm_Corte
             Dim Cmd_Login = New SqlCommand
             Cmd_Login.CommandTimeout = 500
             Cmd_Login.CommandType = CommandType.StoredProcedure
-            Cmd_Login.CommandText = "[PDV].[Global].[Sys_PSesiones]"
+            Cmd_Login.CommandText = "[Global].[Sys_PSesiones]"
             Cmd_Login.Parameters.Clear()
             Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "ESPERADO"))
             Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@idOperador", xOpererador))
@@ -44,11 +44,17 @@ Public Class Frm_Corte
             Dim Cmd_Login = New SqlCommand
             Cmd_Login.CommandTimeout = 500
             Cmd_Login.CommandType = CommandType.StoredProcedure
-            Cmd_Login.CommandText = "[PDV].[Global].[Sys_PSesiones]"
+            Cmd_Login.CommandText = "[Global].[Sys_PSesiones]"
             Cmd_Login.Parameters.Clear()
             Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "TERMINAR"))
             Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@idOperador", xOpererador))
-            Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@xMonto", CDec(tb_montoFinal.Text)))
+
+            Try
+                Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@xMonto", CDec(tb_montoFinal.Text)))
+            Catch ex As Exception
+                Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@xMonto", 0.0))
+            End Try
+
 
             Cmd_Login.Connection = Mi_conexion.conexion
             Dim reader As SqlDataReader = Cmd_Login.ExecuteReader()

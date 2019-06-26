@@ -1,0 +1,286 @@
+﻿<Page x:Class="Page_Corte"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" d:DesignHeight="1000" d:DesignWidth="700" Title="Page_Corte">
+    <Page.Resources>        
+        <Style x:Key="dataLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="#303030" /> 
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight"   Value="Medium" />
+        </Style>
+        
+        <Style x:Key="HeaderLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="#303030" />
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontWeight" Value="Bold" />       
+            <Setter Property="VerticalAlignment" Value="Center" />                
+        </Style>
+
+        <Style x:Key="TableData" TargetType="Label">
+            <Setter Property="FontSize"     Value="14"/>
+            <Setter Property="FontWeight"   Value="Medium" />            
+        </Style>
+
+
+
+    </Page.Resources>
+
+    <Grid Name="rootLayout" Background="white">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Background="Gray" Grid.Row="0" VerticalAlignment="Stretch">
+            <Label Content="CORTE" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Foreground="White" FontWeight="Bold"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="WhiteSmoke">
+            <Button Name="btn_Cajero"   VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="20,4,4,4"   Padding="5,0" Width="190">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Bloquera_TF;component/Imagenes/scissors_blue.png" Width="20" />
+                    <Label Content="Corte del Turno Actual"   FontSize="14" FontWeight="Medium"/>
+                </StackPanel>
+            </Button>
+            
+            <Button Name="btn_Dia" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4"   Padding="5,0" Width="190">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Bloquera_TF;component/Imagenes/scissors_red.png" Width="20" />
+                    <Label Content="Hacer Corte del Dia" FontSize="14" FontWeight="Medium"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        
+        <ScrollViewer Grid.Row="2">
+            <Border Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="1" Margin="5">          
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0"  Name="sp_datos" Orientation="Vertical" HorizontalAlignment="Left" Height="59" />
+
+                    <StackPanel Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,5">
+                            <Button Width="120" Height="28" Margin="10" Name="btn_cerrarTurno">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Bloquera_TF;component/Imagenes/lock.png" VerticalAlignment="Bottom" Height="22"/>
+                                    <Label Content="Cerrar Turno"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="120" Height="28" Margin="10" Name="btn_imprimir">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bloquera_TF;component/Imagenes/printer.png" VerticalAlignment="Bottom" Height="22"/>
+                                <Label Content="Imprimir"/>
+                            </StackPanel>                        
+                        </Button>                    
+                    </StackPanel>
+                
+                    <Grid Grid.Row="1" Margin="5">                      
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  Width="*"/>
+                            <ColumnDefinition  Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bloquera_TF;component/Imagenes/cashIcon.png" Opacity="0.8" Width="40"/>
+                                <Label Content="Ventas Totales: "  Style="{StaticResource HeaderLabel}"/>                                
+                            </StackPanel>
+                            
+                            <Label Name="tb_ventasTotales" Content="0" Foreground="#303030" FontSize="22" VerticalAlignment="Center" />                            
+                        </StackPanel>
+                    
+                        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bloquera_TF;component/Imagenes/graph.png" Opacity="0.8" Width="40"/>
+                                <Label Content="Ganancias Totales: "  Style="{StaticResource HeaderLabel}"/>
+                            </StackPanel>
+
+                            <Label Name="tb_Ganancias" Content="0" Foreground="#303030" FontSize="22" VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Margin="15,10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bloquera_TF;component/Imagenes/calculator.png" Opacity="0.8" Width="40"/>
+                                <Label Content="Dinero en Caja: "  Style="{StaticResource HeaderLabel}" Name="cabecera1"/>
+                            </StackPanel>
+                            
+                            <Grid Margin=" 15,10,15,0" Name="gridDineroCaja">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="*"/>                                    
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Content=" Monto Inicial"        Style="{StaticResource TableData}"/>
+                                <Label Grid.Row="1" Grid.Column="0" Content=" Ventas"               Style="{StaticResource TableData}"/>
+                                <Label Grid.Row="2" Grid.Column="0" Content=" Entradas de Dinero"   Style="{StaticResource TableData}"/>
+                                <Label Grid.Row="3" Grid.Column="0" Content=" Salidas de Dinero"    Style="{StaticResource TableData}"/>
+                                <Label Grid.Row="4" Grid.Column="0" Content=" Devoluciones"         Style="{StaticResource TableData}"/>
+                                <Label Grid.Row="6" Grid.Column="0" Content=" Total en caja"        Style="{StaticResource TableData}"/>
+
+                                <Label Name="c_mInicial"        Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Foreground="Black" Content="$0"     Style="{StaticResource TableData}"/>
+                                <Label Name="c_Ventas"          Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Foreground="Green" Content=" + $0"  Style="{StaticResource TableData}"/>
+                                <Label Name="c_Entradas"        Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Foreground="Green" Content=" + $0"  Style="{StaticResource TableData}"/>
+                                <Label Name="c_Salidas"         Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Foreground="Red"   Content=" - $0"  Style="{StaticResource TableData}"/>
+                                <Label Name="c_Devoluciones"    Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Foreground="Red"   Content=" - $0"  Style="{StaticResource TableData}"/>
+                                <Label Name="c_Total"           Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Foreground="Black" Content="$0"     Style="{StaticResource TableData}"/>
+
+                                <Border BorderBrush="Gray" BorderThickness="1"  Grid.Row="5" Grid.ColumnSpan="2" Height="1" Margin="10,0"/>
+                                
+                            </Grid>
+                            
+                            <ScrollViewer Height="120" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Name="sv_turnos" Visibility="Collapsed">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0" Background="#bdbdbd" >
+                                        <Label Content="Nombre"             Width="160" FontWeight="Bold" BorderBrush="Black" />
+                                        <Label Content="Fecha de Inicio"    Width="160" FontWeight="Bold" BorderBrush="Black" />
+                                        <Label Content="Monto Inicial"      Width="120" FontWeight="Bold" BorderBrush="Black" />
+                                        <Label Content="Monto Final"        Width="120" FontWeight="Bold" BorderBrush="Black" />
+                                    </StackPanel>
+
+                                    <StackPanel Name="sp_turnos" Background="WhiteSmoke"/>
+                                </StackPanel>
+                            </ScrollViewer>
+
+                        </StackPanel>
+                    
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="15,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bloquera_TF;component/Imagenes/blackCash.png" Opacity="0.8" Width="40"/>
+                                <Label Content="Tipos De Pago: "  Style="{StaticResource HeaderLabel}"/>
+                            </StackPanel>
+
+                            <Grid Margin=" 15,10,15,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>                                    
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="180"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label                      Grid.Column="0" Grid.Row="0" Content=" En Efectivo: "  Style="{StaticResource dataLabel}"/>
+                                <Label Name="v_Efectivo"    Grid.Column="1" Grid.Row="0" Content="0.00" HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
+
+                                <Label                      Grid.Column="0" Grid.Row="1" Content=" Tarjeta de Credito: " Style="{StaticResource dataLabel}"/>
+                                <Label  Name="v_tarjeta"    Grid.Column="1" Grid.Row="1" Content="0.00"  HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
+
+                                <Border BorderBrush="Gray" BorderThickness="1"  Grid.Row="2" Grid.ColumnSpan="2" Height="1" Margin="10,0"/>
+
+                                <Label                      Grid.Column="0" Grid.Row="3" Content=" Total: "  Style="{StaticResource dataLabel}"/>
+                                <Label Name="v_total"       Grid.Column="1" Grid.Row="3" Content="0" HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
+
+                            </Grid>                           
+
+                           
+                        </StackPanel>
+                    
+                        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="15,10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bloquera_TF;component/Imagenes/inMoney.png" Opacity="0.8" Width="40"/>
+                                <Label Content="Entradas de Efectivo: "  Style="{StaticResource HeaderLabel}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Total de Entradas: "  Style="{StaticResource dataLabel}"/>
+                                <Label Name="TotalEntradas" Content="0" HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
+                            </StackPanel>
+                            
+                            <ScrollViewer Height="120" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0" Background="#bdbdbd" >
+                                        <Label Content="Nombre"         Width="150" FontWeight="Bold" BorderBrush="Black" Name="lbl_Enombre" />
+                                        <Label Content="Hora"           Width="110" FontWeight="Bold" BorderBrush="Black" Name="lbl_Ehora"/>
+                                        <Label Content="Descripcion"    Width="160" FontWeight="Bold" BorderBrush="Black" Name="lbl_EDescripcion"/>
+                                        <Label Content="Importe"        Width="110" FontWeight="Bold" BorderBrush="Black" />                                        
+                                    </StackPanel>
+
+                                    <StackPanel Name="sp_entradas" Background="WhiteSmoke"/>
+                                </StackPanel>                                
+                            </ScrollViewer>
+                            
+                        </StackPanel>
+                    
+                        <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical" Margin="15,10">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bloquera_TF;component/Imagenes/outMoney.png" Opacity="0.8" Width="40"/>
+                                <Label Content="Salidas de Efectivo: "  Style="{StaticResource HeaderLabel}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Total de Salidas: "  Style="{StaticResource dataLabel}"/>
+                                <Label Name="totalSalidas"  Content="0" HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
+                            </StackPanel>
+                            <ScrollViewer Height="120" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0" Background="#bdbdbd" >
+                                        <Label Content="Nombre"         Width="150" FontWeight="Bold" BorderBrush="Black" Name="lbl_Snombre"/>
+                                        <Label Content="Hora"           Width="110" FontWeight="Bold" BorderBrush="Black" Name="lbl_Shora"/>
+                                        <Label Content="Descripcion"    Width="160" FontWeight="Bold" BorderBrush="Black" Name="lbl_SDescripcion"/>
+                                        <Label Content="Importe"        Width="110" FontWeight="Bold" BorderBrush="Black" />
+                                    </StackPanel>
+                                    
+                                    <StackPanel Name="sp_salidas" Background="WhiteSmoke"/>
+                                </StackPanel>                                
+                            </ScrollViewer>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Orientation="Vertical" Margin="15,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bloquera_TF;component/Imagenes/shoppingCar.png" Opacity="0.8" Width="40"/>
+                                <Label Content="Ventas: "  Style="{StaticResource HeaderLabel}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Numero de Ventas: "  Style="{StaticResource dataLabel}"/>
+                                <Label Name="TotalVentas" Content="0" HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
+                            </StackPanel>
+
+                            <ScrollViewer  HorizontalScrollBarVisibility="Auto" Margin="0,0,0,0"  VerticalScrollBarVisibility="Auto">
+                                <StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0" Background="#bdbdbd" >
+                                        <Label Content="Nombre"         Width="150" FontWeight="Bold" BorderBrush="Black" Name="lbl_ventaNombre"  Margin="5,0,0,0"/>
+                                        <Label Content="Hora"           Width="110" FontWeight="Bold" BorderBrush="Black" Name="lbl_fecha" />
+                                        <Label Content="Total"          Width="110" FontWeight="Bold" BorderBrush="Black"/>
+                                        <Label Content="Pagó"           Width="110" FontWeight="Bold" BorderBrush="Black"/>
+                                        <Label Content="cambio"         Width="110" FontWeight="Bold" BorderBrush="Black"/>
+                                        <Label Content="Tipo de Cobro"  Width="110" FontWeight="Bold" BorderBrush="Black"/>                                                                                
+                                    </StackPanel>
+                                    
+                                    <Border BorderBrush="Black" BorderThickness="1,1,1,1" Height="1"/>
+                                    <StackPanel Name="sp_Ventas" Background="WhiteSmoke" Height="380"/>
+
+                                </StackPanel>
+                                    
+                                
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Grid>           
+                
+                </Grid>
+            </Border>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>

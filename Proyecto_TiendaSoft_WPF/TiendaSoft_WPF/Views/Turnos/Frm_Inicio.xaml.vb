@@ -5,40 +5,36 @@ Imports System.Threading
 
 Public Class Frm_Inicio
     Dim xdialogResult As Boolean = False
+    Dim xadmin As Boolean = False
 
     Private Sub btn_iniciar() Handles btn_start.Click
 
         Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
+        Try
+            If (Mi_conexion.Conectar()) Then
+                Dim reader As SqlDataReader
+                reader = Mi_conexion.Ejecutar_Procedimiento("[Global].[Sys_PSesiones]", {"xAlias", "idOperador", "xMonto"}, {"INICIAR", xOpererador, CDec(tb_monto.Text)})
 
-        If (Mi_conexion.Conectar()) Then
-            Dim Cmd_Login = New SqlCommand
-            Cmd_Login.CommandTimeout = 500
-            Cmd_Login.CommandType = CommandType.StoredProcedure
-            Cmd_Login.CommandText = "[PDV].[Global].[Sys_PSesiones]"
-            Cmd_Login.Parameters.Clear()
-            Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "INICIAR"))
-            Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@idOperador", xOpererador))
-            Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@xMonto", CDec(tb_monto.Text)))
+                Dim mensaje As String = ""
+                Try
+                    While reader.Read
+                        mensaje = reader("mensaje")
+                    End While
+                    xdialogResult = True
+                Catch ex As Exception
+                    xdialogResult = False
+                Finally
+                    reader.Close()
+                End Try
 
-            Cmd_Login.Connection = Mi_conexion.conexion
-            Dim reader As SqlDataReader = Cmd_Login.ExecuteReader()
-
-            Dim mensaje As String = ""
-            Try
-                While reader.Read
-                    mensaje = reader("mensaje")
-                End While
-                xdialogResult = True
-            Catch ex As Exception
+            Else
+                MessageBox.Show("Error al conectarse con la base de datos", "", MessageBoxButton.OK, MessageBoxImage.Error)
                 xdialogResult = False
-            Finally
-                reader.Close()
-            End Try
+            End If
 
-        Else
-            MessageBox.Show("Error al conectarse con la base de datos", "", MessageBoxButton.OK, MessageBoxImage.Error)
-            xdialogResult = False
-        End If
+        Catch ex As Exception
+        End Try
+       
 
         Me.Close()
     End Sub
@@ -51,4 +47,41 @@ Public Class Frm_Inicio
         Dim regex As New System.Text.RegularExpressions.Regex("([^0-9]+).([0-9]*)")
         e.Handled = regex.IsMatch(e.Text)
     End Sub
+
+    Public Sub New(admin As Boolean)
+        InitializeComponent()
+        xadmin = admin
+    End Sub
+
+    Public Sub me_loadedDone() Handles Me.Loaded
+        If xadmin Then
+            Try
+                If (Mi_conexion.Conectar()) Then
+                    Dim reader As SqlDataReader
+                    reader = Mi_conexion.Ejecutar_Procedimiento("[Global].[Sys_PSesiones]", {"xAlias", "idOperador", "xMonto"}, {"INICIAR", xOpererador, 0})
+
+                    Dim mensaje As String = ""
+                    Try
+                        While reader.Read
+                            mensaje = reader("mensaje")
+                        End While
+                        xdialogResult = True
+                    Catch ex As Exception
+                        xdialogResult = False
+                    Finally
+                        reader.Close()
+                    End Try
+
+                Else
+                    MessageBox.Show("Error al conectarse con la base de datos", "", MessageBoxButton.OK, MessageBoxImage.Error)
+                    xdialogResult = False
+                End If
+
+            Catch ex As Exception
+            Finally
+                Me.Close()
+            End Try
+        End If
+    End Sub
+
 End Class

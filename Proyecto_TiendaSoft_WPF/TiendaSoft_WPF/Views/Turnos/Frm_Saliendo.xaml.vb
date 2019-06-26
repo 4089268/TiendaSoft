@@ -10,7 +10,7 @@ Public Class Frm_Saliendo
             Dim Cmd_Login = New SqlCommand
             Cmd_Login.CommandTimeout = 500
             Cmd_Login.CommandType = CommandType.StoredProcedure
-            Cmd_Login.CommandText = "[PDV].[Global].[Sys_PSesiones]"
+            Cmd_Login.CommandText = "[Global].[Sys_PSesiones]"
             Cmd_Login.Parameters.Clear()
             Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "PAUSAR"))
             Cmd_Login.Parameters.Add(New SqlClient.SqlParameter("@idOperador", xOpererador))

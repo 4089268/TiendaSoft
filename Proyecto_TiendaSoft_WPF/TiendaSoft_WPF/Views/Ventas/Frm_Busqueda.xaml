@@ -1,32 +1,34 @@
-﻿<Window x:Name="Frm_busqueda" x:Class="Frm_Busqueda"
+﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Busqueda de Productos" Height="380" Width="680">
-    <Grid>
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Name="Frm_busqueda" x:Class="Frm_Busqueda"
+    Title=" Busqueda de Productos" Height="450" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="{dx:DXImage Image=Zoom_32x32.png}">
+
+    <Grid Background="#404040" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" Grid.ColumnSpan="4" Background="WhiteSmoke" Margin="1" Padding="10"/>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="105"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="85"/>
-            </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Label      Grid.Column="0" x:Name="lbl_prod"   Content="Descripción.:" Foreground="#404040" Margin="4,0" FontFamily="Tahoma" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <TextBox    Grid.Column="1" x:Name="txt_prod"                           Foreground="#404040" Margin="4,0" FontFamily="Tahoma" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" Width="340" Height="25" VerticalContentAlignment="Center"/>
+            <Button     Grid.Column="2" x:Name="btn_buscar" Content="Buscar"        Foreground="#404040" Margin="4,0" FontFamily="Tahoma" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" Width="80"  Height="25"/>
+        </StackPanel>
 
-            <Label Grid.Column="0" x:Name="lbl_prod" Content="Descripción.:" FontFamily="Tahoma" FontWeight="Bold" FontSize="13" Foreground="Navy" HorizontalContentAlignment="Right"/>
-            <TextBox Grid.Column="1" x:Name="txt_prod" Foreground="Navy" Margin="1" FontFamily="Tahoma" FontSize="13" FontWeight="Bold"/>
-            <Button Grid.Column="2" x:Name="btn_buscar"  Content="Buscar" Margin="1.6,0,2.2,1.8" FontFamily="Tahoma" FontSize="13" FontWeight="Bold" Foreground="Navy" Height="21" VerticalAlignment="Bottom"/>
-        </Grid>
+        <DataGrid x:Name="grd_productos" Grid.Row="1" Margin="10"  AlternatingRowBackground="WhiteSmoke" VerticalGridLinesBrush="#00000000" HorizontalGridLinesBrush="#00000000" Foreground="#404040" FontFamily="Tahoma" FontWeight="Normal" BorderBrush="#404040"  Background="White" ClipboardCopyMode="IncludeHeader" RowHeight="21"/>
 
-        <DataGrid x:Name="grd_productos" Grid.Row="1" Margin="1" 
-                  AlternatingRowBackground="#FF94CAFD" 
-                  Foreground="Navy" FontFamily="Tahoma" FontWeight="Bold" BorderBrush="Navy" 
-                  Background="White" 
-                  HorizontalGridLinesBrush="White" VerticalGridLinesBrush="Navy" 
-                  ClipboardCopyMode="IncludeHeader" RowHeight="21"/>
-
+        <Border Grid.Column="1" Grid.Row="1" Margin="0,10,10,10" BorderBrush="Gray" BorderThickness="1" VerticalAlignment="top" Width="270" Height="240" HorizontalAlignment="Left">
+            <Border.Background>
+                <ImageBrush ImageSource="/Bloquera_TF;component/Imagenes/img_icon.png" Stretch="Uniform" />
+            </Border.Background>
+            <Image x:Name="img1" HorizontalAlignment="Stretch" />
+        </Border>
 
     </Grid>
 </Window>

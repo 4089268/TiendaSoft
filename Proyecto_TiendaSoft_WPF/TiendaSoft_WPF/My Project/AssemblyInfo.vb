@@ -11,10 +11,10 @@ Imports System.Windows
 
 ' Revisar los valores de los atributos del ensamblado
 
-<Assembly: AssemblyTitle("TiendaSoft_WPF")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyTitle("Bloquera Gonzales")> 
+<Assembly: AssemblyDescription("Bloquera Gonzales")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("TiendaSoft_WPF")> 
+<Assembly: AssemblyProduct("Bloquera Gonzales")> 
 <Assembly: AssemblyCopyright("Copyright ©  2017")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: ComVisible(false)>

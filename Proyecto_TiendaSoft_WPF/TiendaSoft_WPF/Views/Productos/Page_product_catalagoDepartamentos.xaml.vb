@@ -19,6 +19,7 @@ Class Page_product_catalagoDepartamentos
         DataGrid1.RowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.Collapsed
 
         DataGrid1.Columns.Insert(0, Resources("descripcion"))
+        DataGrid1.Columns(0).Width = DataGrid1.ActualWidth - 8
     End Sub
 
     Private Sub cargarDatos()
@@ -26,7 +27,7 @@ Class Page_product_catalagoDepartamentos
             Dim SqlComand = New SqlCommand
             SqlComand.CommandTimeout = 500
             SqlComand.CommandType = CommandType.StoredProcedure
-            SqlComand.CommandText = "[PDV].[Global].[Sys_Departamentos]"
+            SqlComand.CommandText = "[Global].[Sys_Departamentos]"
             SqlComand.Parameters.Clear()
             SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "CARGARCATALAGO"))
 
@@ -88,6 +89,22 @@ Class Page_product_catalagoDepartamentos
 
         btn_nuevo.IsEnabled = Not p1
         btn_modif.IsEnabled = Not p1
+
+        If (p1) Then
+            btn_Guardar.Visibility = Windows.Visibility.Visible
+            btn_Cancelar.Visibility = Windows.Visibility.Visible
+
+            btn_nuevo.Visibility = Windows.Visibility.Collapsed
+            btn_modif.Visibility = Windows.Visibility.Collapsed
+        Else
+            btn_Guardar.Visibility = Windows.Visibility.Collapsed
+            btn_Cancelar.Visibility = Windows.Visibility.Collapsed
+
+            btn_nuevo.Visibility = Windows.Visibility.Visible
+            btn_modif.Visibility = Windows.Visibility.Visible
+        End If
+
+
     End Sub
 
     Private Sub guardarCambios()
@@ -97,7 +114,7 @@ Class Page_product_catalagoDepartamentos
                 Dim SqlComand = New SqlCommand
                 SqlComand.CommandTimeout = 500
                 SqlComand.CommandType = CommandType.StoredProcedure
-                SqlComand.CommandText = "[PDV].[Global].[Sys_Departamentos]"
+                SqlComand.CommandText = "[Global].[Sys_Departamentos]"
                 SqlComand.Parameters.Clear()
 
                 If (DataGrid1.SelectedIndex = -1) Then

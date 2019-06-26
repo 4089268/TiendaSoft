@@ -7,10 +7,26 @@
     <ProjectGuid>{9FBFC687-37D9-4923-BB11-92D38B999555}</ProjectGuid>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TiendaSoft_WPF</RootNamespace>
-    <AssemblyName>TiendaSoft_WPF</AssemblyName>
+    <RootNamespace>Bloquera_TF</RootNamespace>
+    <AssemblyName>Bloquera_TF</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MyType>Custom</MyType>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\Salvador\Downloads\Instalador-tiendSoft\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>11</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -20,7 +36,7 @@
     <DefineTrace>true</DefineTrace>
     <IncrementalBuild>true</IncrementalBuild>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>TiendaSoft_WPF.xml</DocumentationFile>
+    <DocumentationFile>Bloquera_TF.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +48,7 @@
     <IncrementalBuild>false</IncrementalBuild>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>TiendaSoft_WPF.xml</DocumentationFile>
+    <DocumentationFile>Bloquera_TF.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -50,72 +66,75 @@
   <PropertyGroup>
     <ApplicationIcon>Imagenes\cash_register.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>9702CA20F45C3FFEB4035E9518C409F890D34F08</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>TiendaSoft_WPF_ClaveTemporal.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v14.1, Version=14.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Mvvm.v14.1, Version=14.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpf.Controls.v14.1, Version=14.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpf.Core.v14.1, Version=14.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpf.NavBar.v14.1, Version=14.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="Microsoft.Practices.Composite">
-      <HintPath>Lib\Microsoft.Practices.Composite.dll</HintPath>
+    <Reference Include="DevExpress.Xpf.Core.v14.1, Version=14.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.Composite.Presentation">
-      <HintPath>Lib\Microsoft.Practices.Composite.Presentation.dll</HintPath>
+    <Reference Include="System.Core">
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.Composite.UnityExtensions">
-      <HintPath>Lib\Microsoft.Practices.Composite.UnityExtensions.dll</HintPath>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching">
-      <HintPath>Lib\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Database">
-      <HintPath>Lib\Microsoft.Practices.EnterpriseLibrary.Caching.Database.dll</HintPath>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    <Reference Include="System">
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    <Reference Include="System.Data">
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="SUT.PrintEngine">
-      <HintPath>Lib\SUT.PrintEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="UIAutomationTypes" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="Application.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Conexion_Sql.vb" />
-    <Compile Include="MiModulo.vb" />
+    <Compile Include="Clases\Conexion_Sql.vb" />
+    <Compile Include="Clases\MiModulo.vb" />
     <Compile Include="Form_LogIn.xaml.vb">
       <DependentUpon>Form_LogIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page_Reportes.xaml.vb">
+      <DependentUpon>Page_Reportes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Corte\Frm_DetalleVenta.xaml.vb">
+      <DependentUpon>Frm_DetalleVenta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Configuracion\Page_conf_cajeros.xaml.vb">
       <DependentUpon>Page_conf_cajeros.xaml</DependentUpon>
@@ -126,7 +145,50 @@
     <Compile Include="Views\Configuracion\Page_conf_ticket.xaml.vb">
       <DependentUpon>Page_conf_ticket.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Conf_Impresion.vb" />
+    <Compile Include="Clases\Conf_Impresion.vb" />
+    <Compile Include="Views\Configuracion\Frm_Conexion.xaml.vb" />
+    <Compile Include="Views\Cuentas\Cuentas_AbonoRetiro.xaml.vb">
+      <DependentUpon>Cuentas_AbonoRetiro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cuentas\Cuentas_BuscarCuentas.xaml.vb">
+      <DependentUpon>Cuentas_BuscarCuentas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cuentas\Nueva_cuenta.xaml.vb">
+      <DependentUpon>Nueva_cuenta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Gastos\Page_Gastos.xaml.vb">
+      <DependentUpon>Page_Gastos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventario\Inventarios_Bajos.xaml.vb">
+      <DependentUpon>Inventarios_Bajos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventario\Page_inv_agregar.xaml.vb">
+      <DependentUpon>Page_inv_agregar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventario\Page_inv_bajos.xaml.vb">
+      <DependentUpon>Page_inv_bajos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventario\Page_inv_movimientos.xaml.vb">
+      <DependentUpon>Page_inv_movimientos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventario\Page_inv_remplazar.xaml.vb">
+      <DependentUpon>Page_inv_remplazar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventario\Page_inv_reporteInv.xaml.vb">
+      <DependentUpon>Page_inv_reporteInv.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Corte\Page_Corte.xaml.vb">
+      <DependentUpon>Page_Corte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cuentas\Page_Cuentas.xaml.vb">
+      <DependentUpon>Page_Cuentas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventario\Page_Inventario.xaml.vb">
+      <DependentUpon>Page_Inventario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Productos\UserControl1.xaml.vb">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Turnos\Frm_Corte.xaml.vb">
       <DependentUpon>Frm_Corte.xaml</DependentUpon>
     </Compile>
@@ -139,15 +201,12 @@
     <Compile Include="Views\Turnos\Frm_Saliendo.xaml.vb">
       <DependentUpon>Frm_Saliendo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Paginador_Ticket.vb" />
+    <Compile Include="Clases\Paginador_Ticket.vb" />
     <Compile Include="Views\Plantillas\Header_Ticket.xaml.vb">
       <DependentUpon>Header_Ticket.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Productos\modal_EditarPaquete.xaml.vb">
       <DependentUpon>modal_EditarPaquete.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Productos\UserControl1.xaml.vb">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Ventas\Frm_Busqueda.xaml.vb">
       <DependentUpon>Frm_Busqueda.xaml</DependentUpon>
@@ -155,19 +214,16 @@
     <Compile Include="Views\Ventas\Frm_Cobrar.xaml.vb">
       <DependentUpon>Frm_Cobrar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Frm_Ventas.xaml.vb">
+    <Compile Include="Views\Ventas\Frm_Ventas.xaml.vb">
       <DependentUpon>Frm_Ventas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Page_Configuracion.xaml.vb">
+    <Compile Include="Views\Configuracion\Page_Configuracion.xaml.vb">
       <DependentUpon>Page_Configuracion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Page_NuevoProducto.xaml.vb">
-      <DependentUpon>Page_NuevoProducto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Page_productos.xaml.vb">
+    <Compile Include="Views\Productos\Page_productos.xaml.vb">
       <DependentUpon>Page_productos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Page_ventas.xaml.vb">
+    <Compile Include="Views\Ventas\Page_ventas.xaml.vb">
       <DependentUpon>Page_ventas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Productos\Page_product_catalagoDepartamentos.xaml.vb">
@@ -195,6 +251,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Page_Reportes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Corte\Frm_DetalleVenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Configuracion\Page_conf_cajeros.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +270,66 @@
     <Page Include="Views\Configuracion\Page_conf_ticket.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Configuracion\Frm_Conexion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Cuentas\Cuentas_AbonoRetiro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cuentas\Cuentas_BuscarCuentas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cuentas\Nueva_cuenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Gastos\Page_Gastos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventario\Inventarios_Bajos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventario\Page_inv_agregar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventario\Page_inv_bajos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventario\Page_inv_movimientos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventario\Page_inv_remplazar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventario\Page_inv_reporteInv.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Corte\Page_Corte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cuentas\Page_Cuentas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventario\Page_Inventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Productos\UserControl1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Turnos\Frm_Corte.xaml">
       <SubType>Designer</SubType>
@@ -231,10 +355,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Productos\UserControl1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Ventas\Frm_Busqueda.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -243,23 +363,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Frm_Ventas.xaml">
+    <Page Include="Views\Ventas\Frm_Ventas.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Page_Configuracion.xaml">
+    <Page Include="Views\Configuracion\Page_Configuracion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Page_NuevoProducto.xaml">
+    <Page Include="Views\Productos\Page_productos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Page_productos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Page_ventas.xaml">
+    <Page Include="Views\Ventas\Page_ventas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,11 +436,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <None Include="app.config" />
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <AppDesigner Include="My Project\" />
+    <None Include="TiendaSoft_WPF_ClaveTemporal.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\logo.png" />
@@ -431,6 +549,185 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\calculator.png" />
+    <Resource Include="Imagenes\cashIcon.png" />
+    <Resource Include="Imagenes\graph.png" />
+    <Resource Include="Imagenes\inMoney.png" />
+    <Resource Include="Imagenes\outMoney.png" />
+    <Resource Include="Imagenes\shoppingBag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\credit-card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\blackCash.png" />
+    <Resource Include="Imagenes\shoppingCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\scissors_blue.png" />
+    <Resource Include="Imagenes\scissors_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Inventario\inv_Agregar.png" />
+    <Resource Include="Imagenes\Inventario\inv_ajustar.png" />
+    <Resource Include="Imagenes\Inventario\inv_bajos.png" />
+    <Resource Include="Imagenes\Inventario\inv_movimientos.png" />
+    <Resource Include="Imagenes\Inventario\inv_reporte.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\box.png" />
+    <Resource Include="Imagenes\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\database.png" />
+    <Resource Include="Imagenes\start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\eraser.png" />
+    <Resource Include="Imagenes\in.png" />
+    <Resource Include="Imagenes\out.png" />
+    <Resource Include="Imagenes\search2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\databaseConexion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\block.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Logo_Block.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\cards.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\creditCard1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\cash-back.png" />
+    <Resource Include="Imagenes\notes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\box1.png" />
+    <Resource Include="Imagenes\packing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\trolley.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logoBlock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="DevExpress.Data.v14.1">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Mvvm.v14.1">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevExpress.Printing.v14.1.Core">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="de\DevExpress.Data.v14.1.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
+    <PublishFile Include="de\DevExpress.Printing.v14.1.Core.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
+    <PublishFile Include="de\DevExpress.Xpf.Core.v14.1.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
+    <PublishFile Include="es\DevExpress.Printing.v14.1.Core.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
+    <PublishFile Include="ru\DevExpress.Printing.v14.1.Core.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

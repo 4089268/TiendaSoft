@@ -1,6 +1,8 @@
 ﻿Imports DevExpress.Xpf.Bars
 Imports System.Threading
 Imports System.Globalization
+Imports System.Data.SqlClient
+Imports System.Data
 
 Class MainWindow
     Dim dispatcherTimer As Windows.Threading.DispatcherTimer
@@ -23,19 +25,33 @@ Class MainWindow
             Me.Close()
         End If
 
+        Me.lbl_nombre.Content = xNombre
+
+        ''Mostrar los Productos Bajos en inventario        
+        ''Dim xtask As New Tasks.Task(AddressOf mostrarProductosBajos)
+        ''xtask.Start()
+        mostrarProductosBajos()
+
+    End Sub
+
+    Private Sub mostrarProductosBajos()
+        Dim xInventBajos As New Inventarios_Bajos
+        xInventBajos.Show()
     End Sub
 
     Private Sub VerificarOpciones()
         navFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden
-        navFrame.Source = New Uri("Views/Frm_Ventas.xaml", UriKind.Relative)
+        navFrame.Navigate(New Frm_Ventas)
         btn_ventas.IsEnabled = False
 
-        Dim opcion1 As String = "0"
-        Dim opcion2 As String = "0"
-        Dim opcion3 As String = "0"
-        Dim opcion4 As String = "0"
-        Dim opcion5 As String = "0"
-        Dim opcion6 As String = "0"
+        Dim opcion1 As String = "0" 'VENTAS
+        Dim opcion2 As String = "0" 'PRODUCTOS
+        Dim opcion3 As String = "0" 'INVENTARIO
+        Dim opcion4 As String = "0" 'FACTURA
+        Dim opcion5 As String = "0" 'CORTE
+        Dim opcion6 As String = "0" 'REPORTES
+        Dim opcion7 As String = "0" 'CUENTAS
+        Dim opcion8 As String = "0" 'GASTOS
 
         Try
             opcion1 = xOpciones.Substring(0, 1)
@@ -44,38 +60,40 @@ Class MainWindow
             opcion4 = xOpciones.Substring(3, 1)
             opcion5 = xOpciones.Substring(4, 1)
             opcion6 = xOpciones.Substring(5, 1)
+            opcion7 = xOpciones.Substring(6, 1)
+            opcion8 = xOpciones.Substring(7, 1)
         Catch ex As Exception
         End Try
 
-        barManager.Bars(0).ItemLinks(0).IsEnabled = CBool(opcion1)
-        barManager.Bars(0).ItemLinks(1).IsEnabled = CBool(opcion1)
-        barManager.Bars(0).ItemLinks(2).IsEnabled = CBool(opcion2)
-        barManager.Bars(0).ItemLinks(3).IsEnabled = CBool(opcion2)
-        barManager.Bars(0).ItemLinks(4).IsEnabled = CBool(opcion3)
-        barManager.Bars(0).ItemLinks(5).IsEnabled = CBool(opcion3)
-        barManager.Bars(0).ItemLinks(6).IsEnabled = CBool(opcion4)
-        barManager.Bars(0).ItemLinks(7).IsEnabled = CBool(opcion4)
-        barManager.Bars(0).ItemLinks(8).IsEnabled = CBool(opcion5)
-        barManager.Bars(0).ItemLinks(9).IsEnabled = CBool(opcion5)
-        barManager.Bars(0).ItemLinks(10).IsEnabled = CBool(opcion6)
-        barManager.Bars(0).ItemLinks(13).IsEnabled = xAdmin
+        '*** ACTIVAR TODAS LOS BOTONES DEL MENU PRINCIPAL ***
+        For Each Bar As BarItemLinkBase In barManager.Bars(0).ItemLinks
+            Bar.IsEnabled = True
+        Next
 
-        barManager.Bars(0).ItemLinks(0).IsVisible = CBool(opcion1)
-        barManager.Bars(0).ItemLinks(1).IsVisible = CBool(opcion1)
-        barManager.Bars(0).ItemLinks(2).IsVisible = CBool(opcion2)
-        barManager.Bars(0).ItemLinks(3).IsVisible = CBool(opcion2)
-        barManager.Bars(0).ItemLinks(4).IsVisible = CBool(opcion3)
-        barManager.Bars(0).ItemLinks(5).IsVisible = CBool(opcion3)
-        barManager.Bars(0).ItemLinks(6).IsVisible = CBool(opcion4)
-        barManager.Bars(0).ItemLinks(7).IsVisible = CBool(opcion4)
-        barManager.Bars(0).ItemLinks(8).IsVisible = CBool(opcion5)
-        barManager.Bars(0).ItemLinks(9).IsVisible = CBool(opcion5)
-        barManager.Bars(0).ItemLinks(10).IsVisible = CBool(opcion6)
-        barManager.Bars(0).ItemLinks(13).IsVisible = xAdmin
+        barManager.Bars(0).ItemLinks("ventas").IsVisible = CBool(opcion1)
+        barManager.Bars(0).ItemLinks("sventas").IsVisible = CBool(opcion1)
+        barManager.Bars(0).ItemLinks("productos").IsVisible = CBool(opcion2)
+        barManager.Bars(0).ItemLinks("sproductos").IsVisible = CBool(opcion2)
+        barManager.Bars(0).ItemLinks("inventario").IsVisible = CBool(opcion3)
+        barManager.Bars(0).ItemLinks("sinventario").IsVisible = CBool(opcion3)
+        barManager.Bars(0).ItemLinks("factura").IsVisible = CBool(opcion4)
+        barManager.Bars(0).ItemLinks("sfactura").IsVisible = CBool(opcion4)
+        barManager.Bars(0).ItemLinks("cuentas").IsVisible = CBool(opcion5)
+        barManager.Bars(0).ItemLinks("scuentas").IsVisible = CBool(opcion5)
+        barManager.Bars(0).ItemLinks("gastos").IsVisible = CBool(opcion6)
+        barManager.Bars(0).ItemLinks("sgastos").IsVisible = CBool(opcion6)
+        barManager.Bars(0).ItemLinks("reportes").IsVisible = CBool(opcion7)
+        barManager.Bars(0).ItemLinks("sreportes").IsVisible = CBool(opcion7)
+        barManager.Bars(0).ItemLinks("corte").IsVisible = CBool(opcion8)
 
-        barManager.Bars(0).ItemLinks(11).IsEnabled = True ''btn Salir
-        barManager.Bars(0).ItemLinks(11).IsVisible = True
+        barManager.Bars(0).ItemLinks("config").IsVisible = xAdmin
+        barManager.Bars(0).ItemLinks("salir").IsVisible = True
 
+
+        ''**** DESACTIVADOS HASTA TERMINARLOS ****
+        barManager.Bars(0).ItemLinks("factura").IsEnabled = False   ' ** Boton Factura ** 
+        barManager.Bars(0).ItemLinks("reportes").IsEnabled = False  ' ** Boton Reportes **
+        barManager.Bars(0).ItemLinks("gastos").IsEnabled = False  ' ** Boton Reportes **
     End Sub
 
     Private Sub actualizar_FechaHora(ByVal sender As Object, ByVal e As EventArgs)
@@ -83,19 +101,35 @@ Class MainWindow
         CommandManager.InvalidateRequerySuggested()
     End Sub
 
-    Private Sub Button_Click(sender As Object, e As RoutedEventArgs) Handles btn_ventas.ItemClick, btn_productos.ItemClick, btn_Salir.ItemClick, btn_configuracion.ItemClick
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs) Handles btn_ventas.ItemClick, btn_productos.ItemClick, btn_Salir.ItemClick, btn_configuracion.ItemClick, btn_corte.ItemClick, btn_inventario.ItemClick, btn_cuentas.ItemClick, btn_reportes.ItemClick, btn_gastos.ItemClick
         restaurarBotones()
         sender.IsEnabled = False
 
         Select Case sender.name
             Case "btn_ventas"
-                navFrame.Source = New Uri("Views/Frm_Ventas.xaml", UriKind.Relative)
+                navFrame.Navigate(New Frm_Ventas)
 
             Case "btn_configuracion"
-                navFrame.Source = New Uri("Views/Page_Configuracion.xaml", UriKind.Relative)
+                navFrame.Navigate(New Page_Configuracion)
 
             Case "btn_productos"
-                navFrame.Source = New Uri("Views/Page_productos.xaml", UriKind.Relative)
+                navFrame.Navigate(New Page_productos)
+
+            Case "btn_corte"
+                navFrame.Navigate(New Page_Corte)
+
+            Case "btn_cuentas"
+                navFrame.Navigate(New Page_Cuentas)
+
+            Case "btn_inventario"
+                navFrame.Navigate(New Page_Inventario(Me))
+
+            Case "btn_reportes"
+                navFrame.Navigate(New Page_Reportes)
+
+            Case "btn_gastos"
+                navFrame.Navigate(New Page_Gastos)
+
 
             Case "btn_Salir"
                 restaurarBotones()
@@ -105,13 +139,14 @@ Class MainWindow
 
     Private Sub restaurarBotones()
         btn_ventas.IsEnabled = True
-        btn_ventas.IsEnabled = True
         btn_productos.IsEnabled = True
         btn_inventario.IsEnabled = True
         bnt_factura.IsEnabled = True
         btn_corte.IsEnabled = True
         btn_reportes.IsEnabled = True
         btn_configuracion.IsEnabled = True
+        btn_cuentas.IsEnabled = True
+        btn_gastos.IsEnabled = True
     End Sub
 
     Private Sub MostrarBotones(val As Boolean)
@@ -121,8 +156,8 @@ Class MainWindow
         Next
     End Sub
 
-
     Private Sub saliendo(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
+
         Dim formSaliendo As New Frm_Saliendo
         If (formSaliendo.ShowDialog()) Then
             Dim form As New Form_LogIn
@@ -131,6 +166,17 @@ Class MainWindow
             btn_Salir.IsEnabled = True
             e.Cancel = True
         End If
+    End Sub
+
+    Private Sub Salir_desdeCorte()
+
+
+    End Sub
+
+    Sub editarProducto(p1 As String)
+        restaurarBotones()
+        btn_productos.IsEnabled = False
+        navFrame.Navigate(New Page_productos(p1))
     End Sub
 
 End Class

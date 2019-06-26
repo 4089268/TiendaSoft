@@ -38,7 +38,7 @@ Public Class modal_EditarPaquete
         Dim SqlComand1 = New SqlCommand
         SqlComand1.CommandTimeout = 500
         SqlComand1.CommandType = CommandType.StoredProcedure
-        SqlComand1.CommandText = "[PDV].[Global].[Sys_Productos]"
+        SqlComand1.CommandText = "[Global].[Sys_Productos]"
         SqlComand1.Parameters.Clear()
         SqlComand1.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "CATALAGOCOMPONENTES"))
 
@@ -66,22 +66,21 @@ Public Class modal_EditarPaquete
 
                     Dim control As New UserControl1
                     control.nombre = row.Item("descripcion").ToString
-                    control.codigo = CInt(row.Item("codigo"))
+                    control.codigo = row.Item("codigo")
                     control.update_ui()
                     datosStackPanel.Children.Add(control)
-                    
+
                 Catch ex As Exception
                 End Try
             Case "limpiar"
-                    datagrid1.ItemsSource = dataTable.DefaultView
-                    datosStackPanel.Children.Clear()
+                datagrid1.ItemsSource = dataTable.DefaultView
+                datosStackPanel.Children.Clear()
 
         End Select
     End Sub
 
     Private Sub guardar_Click(sender As Object, e As RoutedEventArgs) Handles guardar.Click
         If datosStackPanel.Children.Count > 0 Then
-
             Dim xaml As String = "<paquete>"
 
             For Each row As UserControl1 In datosStackPanel.Children
@@ -115,7 +114,7 @@ Public Class modal_EditarPaquete
                         While x
                             reader.Read()
                             If (reader.NodeType = XmlNodeType.Element And reader.Name = "codigo") Then
-                                producto.codigo = CInt(reader.ReadElementContentAsString())
+                                producto.codigo = reader.ReadElementContentAsString()
                             End If
 
                             If (reader.NodeType = XmlNodeType.Element And reader.Name = "cantidad") Then
@@ -139,7 +138,7 @@ Public Class modal_EditarPaquete
             Dim index As Integer = 0
 
             For Each row In datos.Rows
-                If (row.item("codigo") = x.codigo) Then
+                If (row.item("codigo").ToString = x.codigo) Then
                     nombre = row.item("descripcion")
                     indexAEliminar.Add(index)
                 End If
@@ -182,7 +181,6 @@ Public Class modal_EditarPaquete
 
 End Class
 Class producto_Cargado
-    Property codigo As Int32
-    Property cantidad As Int32
+    Property codigo As String
+    Property cantidad As Integer
 End Class
-

@@ -10,7 +10,7 @@
         <DataGridTemplateColumn Header="Ver"  x:Name="img" x:Key="img"  Width="60">
             <DataGridTemplateColumn.CellTemplate >
                 <DataTemplate >
-                    <Image Source="/TiendaSoft_WPF;component/Imagenes/userImg.png" Height="40"  HorizontalAlignment="Center"/>
+                    <Image Source="/Bloquera_TF;component/Imagenes/userImg.png" Height="40"  HorizontalAlignment="Center"/>
                 </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
@@ -26,7 +26,7 @@
         <Label Content="CONFIGURACION - CAJEROS" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="White" FontWeight="Bold" Background="Gray"/>
         <Button  Name="btn_regresar"  Grid.Row="1" Width="120" VerticalAlignment="Stretch" Margin="5" HorizontalAlignment="Left" Background="WhiteSmoke" BorderBrush="LightGray">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/TiendaSoft_WPF;component/Imagenes/back.png" Width="20" Margin="2,0,0,0"/>
+                <Image Source="/Bloquera_TF;component/Imagenes/back.png" Width="20" Margin="2,0,0,0"/>
                 <Label Margin="2,0,0,0" Content="REGRESAR" FontWeight="SemiBold" Foreground="Gray"/>
             </StackPanel>
         </Button>
@@ -36,7 +36,6 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="230"/>
                 <ColumnDefinition Width="*"/>
@@ -44,83 +43,111 @@
 
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
                 <dxe:SearchControl Name="tb_search" Width="200" />
-                <Button Name="btn_nuevo" Background="White" BorderBrush="WhiteSmoke" Margin="40,0,0,0">
+                
+                <Button Name="btn_nuevo" Background="White" BorderBrush="WhiteSmoke" Margin="40,0,0,0" IsEnabled ="True">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/TiendaSoft_WPF;component/Imagenes/addUser.png" Width="25" Margin="2,0,0,0"/>
+                        <Image Source="/Bloquera_TF;component/Imagenes/addUser.png" Width="25" Margin="2,0,0,0"/>
                         <Label Margin="2,0,0,0" Content="Nuevo Usuario" FontWeight="SemiBold" Foreground="Gray"/>
                     </StackPanel>
                 </Button>
-                <Button Background="White" BorderBrush="WhiteSmoke" Margin="40,0,0,0">
+                <Button x:Name="btn_modif" Background="White" BorderBrush="White" Margin="20,0" IsEnabled ="True">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/TiendaSoft_WPF;component/Imagenes/deluser.png" Width="25" Margin="2,0,0,0"/>
-                        <Label Margin="2,0,0,0" Content="Dar de Baja" FontWeight="SemiBold" Foreground="Gray"/>
+                        <Image Source="/Bloquera_TF;component/Imagenes/modif.png" Width="25" Margin="2,0,0,0"/>
+                        <Label Margin="2,0,0,0" Content="Modificar" FontWeight="SemiBold" Foreground="Gray"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="btn_Guardar" Background="White" BorderBrush="WhiteSmoke" Margin="40,0,0,0" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Bloquera_TF;component/Imagenes/save.png" Width="25" Margin="2,0,0,0" />
+                        <Label Margin="2,0,0,0" Content="Guardar Cambios" FontWeight="SemiBold" Foreground="Gray"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="btn_Cancelar"  Background="White" BorderBrush="WhiteSmoke" Margin="40,0,0,0"  Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Bloquera_TF;component/Imagenes/cancel.png" Width="25" Margin="2,0,0,0"/>
+                        <Label Margin="2,0,0,0" Content="Cancelar" FontWeight="SemiBold" Foreground="Gray"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
 
             <DataGrid Grid.Row="1" Name="DataGrid1" />
 
-            <Border Grid.Column="1" Grid.Row="1"  Margin="5" BorderThickness="0.5" BorderBrush="Gray" x:Name="form">
+            <Border Grid.Column="1" Grid.Row="1"  Margin="5,5,5,0" BorderThickness="0.5" BorderBrush="Gray" x:Name="form">
                 <Grid Grid.Column="1" Grid.Row="1" Margin="5" >
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="29"/>
-                    <RowDefinition Height="29"/>
-                    <RowDefinition Height="29"/>
-                    <RowDefinition Height="29"/>
-                    <RowDefinition Height="29"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="170"/>
-                    <RowDefinition Height="40"/>
-                </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="29"/>
+                        <RowDefinition Height="29"/>
+                        <RowDefinition Height="29"/>
+                        <RowDefinition Height="29"/>
+                        <RowDefinition Height="29"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="135"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label Content="Ultima Modificacion:"   HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Center" Height="26" Margin="0,2" Width="115"/>
-                <Label Content="Nombre Completo:"       HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Center" Height="26" Margin="0,2" Width="115"/>
-                <Label Content="Usuario:"               HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Center" Height="26" Margin="0,2" Width="55"/>
-                <Label Content="Contraseña:"            HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Center" Height="26" Margin="0,2" Width="74"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="135"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Ultima Modificacion:"   HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Center" Height="26" Margin="0,2" Width="115"/>
+                    <Label Content="Nombre Completo:"       HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Center" Height="26" Margin="0,2" Width="115"/>
+                    <Label Content="Usuario:"               HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Center" Height="26" Margin="0,2" Width="55"/>
+                    <Label Content="Contraseña:"            HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Center" Height="26" Margin="0,2" Width="74"/>
 
-                <TextBox        Name ="tb_lastModif"    Width="200"  HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18" IsReadOnly="True" IsEnabled="False"/>
-                <TextBox        Name ="tb_nombre"       Width="200"  HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18"  CharacterCasing="Upper"/>
-                <TextBox        Name ="tb_usuario"      Width="200"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18" />
-                <PasswordBox    Name ="tb_password"     Width="200"  HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18" />
-                <CheckBox Name="cb_activo" Content="Activo"  Width="200"  HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18" />
+                    <TextBox        Name ="tb_lastModif"    Width="200"  HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18" IsReadOnly="True" IsEnabled="False"/>
+                    <TextBox        Name ="tb_nombre"       Width="200"  HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18"  CharacterCasing="Upper"/>
+                    <TextBox        Name ="tb_usuario"      Width="200"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18" />
+                    <PasswordBox    Name ="tb_password"     Width="200"  HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="10,6,-19,6" Height="18" />
+                    <CheckBox Name="cb_activo" Content="Activo"         Width="200"  HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="80,0,0,0"  Height="18" FontWeight="SemiBold"/>
+                    <CheckBox Name="cb_admin"  Content="Administrador"  Width="200"  HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="170,0,0,0" Height="18" FontWeight="SemiBold"/>
 
-                <Label Content="OPCIONES" HorizontalAlignment="Left"  Grid.Row="5" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="14" Height="25" Width="78"/>
+                    <Label Content="OPCIONES" HorizontalAlignment="Left"  Grid.Row="5" Grid.Column="0" FontWeight="SemiBold" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="14" Height="25" Width="78"/>
 
-                <Border BorderBrush="LightGray" BorderThickness="1" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Height="130" Width="250"  Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Background="White">
-                    <StackPanel Background="White"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5" >
-                        <CheckBox Name="cb_ventas"      Content="Ventas"        HorizontalAlignment="Left" Margin="2"/>
-                        <CheckBox Name="cb_productos"   Content="Productos"     HorizontalAlignment="Left" Margin="2"/>
-                        <CheckBox Name="cb_inventario"  Content="Inventario"    HorizontalAlignment="left" Margin="2"/>
-                        <CheckBox Name="cb_factura"     Content="Factura"       HorizontalAlignment="left" Margin="2"/>
-                        <CheckBox Name="cb_corte"       Content="Corte"         HorizontalAlignment="left" Margin="2"/>
-                        <CheckBox Name="cb_reporte"     Content="Reporte"       HorizontalAlignment="left" Margin="2"/>
-                    </StackPanel>
+                    <Border Name="bd_opciones" BorderBrush="LightGray" BorderThickness="1" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Height="210" Width="250"  Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Background="White">
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="*"/> 
+                            </Grid.RowDefinitions>
+
+                            <CheckBox Name="cb_ventas"      Grid.Row="0" Grid.Column="1" Content="Ventas"        HorizontalAlignment="Left" Margin="2" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <CheckBox Name="cb_productos"   Grid.Row="1" Grid.Column="1" Content="Productos"     HorizontalAlignment="Left" Margin="2" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <CheckBox Name="cb_inventario"  Grid.Row="2" Grid.Column="1" Content="Inventario"    HorizontalAlignment="left" Margin="2" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <CheckBox Name="cb_factura"     Grid.Row="3" Grid.Column="1" Content="Factura"       HorizontalAlignment="left" Margin="2" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <CheckBox Name="cb_cuentas"     Grid.Row="4" Grid.Column="1" Content="Cuentas"       HorizontalAlignment="left" Margin="2" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <CheckBox Name="cb_gastos"      Grid.Row="5" Grid.Column="1" Content="Gastos"        HorizontalAlignment="left" Margin="2" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <CheckBox Name="cb_reporte"     Grid.Row="6" Grid.Column="1" Content="Reporte"       HorizontalAlignment="left" Margin="2" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <CheckBox Name="cb_corte"       Grid.Row="7" Grid.Column="1" Content="Corte"         HorizontalAlignment="left" Margin="2" FontWeight="SemiBold"/>
+
+                            <Image Grid.Row="0" Source="/Bloquera_TF;component/Imagenes/ventas.png"      HorizontalAlignment="Center" Margin="2"/>
+                            <Image Grid.Row="1" Source="/Bloquera_TF;component/Imagenes/inventario.png"  HorizontalAlignment="Center" Margin="2"/>
+                            <Image Grid.Row="2" Source="/Bloquera_TF;component/Imagenes/trolley.png"     HorizontalAlignment="Center" Margin="2"/>
+                            <Image Grid.Row="3" Source="/Bloquera_TF;component/Imagenes/bill.png"        HorizontalAlignment="Center" Margin="2"/>
+                            <Image Grid.Row="4" Source="/Bloquera_TF;component/Imagenes/cards.png"         HorizontalAlignment="Center" Margin="2"/>
+                            <Image Grid.Row="5" Source="/Bloquera_TF;component/Imagenes/check.png"      HorizontalAlignment="Center" Margin="2"/>
+                            <Image Grid.Row="6" Source="/Bloquera_TF;component/Imagenes/report.png"       HorizontalAlignment="Center" Margin="2"/>
+                            <Image Grid.Row="7" Source="/Bloquera_TF;component/Imagenes/atm.png"       HorizontalAlignment="Center" Margin="2"/>
+                            
+                        </Grid>
+                    
                 </Border>
-                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="7" Margin="10,2,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="top" Height="30" Width="307" >
-                    <Button Name="btn_Guardar" Background="White" BorderBrush="WhiteSmoke" Margin="40,0,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/TiendaSoft_WPF;component/Imagenes/save.png" Width="25" Margin="2,0,0,0"/>
-                            <Label Margin="2,0,0,0" Content="Guardar Cambios" FontWeight="SemiBold" Foreground="Gray"/>
-                        </StackPanel>
-                    </Button>
-                        <Button Name="btn_Cancelar"  Background="White" BorderBrush="WhiteSmoke" Margin="40,0,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/TiendaSoft_WPF;component/Imagenes/cancel.png" Width="25" Margin="2,0,0,0"/>
-                            <Label Margin="2,0,0,0" Content="Cancelar" FontWeight="SemiBold" Foreground="Gray"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </Grid>
+                
+                </Grid>
             </Border>
-
+            
         </Grid>
-
-
 
     </Grid>
 </Page>

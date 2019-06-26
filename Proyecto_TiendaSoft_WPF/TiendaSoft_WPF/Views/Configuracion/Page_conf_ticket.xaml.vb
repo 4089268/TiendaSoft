@@ -78,7 +78,7 @@ Class Page_conf_ticket
             Dim SqlComand = New SqlCommand
             SqlComand.CommandTimeout = 500
             SqlComand.CommandType = CommandType.StoredProcedure
-            SqlComand.CommandText = "[PDV].[Global].[sp_datos_empresa]"
+            SqlComand.CommandText = "[Global].[sp_datos_empresa]"
             SqlComand.Parameters.Clear()
             SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "OBTENER"))
 

@@ -14,20 +14,29 @@ Class Page_conf_cajeros
 
     End Sub
 
-    Sub buttons_click(sender As Object, e As RoutedEventArgs) Handles btn_regresar.Click, btn_Guardar.Click, btn_Cancelar.Click, btn_nuevo.Click
+    Sub buttons_click(sender As Object, e As RoutedEventArgs) Handles btn_regresar.Click, btn_Guardar.Click, btn_Cancelar.Click, btn_nuevo.Click, btn_modif.Click
         Select Case sender.name
             Case "btn_regresar"
-                navService.Source = New Uri("Views/Page_Configuracion.xaml", UriKind.Relative)
+                navService.Navigate(New Page_Configuracion)
+
             Case "btn_Cancelar"
                 LimpiarDatos()
                 cargarUsuario()
                 ActivarCampos(False)
+
             Case "btn_Guardar"
                 GuardarModificacionUsuario()
                 ActivarCampos(False)
+
             Case "btn_nuevo"
                 LimpiarDatos()
                 ActivarCampos(True)
+
+            Case "btn_modif"
+                If (DataGrid1.SelectedIndex <> -1) Then
+                    ActivarCampos(True)
+                End If
+
         End Select
 
     End Sub
@@ -37,7 +46,7 @@ Class Page_conf_cajeros
             Dim SqlComand = New SqlCommand
             SqlComand.CommandTimeout = 500
             SqlComand.CommandType = CommandType.StoredProcedure
-            SqlComand.CommandText = "[PDV].[Global].[Sys_ConfUsuarios]"
+            SqlComand.CommandText = "[Global].[Sys_ConfUsuarios]"
             SqlComand.Parameters.Clear()
             SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Alias", "CARGAR_USUARIOS"))
             SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cApp", strApp))
@@ -90,14 +99,15 @@ Class Page_conf_cajeros
             tb_usuario.Text = dataRow.Item("usuario")
             tb_password.Password = dataRow.Item("password")
             cb_activo.IsChecked = CBool(dataRow.Item("activo"))
+            cb_admin.IsChecked = CBool(dataRow.Item("isAdmin"))
 
             Dim opciones As String = dataRow.Item("opciones")
 
-            If (opciones.Length < 6 And opciones.Length > 0) Then
-                opciones = "000000"
+            If (opciones.Length < 8 And opciones.Length > 0) Then
+                opciones = "00000000"
             End If
 
-            If (opciones.Length < 6 And opciones.Length > 0) Then
+            If (opciones.Length < 8 And opciones.Length > 0) Then
                 For i = opciones.Length - 1 To 5
                     opciones = opciones & "0"
                 Next
@@ -107,8 +117,11 @@ Class Page_conf_cajeros
             cb_productos.IsChecked = CBool(opciones.Substring(1, 1))
             cb_inventario.IsChecked = CBool(opciones.Substring(2, 1))
             cb_factura.IsChecked = CBool(opciones.Substring(3, 1))
-            cb_corte.IsChecked = CBool(opciones.Substring(4, 1))
-            cb_reporte.IsChecked = CBool(opciones.Substring(5, 1))
+            cb_cuentas.IsChecked = CBool(opciones.Substring(4, 1))
+            cb_gastos.IsChecked = CBool(opciones.Substring(5, 1))
+            cb_reporte.IsChecked = CBool(opciones.Substring(6, 1))
+            cb_corte.IsChecked = CBool(opciones.Substring(7, 1))
+
         Catch ex As Exception
         End Try
 
@@ -122,14 +135,16 @@ Class Page_conf_cajeros
             opciones = opciones & IIf(cb_productos.IsChecked, "1", "0")
             opciones = opciones & IIf(cb_inventario.IsChecked, "1", "0")
             opciones = opciones & IIf(cb_factura.IsChecked, "1", "0")
-            opciones = opciones & IIf(cb_corte.IsChecked, "1", "0")
+            opciones = opciones & IIf(cb_cuentas.IsChecked, "1", "0")
+            opciones = opciones & IIf(cb_gastos.IsChecked, "1", "0")
             opciones = opciones & IIf(cb_reporte.IsChecked, "1", "0")
+            opciones = opciones & IIf(cb_corte.IsChecked, "1", "0")
 
             If (Mi_conexion.Conectar) Then
                 Dim SqlComand = New SqlCommand
                 SqlComand.CommandTimeout = 500
                 SqlComand.CommandType = CommandType.StoredProcedure
-                SqlComand.CommandText = "[PDV].[Global].[Sys_ConfUsuarios]"
+                SqlComand.CommandText = "[Global].[Sys_ConfUsuarios]"
                 SqlComand.Parameters.Clear()
 
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cApp", strApp))
@@ -146,6 +161,7 @@ Class Page_conf_cajeros
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@password", tb_password.Password))
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@opcinones", opciones))
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@activo", cb_activo.IsChecked))
+                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@admin", cb_admin.IsChecked))
 
                 SqlComand.Connection = Mi_conexion.conexion
                 Dim reader As SqlDataReader = SqlComand.ExecuteReader()
@@ -183,6 +199,8 @@ Class Page_conf_cajeros
         cb_productos.IsChecked = False
         cb_reporte.IsChecked = False
         cb_ventas.IsChecked = False
+        cb_gastos.IsChecked = False
+        cb_cuentas.IsChecked = False
 
     End Sub
 
@@ -201,15 +219,31 @@ Class Page_conf_cajeros
     Private Sub ActivarCampos(val As Boolean)
         If val Then
             form.Background = Brushes.White
+            bd_opciones.Background = Brushes.White
         Else
             form.Background = Brushes.WhiteSmoke
+            bd_opciones.Background = Brushes.WhiteSmoke
         End If
 
         DataGrid1.IsEnabled = Not val
         btn_nuevo.IsEnabled = Not val
+        btn_modif.IsEnabled = Not val
 
         btn_Guardar.IsEnabled = val
         btn_Cancelar.IsEnabled = val
+
+        If (val) Then
+            btn_Guardar.Visibility = Windows.Visibility.Visible
+            btn_Cancelar.Visibility = Windows.Visibility.Visible
+            btn_nuevo.Visibility = Windows.Visibility.Collapsed
+            btn_modif.Visibility = Windows.Visibility.Collapsed
+        Else
+            btn_Guardar.Visibility = Windows.Visibility.Collapsed
+            btn_Cancelar.Visibility = Windows.Visibility.Collapsed
+            btn_nuevo.Visibility = Windows.Visibility.Visible
+            btn_modif.Visibility = Windows.Visibility.Visible
+        End If
+        
 
         tb_nombre.IsEnabled = val
         tb_usuario.IsEnabled = val
@@ -222,6 +256,9 @@ Class Page_conf_cajeros
         cb_productos.IsEnabled = val
         cb_reporte.IsEnabled = val
         cb_ventas.IsEnabled = val
+        cb_admin.IsEnabled = val
+        cb_gastos.IsEnabled = val
+        cb_cuentas.IsEnabled = val
 
     End Sub
 
