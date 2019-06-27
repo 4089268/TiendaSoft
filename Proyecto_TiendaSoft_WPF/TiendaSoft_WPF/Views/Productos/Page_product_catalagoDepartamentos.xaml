@@ -11,7 +11,7 @@
             <DataGridTemplateColumn.CellTemplate >
                 <DataTemplate >
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Bloquera_TF;component/Imagenes/packing.png" Height="20"  HorizontalAlignment="Center"/>
+                        <Image Source="/TIENDASOFT;component/Imagenes/packing.png" Height="20"  HorizontalAlignment="Center"/>
                         <Label Content="{Binding descripcion}"  FontWeight="SemiBold"/>
                     </StackPanel>
                 </DataTemplate>
@@ -36,27 +36,27 @@
 
             <Button x:Name="btn_nuevo" Background="White" BorderBrush="White" Margin="20,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/new.png" Width="25" Margin="2,0,0,0"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/new.png" Width="25" Margin="2,0,0,0"/>
                     <Label Margin="2,0,0,0" Content="Nuevo" FontWeight="SemiBold" Foreground="Gray"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="btn_modif" Background="White" BorderBrush="White" Margin="20,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/modif.png" Width="25" Margin="2,0,0,0"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/modif.png" Width="25" Margin="2,0,0,0"/>
                     <Label Margin="2,0,0,0" Content="Modificar" FontWeight="SemiBold" Foreground="Gray"/>
                 </StackPanel>
             </Button>
 
             <Button x:Name="btn_Guardar" Background="White" BorderBrush="White" Margin="40,0,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/save.png" Width="25" Margin="2,0,0,0"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/save.png" Width="25" Margin="2,0,0,0"/>
                     <Label Margin="2,0,0,0" Content="Guardar Cambios" FontWeight="SemiBold" Foreground="Gray"/>
                 </StackPanel>
             </Button>
             <Button x:Name="btn_Cancelar"  Background="White" BorderBrush="White" Margin="40,0,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/cancel.png" Width="25" Margin="2,0,0,0"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/cancel.png" Width="25" Margin="2,0,0,0"/>
                     <Label Margin="2,0,0,0" Content="Cancelar" FontWeight="SemiBold" Foreground="Gray"/>
                 </StackPanel>
             </Button>

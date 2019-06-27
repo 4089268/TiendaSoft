@@ -20,28 +20,28 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center">
             <Button Name="btn_catalagoP"  Width="130" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/box.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/box.png" Height="20"/>
                     <Label Content="PRODUCTOS" FontWeight="Medium"/>                    
                 </StackPanel>
             </Button>
             
             <Button Name="btn_deapartamento" Width="140" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/group.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/group.png" Height="20"/>
                     <Label Content="DEPARTAMENTOS" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
 
             <Button Name="btn_promocion" Width="130" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0" IsEnabled="False">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/start.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/start.png" Height="20"/>
                     <Label Content="PROMOCIONES" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
 
             <Button Name="btn_impportar" Width="100" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0" IsEnabled="False">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/database.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/database.png" Height="20"/>
                     <Label Content="IMPORTAR" FontWeight="Medium"/>
                 </StackPanel>
             </Button>

@@ -22,31 +22,31 @@
             
             <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="10,4,4,4"   Padding="5,0"   x:Name="btn_busqueda">
                 <StackPanel  Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/search2.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/search2.png" Height="20"/>
                     <Label Content="F1-Buscar Producto"/>
                 </StackPanel>
             </Button>
             <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4"          Padding="5,0"   x:Name="btn_imprimir" Width="150">
                 <StackPanel  Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/printer.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/printer.png" Height="20"/>
                     <Label Content="Imprimir"/>
                 </StackPanel>
             </Button>
             <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4"          Padding="5,0"   x:Name="btn_entrada">
                 <StackPanel  Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/in.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/in.png" Height="20"/>
                     <Label Content="F8-Entradas de Efectivos"/>
                 </StackPanel>
             </Button>
             <Button   VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4"          Padding="5,0"   x:Name="btn_salida">
                 <StackPanel  Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/out.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/out.png" Height="20"/>
                     <Label Content="F7-Salidas de Efectivos"/>
                 </StackPanel>
             </Button>
             <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4"          Padding="5,0" x:Name="btn_borrar">
                 <StackPanel  Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/eraser.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/eraser.png" Height="20"/>
                     <Label Content="F6-Borrar Articulo"/>
                 </StackPanel>
             </Button>

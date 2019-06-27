@@ -21,40 +21,40 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="20,0,0,0">
             <Button Name="btn_agregarInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_Agregar.png" Width="22"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_Agregar.png" Width="22"/>
                     <Label Content="Agregar Inventario" FontSize="12" FontWeight="Medium"/>
                 </StackPanel>
             </Button>           
             <Button Name="btn_remplazarInv"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_ajustar.png" Width="22"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_ajustar.png" Width="22"/>
                     <Label Content="Ajustar Inventario" FontSize="12" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
                
             <Button Name="btn_bajosInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_bajos.png" Width="22"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_bajos.png" Width="22"/>
                     <Label Content="Productos Bajos en Inventario" FontSize="12" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
             
             <Button Name="btn_ReporteInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_reporte.png" Width="22"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_reporte.png" Width="22"/>
                     <Label Content="Reporte de Inventario" FontSize="12" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
             
             <Button Name="btn_MovimientoInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_movimientos.png" Width="22"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_movimientos.png" Width="22"/>
                     <Label Content="Movimientos" FontSize="12" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
         </StackPanel>
         
-        <Frame  Name="navigationframe" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="/Bloquera_TF;component/Views/Inventario/Page_inv_agregar.xaml" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="5,20,5,0"/>             
+        <Frame  Name="navigationframe" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="/TIENDASOFT;component/Views/Inventario/Page_inv_agregar.xaml" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="5,20,5,0"/>             
                 
     </Grid>
     

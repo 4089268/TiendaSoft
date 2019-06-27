@@ -37,7 +37,7 @@
             <Border Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Gray" Margin="20,4,4,4">
                 <StackPanel Orientation="Horizontal">
                     <Button Name="btn_search" Background="Transparent">
-                        <Image Source="/Bloquera_TF;component/Imagenes/search.png"  Width="30" Height="20"/>
+                        <Image Source="/TIENDASOFT;component/Imagenes/search.png"  Width="30" Height="20"/>
                     </Button>
                     
                     <TextBox  BorderThickness="0" Name="tb_search" Width="340" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
@@ -49,7 +49,7 @@
 
             <Button Name="btn_agregar" Width="150" Height="30" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Background="#e0e0e0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/new.png" Height="20"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/new.png" Height="20"/>
                     <Label Content="Agregar" FontSize="12" FontWeight="Medium" Margin="10,0,0,0"/>
                 </StackPanel>
             </Button>

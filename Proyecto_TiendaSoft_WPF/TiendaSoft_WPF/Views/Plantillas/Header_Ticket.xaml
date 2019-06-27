@@ -11,7 +11,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
-        <Image Source="/Bloquera_TF;component/Imagenes/cash_register.png"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0"/>
+        <Image Source="/TIENDASOFT;component/Imagenes/cash_register.png"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0"/>
         <Label Content="Punto de Venta" Foreground="Black"  Grid.Column="1" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium"/>
         <Label Content="NERUS" Foreground="Black"  Grid.Column="1" HorizontalAlignment="Center" FontSize="15"  Margin="0,45,0,0"/>
         

@@ -11,7 +11,7 @@
             <DataGridTemplateColumn.CellTemplate >
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Name="image" Source="/Bloquera_TF;component/Imagenes/creditCard1.png" Height="20"  HorizontalAlignment="Center"/>
+                        <Image Name="image" Source="/TIENDASOFT;component/Imagenes/creditCard1.png" Height="20"  HorizontalAlignment="Center"/>
                         <Label Content="{Binding nombre}" FontWeight="SemiBold"/>
                     </StackPanel>
                 </DataTemplate>
@@ -33,14 +33,14 @@
             
             <Button Name="btn_agregarInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_Agregar.png" Width="22"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_Agregar.png" Width="22"/>
                     <Label Content="Agregar Gastos" FontSize="12" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
             
             <Button Name="btn_remplazarInv"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/Inventario/inv_ajustar.png" Width="22"/>
+                    <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_ajustar.png" Width="22"/>
                     <Label Content="Tipos de gastos" FontSize="12" FontWeight="Medium"/>
                 </StackPanel>
             </Button>

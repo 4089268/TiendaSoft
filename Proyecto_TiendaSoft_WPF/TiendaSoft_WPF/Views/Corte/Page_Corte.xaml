@@ -41,14 +41,14 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" Background="WhiteSmoke">
             <Button Name="btn_Cajero"   VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="20,4,4,4"   Padding="5,0" Width="190">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/scissors_blue.png" Width="20" />
+                    <Image Source="/TIENDASOFT;component/Imagenes/scissors_blue.png" Width="20" />
                     <Label Content="Corte del Turno Actual"   FontSize="14" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
             
             <Button Name="btn_Dia" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4"   Padding="5,0" Width="190">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Bloquera_TF;component/Imagenes/scissors_red.png" Width="20" />
+                    <Image Source="/TIENDASOFT;component/Imagenes/scissors_red.png" Width="20" />
                     <Label Content="Hacer Corte del Dia" FontSize="14" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
@@ -67,13 +67,13 @@
                     <StackPanel Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,5">
                             <Button Width="120" Height="28" Margin="10" Name="btn_cerrarTurno">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Bloquera_TF;component/Imagenes/lock.png" VerticalAlignment="Bottom" Height="22"/>
+                                    <Image Source="/TIENDASOFT;component/Imagenes/lock.png" VerticalAlignment="Bottom" Height="22"/>
                                     <Label Content="Cerrar Turno"/>
                                 </StackPanel>
                             </Button>
                             <Button Width="120" Height="28" Margin="10" Name="btn_imprimir">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/printer.png" VerticalAlignment="Bottom" Height="22"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/printer.png" VerticalAlignment="Bottom" Height="22"/>
                                 <Label Content="Imprimir"/>
                             </StackPanel>                        
                         </Button>                    
@@ -95,7 +95,7 @@
 
                         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/cashIcon.png" Opacity="0.8" Width="40"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/cashIcon.png" Opacity="0.8" Width="40"/>
                                 <Label Content="Ventas Totales: "  Style="{StaticResource HeaderLabel}"/>                                
                             </StackPanel>
                             
@@ -104,7 +104,7 @@
                     
                         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/graph.png" Opacity="0.8" Width="40"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/graph.png" Opacity="0.8" Width="40"/>
                                 <Label Content="Ganancias Totales: "  Style="{StaticResource HeaderLabel}"/>
                             </StackPanel>
 
@@ -113,7 +113,7 @@
 
                         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Margin="15,10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/calculator.png" Opacity="0.8" Width="40"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/calculator.png" Opacity="0.8" Width="40"/>
                                 <Label Content="Dinero en Caja: "  Style="{StaticResource HeaderLabel}" Name="cabecera1"/>
                             </StackPanel>
                             
@@ -167,7 +167,7 @@
                     
                         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="15,10" >
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/blackCash.png" Opacity="0.8" Width="40"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/blackCash.png" Opacity="0.8" Width="40"/>
                                 <Label Content="Tipos De Pago: "  Style="{StaticResource HeaderLabel}"/>
                             </StackPanel>
 
@@ -201,7 +201,7 @@
                     
                         <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="15,10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/inMoney.png" Opacity="0.8" Width="40"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/inMoney.png" Opacity="0.8" Width="40"/>
                                 <Label Content="Entradas de Efectivo: "  Style="{StaticResource HeaderLabel}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -226,7 +226,7 @@
                     
                         <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical" Margin="15,10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/outMoney.png" Opacity="0.8" Width="40"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/outMoney.png" Opacity="0.8" Width="40"/>
                                 <Label Content="Salidas de Efectivo: "  Style="{StaticResource HeaderLabel}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -249,7 +249,7 @@
 
                         <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Orientation="Vertical" Margin="15,10" >
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/shoppingCar.png" Opacity="0.8" Width="40"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/shoppingCar.png" Opacity="0.8" Width="40"/>
                                 <Label Content="Ventas: "  Style="{StaticResource HeaderLabel}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">

@@ -4,9 +4,9 @@ Imports System.Data
 Public Class Cuentas_BuscarCuentas
     Dim DataAdapter As SqlDataAdapter
 
-    Dim fcobrar As Bloquera_TF.Frm_Cobrar
+    Dim fcobrar As TIENDASOFT.Frm_Cobrar
 
-    Public Sub New(f As Bloquera_TF.Frm_Cobrar)
+    Public Sub New(f As TIENDASOFT.Frm_Cobrar)
         InitializeComponent()
         Me.fcobrar = f
     End Sub

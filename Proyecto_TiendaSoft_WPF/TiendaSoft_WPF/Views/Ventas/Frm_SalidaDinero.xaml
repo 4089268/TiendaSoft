@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Salida de Dinero" Width="400" Height="210" BorderThickness="0" UseLayoutRounding="False" ResizeMode="NoResize" ShowInTaskbar="True" Background="WhiteSmoke" WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/Bloquera_TF;component/Imagenes/cash_register.ico">
+    Title="Salida de Dinero" Width="400" Height="210" BorderThickness="0" UseLayoutRounding="False" ResizeMode="NoResize" ShowInTaskbar="True" Background="WhiteSmoke" WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/TIENDASOFT;component/Imagenes/cash_register.ico">
     <Border BorderBrush="#424242" BorderThickness="2">
         <Grid x:Name="rootGrid">
             <Grid.RowDefinitions>
@@ -31,14 +31,14 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,30,0,10">
                     <Button x:Name="btn_aceptar"  Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,5" Grid.Row="1">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Bloquera_TF;component/Imagenes/acept.png" Height="20"/>
+                            <Image Source="/TIENDASOFT;component/Imagenes/acept.png" Height="20"/>
                             <Label Content="Aceptar" />
                         </StackPanel>
                     </Button>
 
                     <Button x:Name="btn_cancelar"  Width="100" Height="32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,5" Grid.Row="1" >
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Bloquera_TF;component/Imagenes/cancel.png"  Height="20" Margin="0,0,5,0"/>
+                            <Image Source="/TIENDASOFT;component/Imagenes/cancel.png"  Height="20" Margin="0,0,5,0"/>
                             <Label Content="Cancelar" />
                         </StackPanel>
                     </Button>

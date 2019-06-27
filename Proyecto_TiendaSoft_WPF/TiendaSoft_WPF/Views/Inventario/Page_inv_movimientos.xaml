@@ -20,7 +20,7 @@
 
         <Button Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,2" Width="90" Height="25" Name="btn_buscar">
             <StackPanel Orientation="Horizontal">
-                <Image Source="/Bloquera_TF;component/Imagenes/search.png"  Width="15"/>
+                <Image Source="/TIENDASOFT;component/Imagenes/search.png"  Width="15"/>
                 <Label Content="BUSCAR" FontWeight="Medium" FontSize="10"/>
             </StackPanel>
         </Button>

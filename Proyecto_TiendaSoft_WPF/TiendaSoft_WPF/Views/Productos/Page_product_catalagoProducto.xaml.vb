@@ -9,7 +9,7 @@ Class Page_product_catalagoProducto
     Dim tablaDatos As DataTable
     Private _p1 As String = ""
     Property xmlProducto As String = ""
-
+    Dim us As New CultureInfo("es-MX")
 #Region "****CONTRUCTORES***"
     Public Sub New()
         InitializeComponent()
@@ -26,15 +26,15 @@ Class Page_product_catalagoProducto
         cargarUI()
         cargarDatos()
 
-        Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
-        Thread.CurrentThread.CurrentUICulture = New CultureInfo("en-US")
+        Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
+        Thread.CurrentThread.CurrentUICulture = New CultureInfo("es-MX")
 
         habilitarCampos(False)
         tb_existencia.IsEnabled = False
         tb_minimo.IsEnabled = False
 
         Try
-            DataGrid1.SelectedIndex = 0
+            DataGrid1.SelectedIndex = -1
         Catch ex As Exception
         End Try
 
@@ -57,11 +57,13 @@ Class Page_product_catalagoProducto
         DataGrid1.RowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.Collapsed
 
         DataGrid1.Columns.Insert(0, Resources("img"))
-        DataGrid1.Columns(0).Width = DataGrid1.ActualWidth - 8
+        DataGrid1.Columns(0).Width = DataGrid1.ActualWidth - 12
     End Sub
 
     Private Sub cargarDatos()
         If (Mi_conexion.Conectar) Then
+
+            '******* CARGAR PROD *******
             Dim SqlComand = New SqlCommand
             SqlComand.CommandTimeout = 500
             SqlComand.CommandType = CommandType.StoredProcedure
@@ -72,13 +74,13 @@ Class Page_product_catalagoProducto
             SqlComand.Connection = Mi_conexion.conexion
             Dim DataAdapter As New SqlDataAdapter(SqlComand)
             Dim dataSet As New DataSet
-
             DataAdapter.Fill(dataSet, "Resultado")
-
             tablaDatos = dataSet.Tables(0)
+
+
             DataGrid1.ItemsSource = tablaDatos.DefaultView
 
-            'cargar Catalagos
+            '******* CARGAR CATALAGOS *******
             Dim SqlComand2 = New SqlCommand
             SqlComand2.CommandTimeout = 500
             SqlComand2.CommandType = CommandType.StoredProcedure
@@ -92,11 +94,7 @@ Class Page_product_catalagoProducto
             DataAdapter2.Fill(dataSet2, "Resultado")
 
             cb_departa.ItemsSource = dataSet2.Tables(0).DefaultView
-
             cb_departa.SelectedIndex = 0
-
-            'cargar Catalago tipoProductos
-
 
         Else
             MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
@@ -134,9 +132,6 @@ Class Page_product_catalagoProducto
         tipo3.IsEnabled = val
         btn_modificarpaquete.IsEnabled = val
 
-        'tb_existencia.IsEnabled = val
-        'tb_minimo.IsEnabled = val
-
         If (val) Then
             btn_Guardar.Visibility = Windows.Visibility.Visible
             btn_Cancelar.Visibility = Windows.Visibility.Visible
@@ -155,55 +150,9 @@ Class Page_product_catalagoProducto
 
     End Sub
 
-    Private Sub button_click(sender As Object, e As RoutedEventArgs) Handles btn_Cancelar.Click, btn_nuevo.Click, btn_modif.Click, btn_Guardar.Click, btn_cargarImagen.Click, btn_modificarpaquete.Click
-        Select Case sender.name
-            Case "btn_nuevo"
-                LimpiarCampos()
-                habilitarCampos(True)
-            Case "btn_modif"
-                habilitarCampos(True)
-            Case "btn_Cancelar"
-                cargarProducto()
-                habilitarCampos(False)
-            Case "btn_Guardar"
-                GuardarCambios()
-                habilitarCampos(False)
-            Case "btn_cargarImagen"
-                cargarArchivoImagen()
-            Case "btn_modificarpaquete"
-
-                Dim form As New modal_EditarPaquete(Me)
-                form.Owner = Me.Parent
-                form.xml = xmlProducto
-                Dim res As Boolean = form.ShowDialog()
-
-        End Select
-
-    End Sub
-
-    Private Sub DataGrid1_selection(sender As Object, e As RoutedEventArgs) Handles DataGrid1.SelectionChanged
-        cargarProducto()
-    End Sub
-
-    'valida que unicamente se tecleen numeros
-    Private Sub validar_numbers(sender As Object, e As TextCompositionEventArgs) Handles tb_precioVent.PreviewTextInput, tb_precioComp.PreviewTextInput, tb_codigo.PreviewTextInput
-        Try
-            Dim regex As System.Text.RegularExpressions.Regex
-
-            If (sender.name = "tb_codigo") Then
-                regex = New System.Text.RegularExpressions.Regex("[^0-9]+")
-            Else
-                regex = New System.Text.RegularExpressions.Regex("([^0-9,]+).([^0-9]{2}+)")
-            End If
-            e.Handled = regex.IsMatch(e.Text)
-        Catch ex As Exception
-        End Try
-
-    End Sub
-
     Private Sub cargarProducto()
         Try
-            Dim us As New CultureInfo("en-US")
+            Dim us As New CultureInfo("es-MX")
             Dim dataRow As DataRow = DataGrid1.SelectedItem.Row
 
             tb_codigo.Text = dataRow.Item("codigo")
@@ -222,7 +171,7 @@ Class Page_product_catalagoProducto
             cb_granel.IsChecked = CBool(dataRow.Item("agranel"))
 
             Select Case dataRow.Item("tipoProducto")
-                Case "0"
+                Case -1 To 0
                     tipo1.IsChecked = True
                 Case "1"
                     tipo2.IsChecked = True
@@ -231,28 +180,98 @@ Class Page_product_catalagoProducto
                     cargarXml(dataRow.Item("codigo"))
             End Select
 
-
-            tb_precioVent.Text = IIf(dataRow.Item("precio_v").ToString = "", "0", CDec(dataRow.Item("precio_v")).ToString("####0.00", us))
+            tb_precioVent.Text = IIf(dataRow.Item("precio_v").ToString = "", "0", CDec(dataRow.Item("precio_v")).ToString("####0.00"))
             Try
-                tb_precioComp.Text = CDec(dataRow.Item("precio_c")).ToString("####0.00", us)
+                tb_precioComp.Text = CDec(dataRow.Item("precio_c")).ToString("####0.00")
             Catch ex As Exception
                 tb_precioComp.Text = "0"
             End Try
 
             cargar_imagen(dataRow.Item("codigo"))
 
-            
-
         Catch ex As Exception
         End Try
 
-
     End Sub
 
-    Private Sub inventario_Checked() Handles cb_invent.Checked, cb_invent.Unchecked
+    Private Sub cargarXml(codigo As Int32)
+        If (Mi_conexion.Conectar) Then
+            Dim SqlComand = New SqlCommand
+            SqlComand.CommandTimeout = 500
+            SqlComand.CommandType = CommandType.StoredProcedure
+            SqlComand.CommandText = "[Global].[Sys_Productos]"
+            SqlComand.Parameters.Clear()
+            SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "OBTENERPAQUETE"))
+            SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Codigo", codigo))
 
-        tb_existencia.IsEnabled = IIf(cb_invent.IsChecked And cb_invent.IsEnabled, True, False)
-        tb_minimo.IsEnabled = IIf(cb_invent.IsChecked And cb_invent.IsEnabled, True, False)
+            SqlComand.Connection = Mi_conexion.conexion
+            Dim DataAdapter As New SqlDataAdapter(SqlComand)
+            Dim dataSet As New DataSet
+
+            DataAdapter.Fill(dataSet, "Resultado")
+            xmlProducto = CType(dataSet.Tables(0).Rows(0).Item(0), String)
+
+        Else
+            MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        End If
+    End Sub
+
+    Private Sub cargar_imagen(codigo As String)
+
+        Try
+
+            If (Mi_conexion.Conectar()) Then
+                Dim SqlComand = New SqlCommand
+                SqlComand.CommandTimeout = 500
+                SqlComand.CommandType = CommandType.StoredProcedure
+                SqlComand.CommandText = "[Global].[sys_cargarImagen]"
+                SqlComand.Parameters.Clear()
+                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@codigo", codigo))
+
+                SqlComand.Connection = Mi_conexion.conexion
+
+                Dim DataAdapter As New SqlDataAdapter(SqlComand)
+                Dim dataSet As New DataSet
+
+                DataAdapter.Fill(dataSet, "Resultado")
+
+                ''CargarImagen
+                Try
+                    Dim bitmapImage As New BitmapImage
+                    Dim bytes As Byte() = CType(dataSet.Tables(0).Rows(0).Item("foto1"), Byte())
+                    Dim ms As New System.IO.MemoryStream(bytes)
+                    bitmapImage.BeginInit()
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad
+                    bitmapImage.StreamSource = ms
+                    bitmapImage.EndInit()
+                    img1.Source = bitmapImage
+
+                Catch ex As Exception
+                    img1.Source = New BitmapImage
+                End Try
+
+            End If
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub cargarArchivoImagen()
+        Dim openFile As New System.Windows.Forms.OpenFileDialog
+        Dim bitmapImg As New BitmapImage
+        openFile.Title = "Cargar Imagen"
+        openFile.Filter = "Todos(*.*)|*.*|Imagenes|*.jpg;*.gif;*.png;*.bmp"
+        If (openFile.ShowDialog()) Then
+            Try
+                bitmapImg.BeginInit()
+                bitmapImg.UriSource = New Uri(openFile.FileName)
+                bitmapImg.EndInit()
+                img1.Source = bitmapImg
+            Catch ex As Exception
+                MessageBox.Show("No se cargo la imagen", "", MessageBoxButton.OK, MessageBoxImage.Information)
+            End Try
+
+        End If
+
     End Sub
 
     Private Sub LimpiarCampos()
@@ -271,7 +290,9 @@ Class Page_product_catalagoProducto
         cb_invent.IsChecked = False
         cb_unidad.IsChecked = False
         cb_granel.IsChecked = False
-        img1.Source = Nothing
+        tipo1.IsChecked = False
+        tipo2.IsChecked = False
+        tipo3.IsChecked = False
 
         xmlProducto = ""
         img1.Source = Nothing
@@ -279,9 +300,20 @@ Class Page_product_catalagoProducto
     End Sub
 
     Private Sub GuardarCambios()
-        Dim us As New CultureInfo("en-US")
+        Dim ok As Boolean = True
+        If (tb_codigo.Text.Length <= 0 And tb_descripcion.Text.Length <= 0 And tb_precioComp.Text.Length <= 0 And tb_precioVent.Text.Length <= 0) Then
+            ok = False
+        End If
 
-        If (tb_codigo.Text <> "" And tb_descripcion.Text <> "" And tb_precioComp.Text <> "" And tb_precioVent.Text <> "") Then
+        If (cb_unidad.IsChecked = False And cb_granel.IsChecked = False) Then
+            ok = False
+        End If
+
+        If (tipo1.IsChecked = False And tipo2.IsChecked = False And tipo3.IsChecked = False) Then
+            ok = False
+        End If
+
+        If (ok) Then
             If (Mi_conexion.Conectar) Then
                 Dim SqlComand = New SqlCommand
                 SqlComand.CommandTimeout = 500
@@ -307,7 +339,7 @@ Class Page_product_catalagoProducto
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@idDepartamento", CInt(cb_departa.SelectedValue)))
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xmlProducto", xmlProducto))
 
-                Dim tipoProducto As Int16 = -1
+                Dim tipoProducto As Int16 = 0
 
                 If tipo1.IsChecked Then
                     tipoProducto = 0
@@ -355,22 +387,58 @@ Class Page_product_catalagoProducto
         End If
     End Sub
 
-    Private Sub cargarArchivoImagen()
-        Dim openFile As New System.Windows.Forms.OpenFileDialog
-        Dim bitmapImg As New BitmapImage
-        openFile.Title = "Cargar Imagen"
-        openFile.Filter = "Todos(*.*)|*.*|Imagenes|*.jpg;*.gif;*.png;*.bmp"
-        If (openFile.ShowDialog()) Then
-            Try
-                bitmapImg.BeginInit()
-                bitmapImg.UriSource = New Uri(openFile.FileName)
-                bitmapImg.EndInit()
-                img1.Source = bitmapImg
-            Catch ex As Exception
-                MessageBox.Show("No se cargo la imagen", "", MessageBoxButton.OK, MessageBoxImage.Information)
-            End Try
+    '************ EVENTOS UI ************
+    Private Sub DataGrid1_selection(sender As Object, e As RoutedEventArgs) Handles DataGrid1.SelectionChanged
+        cargarProducto()
+    End Sub
 
-        End If
+    Private Sub button_click(sender As Object, e As RoutedEventArgs) Handles btn_Cancelar.Click, btn_nuevo.Click, btn_modif.Click, btn_Guardar.Click, btn_cargarImagen.Click, btn_modificarpaquete.Click
+        Select Case sender.name
+            Case "btn_nuevo"
+                LimpiarCampos()
+                habilitarCampos(True)
+            Case "btn_modif"
+                habilitarCampos(True)
+            Case "btn_Cancelar"
+                cargarProducto()
+                habilitarCampos(False)
+            Case "btn_Guardar"
+                GuardarCambios()
+                habilitarCampos(False)
+            Case "btn_cargarImagen"
+                cargarArchivoImagen()
+            Case "btn_modificarpaquete"
+
+                Dim form As New modal_EditarPaquete(Me)
+                form.Owner = Me.Parent
+                form.xml = xmlProducto
+                Dim res As Boolean = form.ShowDialog()
+        End Select
+    End Sub
+
+    Private Sub validar_numbers(sender As Object, e As TextCompositionEventArgs) Handles tb_precioVent.PreviewTextInput, tb_precioComp.PreviewTextInput, tb_codigo.PreviewTextInput
+        Try
+            Dim regex As System.Text.RegularExpressions.Regex
+
+            If (sender.name = "tb_codigo") Then
+                regex = New System.Text.RegularExpressions.Regex("[^0-9]+")
+            Else
+                regex = New System.Text.RegularExpressions.Regex("([^0-9,]+).([^0-9]{2}+)")
+            End If
+            e.Handled = regex.IsMatch(e.Text)
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub inventario_Checked() Handles cb_invent.Checked, cb_invent.Unchecked, cb_invent.LayoutUpdated
+
+        tb_existencia.IsEnabled = IIf(cb_invent.IsChecked And cb_invent.IsEnabled, True, False)
+        tb_existencia.Visibility = IIf(cb_invent.IsChecked, Visibility.Visible, Visibility.Collapsed)
+        lb_invt_hay.Visibility = IIf(cb_invent.IsChecked, Visibility.Visible, Visibility.Collapsed)
+
+        tb_minimo.IsEnabled = IIf(cb_invent.IsChecked And cb_invent.IsEnabled, True, False)
+        tb_minimo.Visibility = IIf(cb_invent.IsChecked, Visibility.Visible, Visibility.Collapsed)
+        lb_invt_min.Visibility = IIf(cb_invent.IsChecked, Visibility.Visible, Visibility.Collapsed)
 
     End Sub
 
@@ -423,64 +491,14 @@ Class Page_product_catalagoProducto
 
     End Sub
 
-    Private Sub cargarXml(codigo As Int32)
-        If (Mi_conexion.Conectar) Then
-            Dim SqlComand = New SqlCommand
-            SqlComand.CommandTimeout = 500
-            SqlComand.CommandType = CommandType.StoredProcedure
-            SqlComand.CommandText = "[Global].[Sys_Productos]"
-            SqlComand.Parameters.Clear()
-            SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "OBTENERPAQUETE"))
-            SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Codigo", codigo))
-
-            SqlComand.Connection = Mi_conexion.conexion
-            Dim DataAdapter As New SqlDataAdapter(SqlComand)
-            Dim dataSet As New DataSet
-
-            DataAdapter.Fill(dataSet, "Resultado")
-            xmlProducto = CType(dataSet.Tables(0).Rows(0).Item(0), String)
-
-        Else
-            MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-        End If
+    Private Sub Image_Loaded(sender As Object, e As RoutedEventArgs)
+        Select Case (sender.tag)
+            Case -1 To 0
+                CType(sender, Image).Source = FindResource("ImageIcon0")
+            Case 1
+                CType(sender, Image).Source = FindResource("ImageIcon1")
+            Case 2
+                CType(sender, Image).Source = FindResource("ImageIcon2")
+        End Select
     End Sub
-    Private Sub cargar_imagen(codigo As String)
-
-        Try
-
-            If (Mi_conexion.Conectar()) Then
-                Dim SqlComand = New SqlCommand
-                SqlComand.CommandTimeout = 500
-                SqlComand.CommandType = CommandType.StoredProcedure
-                SqlComand.CommandText = "[Global].[sys_cargarImagen]"
-                SqlComand.Parameters.Clear()
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@codigo", codigo))
-
-                SqlComand.Connection = Mi_conexion.conexion
-
-                Dim DataAdapter As New SqlDataAdapter(SqlComand)
-                Dim dataSet As New DataSet
-
-                DataAdapter.Fill(dataSet, "Resultado")
-
-                ''CargarImagen
-                Try
-                    Dim bitmapImage As New BitmapImage
-                    Dim bytes As Byte() = CType(dataSet.Tables(0).Rows(0).Item("foto1"), Byte())
-                    Dim ms As New System.IO.MemoryStream(bytes)
-                    bitmapImage.BeginInit()
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad
-                    bitmapImage.StreamSource = ms
-                    bitmapImage.EndInit()
-                    img1.Source = bitmapImage
-
-                Catch ex As Exception
-                    img1.Source = New BitmapImage
-                End Try
-
-            End If
-        Catch ex As Exception
-        End Try
-    End Sub
-
 End Class

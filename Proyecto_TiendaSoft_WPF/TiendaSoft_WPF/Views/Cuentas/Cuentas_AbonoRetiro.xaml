@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Cuentas_AbonoRetiro"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Abonar" Height="330" Width="500" WindowStartupLocation="CenterScreen" Icon="/Bloquera_TF;component/Imagenes/bill2.png" ResizeMode="NoResize">
+    Title="Abonar" Height="330" Width="500" WindowStartupLocation="CenterScreen" Icon="/TIENDASOFT;component/Imagenes/bill2.png" ResizeMode="NoResize">
 
     <Grid Background="#404040" Margin="0" >
         <Grid.RowDefinitions>

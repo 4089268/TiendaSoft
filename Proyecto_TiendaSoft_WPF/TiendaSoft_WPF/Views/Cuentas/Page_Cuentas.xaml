@@ -11,7 +11,7 @@
             <DataGridTemplateColumn.CellTemplate >
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Name="image" Source="/Bloquera_TF;component/Imagenes/creditCard1.png" Height="20"  HorizontalAlignment="Center"/>
+                        <Image Name="image" Source="/TIENDASOFT;component/Imagenes/creditCard1.png" Height="20"  HorizontalAlignment="Center"/>
                         <Label Content="{Binding nombre}" FontWeight="SemiBold"/>
                     </StackPanel>
                 </DataTemplate>
@@ -41,7 +41,7 @@
             <DataGrid Name="DataGrid_Cuentas" Grid.Column="0" Grid.Row="1" Padding="0,0,0,35"/>
             
             <Button Name="btn_nuevo" Grid.Row="1" Margin="5" VerticalAlignment="Bottom" Width="60"  Height="28" Padding="2" Background="#00000000" BorderBrush="#cccccc">
-                <Image Source="/Bloquera_TF;component/Imagenes/new.png" Width="22"/>                
+                <Image Source="/TIENDASOFT;component/Imagenes/new.png" Width="22"/>                
             </Button>
 
             <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="10,0,10,5" BorderBrush="LightGray" BorderThickness="1">
@@ -80,31 +80,31 @@
                     <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" Orientation="Vertical" Margin="10,0" IsEnabled="True" HorizontalAlignment="Left">
                         <Button Name="btn_editar"   Grid.Row="1" Margin="5,2" VerticalAlignment="Bottom" Width="100"  Height="30" Padding="2" Background="#00000000" BorderBrush="#cccccc" MaxWidth="250">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/modif.png"/>    
+                                <Image Source="/TIENDASOFT;component/Imagenes/modif.png"/>    
                                 <Label Content="EDITAR" FontWeight="SemiBold" Margin="5,0,0,0"/>
                             </StackPanel>                            
                         </Button>
                         <Button Name="btn_guardar"  Grid.Row="1" Margin="5,2" VerticalAlignment="Bottom" Width="100"  Height="30" Padding="2" Background="#00000000" BorderBrush="#cccccc" MaxWidth="250">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/save.png"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/save.png"/>
                                 <Label Content="GUARDAR" FontWeight="SemiBold" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
                         <Button Name="btn_cancelar" Grid.Row="1" Margin="5,2" VerticalAlignment="Bottom" Width="100"  Height="30" Padding="2" Background="#00000000" BorderBrush="#cccccc" MaxWidth="250">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/exit.png"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/exit.png"/>
                                 <Label Content="CANCELAR" FontWeight="SemiBold" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
                         <Button Name="btn_abonar"   Grid.Row="1" Margin="5,2" VerticalAlignment="Bottom" Width="100"  Height="30" Padding="2" Background="#00000000" BorderBrush="#cccccc" MaxWidth="250">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/notes.png"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/notes.png"/>
                                 <Label Content="ABONAR" FontWeight="SemiBold" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
                         <Button Name="btn_retirar"  Grid.Row="1" Margin="5,2" VerticalAlignment="Bottom" Width="100"  Height="30" Padding="2" Background="#00000000" BorderBrush="#cccccc" MaxWidth="250">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="/Bloquera_TF;component/Imagenes/cash-back.png"/>
+                                <Image Source="/TIENDASOFT;component/Imagenes/cash-back.png"/>
                                 <Label Content="RETIRO" FontWeight="SemiBold" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>

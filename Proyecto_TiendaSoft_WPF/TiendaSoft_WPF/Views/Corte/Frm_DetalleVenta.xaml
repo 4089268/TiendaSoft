@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Frm_DetalleVenta"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title=" Detalle Venta xxxxx" Height="300" Width="870" ResizeMode="NoResize" Icon="/Bloquera_TF;component/Imagenes/bill.png" >
+    Title=" Detalle Venta xxxxx" Height="300" Width="870" ResizeMode="NoResize" Icon="/TIENDASOFT;component/Imagenes/bill.png" >
     <Grid Name="LayoutRoot" Background="WhiteSmoke" >
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>

@@ -16,7 +16,7 @@
         If (_p1.Length > 0) Then
             Product_Frame.Navigate(New Page_product_catalagoProducto(_p1))
         Else
-            Product_Frame.Source = New Uri("/Bloquera_TF;component/Views/Productos/Page_product_catalagoProducto.xaml", UriKind.Relative)
+            Product_Frame.Source = New Uri("/TIENDASOFT;component/Views/Productos/Page_product_catalagoProducto.xaml", UriKind.Relative)
         End If
 
     End Sub
@@ -27,9 +27,9 @@
 
         Select Case sender.name
             Case "btn_catalagoP"
-                Product_Frame.Source = New Uri("/Bloquera_TF;component/Views/Productos/Page_product_catalagoProducto.xaml", UriKind.Relative)
+                Product_Frame.Source = New Uri("/TIENDASOFT;component/Views/Productos/Page_product_catalagoProducto.xaml", UriKind.Relative)
             Case "btn_deapartamento"
-                Product_Frame.Source = New Uri("/Bloquera_TF;component/Views/Productos/Page_product_catalagoDepartamentos.xaml", UriKind.Relative)
+                Product_Frame.Source = New Uri("/TIENDASOFT;component/Views/Productos/Page_product_catalagoDepartamentos.xaml", UriKind.Relative)
 
         End Select
     End Sub
