@@ -11,18 +11,20 @@ Public Class Conexion_Sql
 
     Function Conectar() As Boolean
         Try
-            conexion = New SqlClient.SqlConnection(_conectionString)
+            conexion = New SqlConnection(_conectionString)
             conexion.Open()
             Return True
-
         Catch ex As Exception
             Return False
         End Try
-
     End Function
 
     Sub cerrarConexion()
-        conexion.Close()
+        Try
+            conexion.Close()
+            conexion = Nothing
+        Catch ex As Exception
+        End Try
     End Sub
 
     Function Ejecutar_Procedimiento(procedureName As String, param As String(), valores As String()) As SqlDataReader

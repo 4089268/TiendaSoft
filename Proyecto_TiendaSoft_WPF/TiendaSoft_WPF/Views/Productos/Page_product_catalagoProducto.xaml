@@ -65,6 +65,7 @@
                 <Label Content="Codigo de Barras:"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" />
                 <Label Content="Descripcion:"       Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
                 <Label Content="Se vende por:"      Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" />
+                <Label Content="Tipo producto:"     Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" />
                 <Label Content="Precio Costo:"      Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" />
                 <Label Content="Precio Venta:"      Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" />
                 <Label Content="Precio Mayoreo:"    Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" />
@@ -78,7 +79,7 @@
                     <CheckBox x:Name="cb_unidad" Content="Unidad/Pza"  Margin="10,0"/>
                     <CheckBox x:Name="cb_granel" Content="Granel"      Margin="10,0"/>                    
                 </StackPanel>
-                <StackPanel x:Name="tiposUnidad" Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" >
+                <StackPanel x:Name="tiposUnidad" Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" >
                     <CheckBox x:Name="tipo1" Content="Normal"       Margin="10,0"/>
                     <CheckBox x:Name="tipo2" Content="Componente"   Margin="10,0"/>
                     <CheckBox x:Name="tipo3" Content="Paquete"      Margin="10,0"/>

@@ -1,17 +1,7 @@
-﻿Imports System
-Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 Imports System.Data
-Imports SUT.PrintEngine.Utils
-Imports System.Collections.Generic
-
-Imports System.IO
-Imports System.Text
-Imports System.Windows
-
-Imports System.Windows.Markup
-Imports System.Xaml
-Imports System.Drawing.Point
-Imports System.Globalization
+Imports NHotkey.Wpf
+Imports NHotkey
 
 Class Frm_Ventas
     Property MyCommand As New RoutedCommand
@@ -25,7 +15,8 @@ Class Frm_Ventas
     Dim xagranel As Boolean = False
     Dim si_graba As Boolean = False
 
-    Dim reader As SqlDataReader
+    Dim xcmd As SqlCommand
+    Dim xreader As SqlDataReader
 
     Public Shared CustomRoutedCommand As New RoutedCommand()
 
@@ -44,15 +35,13 @@ Class Frm_Ventas
     End Sub
 
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
-
         System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = "."
 
-
-        Dim customCommandBinding As New CommandBinding(CustomRoutedCommand, AddressOf ExecutedCustomCommand, AddressOf CanExecuteCustomCommand)
-        Me.CommandBindings.Add(customCommandBinding)
-
-        Dim OpenCmdKeyBinding As New KeyBinding(CustomRoutedCommand, Key.I, ModifierKeys.Control)
-        Me.InputBindings.Add(OpenCmdKeyBinding)
+        HotkeyManager.Current.AddOrReplace("Buscar", Key.F1, Nothing, AddressOf btn_busqueda_Click)
+        HotkeyManager.Current.AddOrReplace("BorrarProduct", Key.F6, Nothing, AddressOf btn_borrar_articulo)
+        HotkeyManager.Current.AddOrReplace("SalidaDinero", Key.F7, Nothing, AddressOf btn_salidas)
+        HotkeyManager.Current.AddOrReplace("EntradaDinero", Key.F8, Nothing, AddressOf btn_entradas)
+        HotkeyManager.Current.AddOrReplace("Cobrar", Key.F10, Nothing, AddressOf btn_cobrar_Click)
 
         Dim dt As New DataTable
         dt.Columns.Add(New DataColumn("id_producto", GetType(Int32)))
@@ -63,7 +52,6 @@ Class Frm_Ventas
         dt.Columns.Add(New DataColumn("cantidad", GetType(Decimal)))
         dt.Columns.Add(New DataColumn("importe", GetType(Decimal)))
         dt.Columns.Add(New DataColumn("existencia", GetType(Decimal)))
-
         ds.Tables.Add(dt)
 
         grd_venta.AutoGenerateColumns = False
@@ -125,136 +113,6 @@ Class Frm_Ventas
 
     End Sub
 
-    ' ** txt_codigo keyDow
-    Private Sub txt_codigo_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_codigo.KeyDown
-        If e.Key = Key.OemPlus _
-            OrElse e.Key = Key.Add _
-            OrElse e.Key = Key.Subtract _
-            OrElse e.Key = Key.OemMinus _
-            OrElse (e.Key = Key.Enter) _
-            OrElse (e.Key = Key.Escape) _
-            OrElse (e.Key = Key.Tab) _
-            OrElse (e.Key >= Key.NumPad0 And e.Key <= Key.NumPad9) _
-            OrElse (e.Key >= Key.D0 And e.Key <= Key.D9) Then
-
-            If (e.Key = Key.OemPlus Or e.Key = Key.Add) Then
-                txt_cant.Text = CStr(CDec(txt_cant.Text) + 1)
-                e.Handled = True
-            End If
-
-            If (e.Key = Key.OemMinus Or e.Key = Key.Subtract) Then
-                txt_cant.Text = CStr(IIf(CDec(txt_cant.Text) > 1, CDec(txt_cant.Text) - 1, CDec(txt_cant.Text)))
-                e.Handled = True
-            End If
-
-            If (e.Key = Key.Enter) Then
-                If Not xagranel And si_graba Then
-                    Me.btn_graba_Click(sender, e)
-                Else
-                    Dim request = New TraversalRequest(FocusNavigationDirection.Next)
-                    request.Wrapped = True
-                    DirectCast(sender, TextBox).MoveFocus(request)
-                End If
-                e.Handled = True
-            End If
-        Else
-            e.Handled = True
-        End If
-
-    End Sub
-
-    ' ** txt_codigo Text Edit
-    Private Sub txt_codigo_KeyUp(sender As Object, e As TextChangedEventArgs) Handles txt_codigo.TextChanged
-        txt_desc.Text = ""
-        txt_pre.Text = ""
-        txt_pre.Tag = ""
-        txt_exis.Text = ""
-
-
-        Dim xcod As String = TryCast(sender.text, String)
-        Dim cmd As New SqlCommand()
-        cmd.CommandType = CommandType.Text
-        cmd.CommandText = "EXEC [Global].[Sys_Productos] @cAlias = 'BUSQUEDARAPIDA', @Descripcion = '" & xcod & "'"
-        cmd.Connection = Mi_conexion.conexion
-        cmd.Parameters.Clear()
-        Try
-            reader = cmd.ExecuteReader()
-            si_graba = False
-            If reader.HasRows Then
-                Do While reader.Read()
-                    txt_codigo.Tag = reader("id_producto")
-                    txt_desc.Text = reader("descripcion")
-                    txt_pre.Text = reader("precio_v")
-                    txt_pre.Tag = reader("precio_c")
-                    txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
-                    txt_exis.Text = reader("existencia")
-                    xagranel = reader("agranel")
-                    si_graba = True
-                Loop
-            Else
-                si_graba = False
-            End If
-            reader.Close()
-        Catch
-        End Try
-    End Sub
-
-    Private Sub txt_codigo_GotFocus(sender As Object, e As RoutedEventArgs) Handles txt_codigo.GotFocus
-        txt_desc.Text = ""
-        txt_pre.Text = "0.00"
-        txt_imp.Text = "0.00"
-        txt_cant.IsEnabled = True
-        txt_codigo.SelectAll()
-    End Sub
-
-    Private Sub btn_graba_Click(sender As Object, e As RoutedEventArgs) Handles btn_graba.Click
-        If si_graba And CDec(IIf(txt_pre.Text.Length > 0, txt_pre.Text, 0)) > 0 And CDec(IIf(txt_cant.Text.Length > 0, txt_cant.Text, 0)) > 0 Then
-
-            Dim dr As DataRow
-
-            dr = ds.Tables(0).NewRow()
-            dr("id_producto") = txt_codigo.Tag
-            dr("codigo") = txt_codigo.Text
-            dr("descripcion") = txt_desc.Text
-            dr("precio_v") = txt_pre.Text
-            dr("precio_c") = txt_pre.Tag
-            dr("cantidad") = txt_cant.Text
-            dr("importe") = txt_pre.Text * txt_cant.Text
-            dr("existencia") = txt_exis.Text
-
-            Dim mis_rows = ds.Tables(0).Select("codigo=" + "'" + txt_codigo.Text + "'")
-            If mis_rows.Count > 0 Then
-                For Each rows In mis_rows
-                    rows.Item("cantidad") = rows.Item("cantidad") + dr("cantidad")
-                    rows.Item("importe") = rows.Item("cantidad") * rows.Item("precio_v")
-                Next
-            Else
-                ds.Tables(0).Rows.Add(dr)
-
-            End If
-
-            Me.Despliega_Totales()
-
-            txt_codigo.Text = ""
-            txt_codigo.Tag = ""
-            txt_desc.Text = ""
-            txt_pre.Text = ""
-            txt_cant.Text = "1"
-            txt_imp.Text = ""
-            txt_exis.Text = ""
-
-
-            grd_venta.ItemsSource = ds.Tables(0).DefaultView
-
-            si_graba = False
-            txt_codigo.Focus()
-        Else
-            txt_codigo.Focus()
-
-        End If
-
-    End Sub
-
     Private Sub Despliega_Totales()
         Dim xart As Decimal = 0
         Dim xtot As Decimal = 0
@@ -273,12 +131,134 @@ Class Frm_Ventas
 
     End Sub
 
-    Private Sub btn_cobrar_Click(sender As Object, e As RoutedEventArgs) Handles btn_cobrar.Click
+    '********** EVENTOS UI **********
+    Private Sub txt_codigo_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txt_codigo.TextChanged
+        If Mi_conexion.Conectar Then
+            Dim newCodigo = ""
+            txt_desc.Text = ""
+            txt_pre.Text = ""
+            txt_pre.Tag = ""
+            txt_exis.Text = ""
+
+            Dim listaProductos As New List(Of itemProducto)
+
+            Dim xcod As String = TryCast(sender.text, String)
+            xcmd = New SqlCommand()
+            xcmd.CommandType = CommandType.Text
+            xcmd.CommandText = "EXEC [Global].[Sys_Productos] @cAlias = 'BUSQUEDARAPIDA', @Descripcion = '" & xcod & "'"
+            xcmd.Connection = Mi_conexion.conexion
+            xcmd.Parameters.Clear()
+            Try
+                xreader = xcmd.ExecuteReader()
+                si_graba = False
+                If xreader.HasRows Then
+                    Do While xreader.Read()
+                        Dim prod As New itemProducto
+                        prod.id_producto = CType(xreader("id_producto"), Int64)
+                        prod.codigo = xreader("codigo")
+                        prod.descripcion = xreader("descripcion")
+                        prod.agranel = CType(xreader("agranel"), Boolean)
+                        prod.precio_c = CType(xreader("precio_c"), Double)
+                        prod.precio_v = CType(xreader("precio_v"), Double)
+                        prod.usaInventario = CType(xreader("usaInventario"), Boolean)
+                        prod.existencia = CType(xreader("existencia"), Double)
+                        prod.minimo = CType(xreader("minimo"), Double)
+                        prod.id_familia = CType(xreader("id_familia"), Integer)
+                        prod.tipoProducto = CType(xreader("tipoProducto"), Integer)
+                        listaProductos.Add(prod)
+                    Loop
+
+                    If listaProductos.Count = 1 Then
+                        txt_codigo.Tag = listaProductos(0).id_producto
+                        txt_desc.Text = listaProductos(0).descripcion
+                        txt_pre.Text = listaProductos(0).precio_v
+                        txt_pre.Tag = listaProductos(0).precio_c
+                        txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+                        txt_exis.Text = listaProductos(0).existencia
+                        xagranel = listaProductos(0).agranel
+                        si_graba = True
+                    Else
+                        Dim frm As New Frm_seleccionarProducto(listaProductos)
+                        If (frm.ShowDialog) Then
+                            newCodigo = frm.nuevoCodigo
+                        Else
+                            txt_codigo.Text = ""
+                        End If
+                    End If
+                Else
+                    si_graba = False
+                End If
+                xreader.Close()
+            Catch
+            End Try
+
+            If newCodigo.Length > 0 Then
+                txt_codigo.Text = newCodigo
+            End If
+            Mi_conexion.cerrarConexion()
+        End If
+    End Sub
+    Private Sub txt_codigo_GotFocus(sender As Object, e As RoutedEventArgs) Handles txt_codigo.GotFocus
+        txt_desc.Text = ""
+        txt_pre.Text = "0.00"
+        txt_imp.Text = "0.00"
+        txt_cant.Text = "0"
+        txt_cant.IsEnabled = True
+        txt_codigo.SelectAll()
+    End Sub
+    Private Sub txt_codigo_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_codigo.KeyDown
+        If e.Key = Key.OemPlus _
+            OrElse e.Key = Key.Add _
+            OrElse e.Key = Key.Subtract _
+            OrElse e.Key = Key.OemMinus _
+            OrElse (e.Key = Key.Enter) _
+            OrElse (e.Key = Key.Escape) _
+            OrElse (e.Key = Key.Tab) _
+            OrElse (e.Key >= Key.NumPad0 And e.Key <= Key.NumPad9) _
+            OrElse (e.Key >= Key.D0 And e.Key <= Key.D9) Then
+
+            If (e.Key = Key.OemPlus Or e.Key = Key.Add) Then
+
+                If txt_cant.Text.Length > 0 Then
+                    txt_cant.Text = CStr(CDec(txt_cant.Text) + 1)
+                Else
+                    txt_cant.Text = "1"
+                End If
+                e.Handled = True
+            End If
+
+            If (e.Key = Key.OemMinus Or e.Key = Key.Subtract) Then
+                If txt_cant.Text.Length > 0 Then
+                    txt_cant.Text = CStr(IIf(CDec(txt_cant.Text) > 1, CDec(txt_cant.Text) - 1, CDec(txt_cant.Text)))
+                Else
+                    txt_cant.Text = "1"
+                End If
+
+                e.Handled = True
+            End If
+
+            If (e.Key = Key.Enter) Then
+                If Not xagranel And si_graba Then
+                    Me.btn_graba_Click(sender, e)
+                Else
+                    Dim request = New TraversalRequest(FocusNavigationDirection.Next)
+                    request.Wrapped = True
+                    DirectCast(sender, TextBox).MoveFocus(request)
+                End If
+                e.Handled = True
+            End If
+        Else
+            e.Handled = True
+        End If
+    End Sub
+
+
+    Private Sub btn_cobrar_Click() Handles btn_cobrar.Click
 
         Dim xform As New Frm_Cobrar(Me.imp_cobrar, Me)
 
         Dim result = xform.ShowDialog()
-        If result = True Then
+        If result = True And Mi_conexion.Conectar Then
 
             Dim xid_prod As Int32 = 0
             Dim xpre1 As Decimal = 0
@@ -345,9 +325,9 @@ Class Frm_Ventas
                 ds.Tables(0).Rows.Clear()
                 Me.Despliega_Totales()
             End If
+
+            Mi_conexion.cerrarConexion()
         End If
-
-
     End Sub
 
     Private Sub btn_imprimir_Click(sender As Object, e As RoutedEventArgs) Handles btn_imprimir.Click
@@ -393,27 +373,13 @@ Class Frm_Ventas
         Me.Despliega_Totales()
     End Sub
 
-    Private Sub btn_busqueda_Click(sender As Object, e As RoutedEventArgs) Handles btn_busqueda.Click
+    Private Sub btn_busqueda_Click() Handles btn_busqueda.Click
         modal.Visibility = Windows.Visibility.Visible
         Dim xform As New Frm_Busqueda(Me)
         Dim result = xform.ShowDialog()
         If result = True Then
         End If
         modal.Visibility = Windows.Visibility.Collapsed
-
-    End Sub
-
-    Private Sub Shorcuts_pressed(sender As Object, e As KeyEventArgs)
-        Console.WriteLine(">>>" & sender.name & " - " & e.Key.ToString)
-        Select Case e.Key
-            Case Key.F1
-                btn_busqueda_Click(sender, Nothing)
-            Case Key.F2
-                btn_imprimir_Click(sender, Nothing)
-            Case Key.F10
-                btn_cobrar_Click(sender, Nothing)
-        End Select
-
     End Sub
 
     Private Sub btn_entradas() Handles btn_entrada.Click
@@ -427,50 +393,93 @@ Class Frm_Ventas
     End Sub
 
     Private Sub btn_enter_click(sender As Object, e As RoutedEventArgs) Handles btn_enter.Click
-        Try
-            Dim xcod As String = TryCast(txt_codigo.Text, String)
-            Dim cmd As New SqlCommand()
-
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = "select id_producto,codigo,descripcion,isnull(precio_v,0) as precio_v,isnull(precio_c,0) as precio_c,isnull(existencia,0) as existencia, agranel from Opr_Productos where isnull(inactivo,0)=0 and codigo='" + xcod + "'"
-            cmd.Connection = Mi_conexion.conexion
-            cmd.Parameters.Clear()
+        If Mi_conexion.Conectar Then
             Try
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-                si_graba = False
-                If reader.HasRows Then
-                    Do While reader.Read()
-                        txt_codigo.Tag = reader("id_producto")
-                        txt_desc.Text = reader("descripcion")
-                        txt_pre.Text = reader("precio_v")
-                        txt_pre.Tag = reader("precio_c")
-                        txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
-                        txt_exis.Text = reader("existencia")
-                        xagranel = reader("agranel")
-                        si_graba = True
-                    Loop
-                Else
+                Dim xcod As String = TryCast(txt_codigo.Text, String)
+                Dim cmd As New SqlCommand()
+
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = "select id_producto,codigo,descripcion,isnull(precio_v,0) as precio_v,isnull(precio_c,0) as precio_c,isnull(existencia,0) as existencia, agranel from Opr_Productos where isnull(inactivo,0)=0 and codigo='" + xcod + "'"
+                cmd.Connection = Mi_conexion.conexion
+                cmd.Parameters.Clear()
+                Try
+                    Dim reader As SqlDataReader = cmd.ExecuteReader()
                     si_graba = False
+                    If reader.HasRows Then
+                        Do While reader.Read()
+                            txt_codigo.Tag = reader("id_producto")
+                            txt_desc.Text = reader("descripcion")
+                            txt_pre.Text = reader("precio_v")
+                            txt_pre.Tag = reader("precio_c")
+                            txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+                            txt_exis.Text = reader("existencia")
+                            xagranel = reader("agranel")
+                            si_graba = True
+                        Loop
+                    Else
+                        si_graba = False
+                    End If
+                    reader.Close()
+                Catch er As Exception
+                End Try
+
+                If Not xagranel And si_graba Then
+                    Me.btn_graba_Click(sender, e)
+                    txt_cant.IsEnabled = True
+                Else
+                    txt_cant.IsEnabled = True
+                    Dim request = New TraversalRequest(FocusNavigationDirection.Next)
+                    request.Wrapped = True
+                    DirectCast(sender, TextBox).MoveFocus(request)
                 End If
-                reader.Close()
-            Catch er As Exception
+                e.Handled = True
+            Catch ex As Exception
+            Finally
+                Mi_conexion.cerrarConexion()
             End Try
+        End If
+    End Sub
 
-            If Not xagranel And si_graba Then
-                Me.btn_graba_Click(sender, e)
-                txt_cant.IsEnabled = True
-                'txt_cant.IsEnabled = xagranel
+    Private Sub btn_graba_Click(sender As Object, e As RoutedEventArgs) Handles btn_graba.Click
+        If si_graba And CDec(IIf(txt_pre.Text.Length > 0, txt_pre.Text, 0)) > 0 And CDec(IIf(txt_cant.Text.Length > 0, txt_cant.Text, 0)) > 0 Then
+
+            Dim dr As DataRow
+
+            dr = ds.Tables(0).NewRow()
+            dr("id_producto") = txt_codigo.Tag
+            dr("codigo") = txt_codigo.Text
+            dr("descripcion") = txt_desc.Text
+            dr("precio_v") = txt_pre.Text
+            dr("precio_c") = txt_pre.Tag
+            dr("cantidad") = txt_cant.Text
+            dr("importe") = txt_pre.Text * txt_cant.Text
+            dr("existencia") = txt_exis.Text
+
+            Dim mis_rows = ds.Tables(0).Select("codigo=" + "'" + txt_codigo.Text + "'")
+            If mis_rows.Count > 0 Then
+                For Each rows In mis_rows
+                    rows.Item("cantidad") = rows.Item("cantidad") + dr("cantidad")
+                    rows.Item("importe") = rows.Item("cantidad") * rows.Item("precio_v")
+                Next
             Else
-                txt_cant.IsEnabled = True
-                'txt_cant.IsEnabled = xagranel
-                Dim request = New TraversalRequest(FocusNavigationDirection.Next)
-                request.Wrapped = True
-                DirectCast(sender, TextBox).MoveFocus(request)
+                ds.Tables(0).Rows.Add(dr)
             End If
-            e.Handled = True
-        Catch ex As Exception
 
-        End Try
+            Despliega_Totales()
+            txt_codigo.Text = ""
+            txt_codigo.Tag = ""
+            txt_desc.Text = ""
+            txt_pre.Text = ""
+            txt_cant.Text = "1"
+            txt_imp.Text = ""
+            txt_exis.Text = ""
+
+            grd_venta.ItemsSource = ds.Tables(0).DefaultView
+            si_graba = False
+            txt_codigo.Focus()
+        Else
+            txt_codigo.Focus()
+        End If
 
     End Sub
 

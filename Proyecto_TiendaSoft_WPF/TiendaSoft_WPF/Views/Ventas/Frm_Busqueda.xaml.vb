@@ -9,7 +9,7 @@ Public Class Frm_Busqueda
 
     Dim desde_frmVentas As Boolean = False
     Dim textboxDestino As TextBox = Nothing
-    
+
     Sub New(xform As Frm_Ventas)
         InitializeComponent()
         Me.xform = xform
@@ -28,7 +28,6 @@ Public Class Frm_Busqueda
         grd_productos.IsReadOnly = False
         grd_productos.CanUserAddRows = False
 
-
         Dim TextBoxColumn1 As New DataGridTextColumn
         TextBoxColumn1.Header = "Código"
         TextBoxColumn1.Binding = New Binding("codigo")
@@ -45,9 +44,7 @@ Public Class Frm_Busqueda
         TextBoxColumn3.Header = "Precio"
         TextBoxColumn3.Width = 80
         TextBoxColumn3.Binding = New Binding("precio_v")
-
         TextBoxColumn3.IsReadOnly = True
-
 
         Dim TextBoxColumn4 As New DataGridTextColumn
         TextBoxColumn4.Header = "Existencia"
@@ -55,49 +52,48 @@ Public Class Frm_Busqueda
         TextBoxColumn4.Binding = New Binding("existencia")
         TextBoxColumn4.IsReadOnly = True
 
-
         grd_productos.Columns.Add(TextBoxColumn1)
         grd_productos.Columns.Add(TextBoxColumn2)
         grd_productos.Columns.Add(TextBoxColumn3)
         grd_productos.Columns.Add(TextBoxColumn4)
 
-
-
-
+        txt_prod.Focus()
 
     End Sub
 
     Private Sub btn_buscar_Click(sender As Object, e As RoutedEventArgs) Handles btn_buscar.Click
-        Dim cmd As New SqlCommand()
-        cmd.CommandType = CommandType.Text
-        cmd.CommandText = "select codigo,descripcion,isnull(precio_v,0) as precio_v,isnull(existencia,0) as existencia from Opr_Productos where isnull(inactivo,0)=0 and descripcion like '%" + Me.txt_prod.Text + "%'"
-        cmd.Connection = Mi_conexion.conexion
-        cmd.Parameters.Clear()
+        Using cmd As New SqlCommand
+            Try
+                If Mi_conexion.Conectar Then
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = "select codigo,descripcion,isnull(precio_v,0) as precio_v,isnull(existencia,0) as existencia from Opr_Productos where isnull(inactivo,0)=0 and descripcion like '%" + Me.txt_prod.Text + "%'"
+                    cmd.Connection = Mi_conexion.conexion
+                    cmd.Parameters.Clear()
+                    xBusqueda.Clear()
+                    Using reader = cmd.ExecuteReader()
+                        If reader.HasRows Then
+                            While reader.Read()
+                                Dim xRec As New Cls_Busqueda
 
-        xBusqueda.Clear()
-        Dim reader As SqlDataReader = cmd.ExecuteReader()
-        Try
-            If reader.HasRows Then
-                While reader.Read()
-                    Dim xRec As New Cls_Busqueda
+                                xRec.codigo = IIf(IsDBNull(reader("codigo")), "", reader("codigo"))
+                                xRec.descripcion = IIf(IsDBNull(reader("descripcion")), "", reader("descripcion"))
+                                xRec.precio_v = IIf(IsDBNull(reader("precio_v")), 0, reader("precio_v"))
+                                xRec.existencia = IIf(IsDBNull(reader("existencia")), 0, reader("existencia"))
 
-                    xRec.codigo = IIf(IsDBNull(reader("codigo")), "", reader("codigo"))
-                    xRec.descripcion = IIf(IsDBNull(reader("descripcion")), "", reader("descripcion"))
-                    xRec.precio_v = IIf(IsDBNull(reader("precio_v")), 0, reader("precio_v"))
-                    xRec.existencia = IIf(IsDBNull(reader("existencia")), 0, reader("existencia"))
-
-                    xBusqueda.Add(xRec)
-                End While
-            End If
-
-        Finally
-            reader.Close()
-            grd_productos.ItemsSource = xBusqueda.ToList
-
-        End Try
-
-
-
+                                xBusqueda.Add(xRec)
+                            End While
+                        End If
+                    End Using
+                Else
+                    MessageBox.Show("Error al conectarse con el servidor.", "", MessageBoxButton.OK, MessageBoxImage.Error)
+                End If
+            Catch ex As Exception
+                MessageBox.Show("Error.", "", MessageBoxButton.OK, MessageBoxImage.Error)
+            Finally
+                grd_productos.ItemsSource = xBusqueda.ToList
+                Mi_conexion.cerrarConexion()
+            End Try
+        End Using
     End Sub
 
     Private Sub grd_productos_KeyDown(sender As Object, e As KeyEventArgs) Handles grd_productos.KeyDown
@@ -135,27 +131,26 @@ Public Class Frm_Busqueda
     ''CARGAR LA IMAGEN CUANDO SE SELECIONA UN PRODUCTO
     Private Sub datagrid_selectionChanged() Handles grd_productos.SelectionChanged
         Try
-
             Dim codigo As String = grd_productos.SelectedItem.codigo
-
             Dim dataSet As New DataSet
-            Mi_conexion.Ejecutar_Procedimiento_dataset("[Global].[sys_cargarImagen]", {"codigo"}, {codigo}).Fill(dataSet, "Resultado")
+            If Mi_conexion.Conectar Then
+                Mi_conexion.Ejecutar_Procedimiento_dataset("[Global].[sys_cargarImagen]", {"codigo"}, {codigo}).Fill(dataSet, "Resultado")
+                ''CargarImagen
+                Try
+                    Dim bitmapImage As New BitmapImage
+                    Dim bytes As Byte() = CType(dataSet.Tables(0).Rows(0).Item("foto1"), Byte())
+                    Dim ms As New System.IO.MemoryStream(bytes)
+                    bitmapImage.BeginInit()
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad
+                    bitmapImage.StreamSource = ms
+                    bitmapImage.EndInit()
+                    img1.Source = bitmapImage
 
-            ''CargarImagen
-            Try
-                Dim bitmapImage As New BitmapImage
-                Dim bytes As Byte() = CType(dataSet.Tables(0).Rows(0).Item("foto1"), Byte())
-                Dim ms As New System.IO.MemoryStream(bytes)
-                bitmapImage.BeginInit()
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad
-                bitmapImage.StreamSource = ms
-                bitmapImage.EndInit()
-                img1.Source = bitmapImage
-
-            Catch ex As Exception
-                img1.Source = New BitmapImage
-            End Try
-
+                Catch ex As Exception
+                    img1.Source = New BitmapImage
+                End Try
+                Mi_conexion.cerrarConexion()
+            End If
         Catch ex As Exception
             MessageBox.Show("ALGO SALIO MAL", "ERR", MessageBoxButton.OK, MessageBoxImage.Error)
         End Try

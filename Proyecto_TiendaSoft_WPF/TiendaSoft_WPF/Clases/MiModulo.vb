@@ -3,8 +3,6 @@
 Module MiModulo
 
 #Region " Variables... "
-
-
     Public Const xNombre = "TIENDASOFT"
     Public Const strApp As String = "POINT"
     Public Const strBasedeDatos As String = "PDV"
