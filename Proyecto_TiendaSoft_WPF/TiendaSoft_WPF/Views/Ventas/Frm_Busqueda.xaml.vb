@@ -2,26 +2,12 @@
 Imports System.Data
 
 Public Class Frm_Busqueda
-
     Dim xBusqueda As New List(Of Cls_Busqueda)
-    Dim xform As Frm_Ventas
-    Dim xform2 As Page_inv_agregar
 
-    Dim desde_frmVentas As Boolean = False
     Dim textboxDestino As TextBox = Nothing
+    Property codigoProducto As String = ""
 
-    Sub New(xform As Frm_Ventas)
-        InitializeComponent()
-        Me.xform = xform
-        desde_frmVentas = True
-    End Sub
-
-    Sub New(textbox As TextBox)
-        InitializeComponent()
-        textboxDestino = textbox
-    End Sub
-
-    Private Sub Frm_busqueda_Loaded(sender As Object, e As RoutedEventArgs) Handles MyBase.Loaded, MyBase.Loaded
+    Private Sub Frm_busqueda_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
 
         grd_productos.AutoGenerateColumns = False
         grd_productos.Columns.Clear()
@@ -74,12 +60,10 @@ Public Class Frm_Busqueda
                         If reader.HasRows Then
                             While reader.Read()
                                 Dim xRec As New Cls_Busqueda
-
                                 xRec.codigo = IIf(IsDBNull(reader("codigo")), "", reader("codigo"))
                                 xRec.descripcion = IIf(IsDBNull(reader("descripcion")), "", reader("descripcion"))
                                 xRec.precio_v = IIf(IsDBNull(reader("precio_v")), 0, reader("precio_v"))
                                 xRec.existencia = IIf(IsDBNull(reader("existencia")), 0, reader("existencia"))
-
                                 xBusqueda.Add(xRec)
                             End While
                         End If
@@ -91,33 +75,22 @@ Public Class Frm_Busqueda
                 MessageBox.Show("Error.", "", MessageBoxButton.OK, MessageBoxImage.Error)
             Finally
                 grd_productos.ItemsSource = xBusqueda.ToList
+                grd_productos.Focus()
+                If xBusqueda.Count > 0 Then
+                    grd_productos.SelectedIndex = 0
+                End If
                 Mi_conexion.cerrarConexion()
             End Try
         End Using
     End Sub
 
-    Private Sub grd_productos_KeyDown(sender As Object, e As KeyEventArgs) Handles grd_productos.KeyDown
-        'If e.Key = Key.Enter Then 'MessageBox.Show("presione enter")'End If
-    End Sub
-
     Private Sub grd_productos_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles grd_productos.MouseDoubleClick
         Try
-            If (desde_frmVentas) Then
-                Dim xvalor As Cls_Busqueda = grd_productos.SelectedItem
-                xform.txt_codigo.Text = xvalor.codigo
-                xform.txt_codigo.SelectAll()
-                xform.txt_codigo.Focus()
-                Me.Close()
-            Else
-                Dim xvalor As Cls_Busqueda = grd_productos.SelectedItem
-                textboxDestino.Text = xvalor.codigo
-                Me.Close()
-            End If
-
-            
+            Dim xvalor As Cls_Busqueda = grd_productos.SelectedItem
+            codigoProducto = xvalor.codigo
+            Me.DialogResult = True
         Catch ex As Exception
         End Try
-
     End Sub
 
     ''PRESIONAR ENTER PARA BUSCAR
@@ -126,7 +99,6 @@ Public Class Frm_Busqueda
             btn_buscar_Click(sender, e)
         End If
     End Sub
-
 
     ''CARGAR LA IMAGEN CUANDO SE SELECIONA UN PRODUCTO
     Private Sub datagrid_selectionChanged() Handles grd_productos.SelectionChanged
@@ -154,8 +126,6 @@ Public Class Frm_Busqueda
         Catch ex As Exception
             MessageBox.Show("ALGO SALIO MAL", "ERR", MessageBoxButton.OK, MessageBoxImage.Error)
         End Try
-
-
     End Sub
 
 End Class
@@ -166,4 +136,3 @@ Public Class Cls_Busqueda
     Public Property precio_v As Decimal
     Public Property existencia As Decimal
 End Class
-

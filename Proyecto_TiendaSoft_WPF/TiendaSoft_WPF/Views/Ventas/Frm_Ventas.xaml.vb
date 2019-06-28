@@ -18,6 +18,8 @@ Class Frm_Ventas
     Dim xcmd As SqlCommand
     Dim xreader As SqlDataReader
 
+    Dim frm_busqueda As Frm_Busqueda
+
     Public Shared CustomRoutedCommand As New RoutedCommand()
 
     Private Sub ExecutedCustomCommand(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
@@ -131,8 +133,18 @@ Class Frm_Ventas
 
     End Sub
 
+    Private Sub limpiar_Campos()
+        txt_desc.Text = ""
+        txt_pre.Text = "0.00"
+        txt_imp.Text = "0.00"
+        txt_cant.Text = "1"
+        txt_cant.IsEnabled = True
+    End Sub
+
     '********** EVENTOS UI **********
     Private Sub txt_codigo_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txt_codigo.TextChanged
+        limpiar_Campos()
+
         If Mi_conexion.Conectar Then
             Dim newCodigo = ""
             txt_desc.Text = ""
@@ -198,14 +210,7 @@ Class Frm_Ventas
             Mi_conexion.cerrarConexion()
         End If
     End Sub
-    Private Sub txt_codigo_GotFocus(sender As Object, e As RoutedEventArgs) Handles txt_codigo.GotFocus
-        txt_desc.Text = ""
-        txt_pre.Text = "0.00"
-        txt_imp.Text = "0.00"
-        txt_cant.Text = "0"
-        txt_cant.IsEnabled = True
-        txt_codigo.SelectAll()
-    End Sub
+
     Private Sub txt_codigo_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_codigo.KeyDown
         If e.Key = Key.OemPlus _
             OrElse e.Key = Key.Add _
@@ -251,7 +256,6 @@ Class Frm_Ventas
             e.Handled = True
         End If
     End Sub
-
 
     Private Sub btn_cobrar_Click() Handles btn_cobrar.Click
 
@@ -342,7 +346,6 @@ Class Frm_Ventas
     End Sub
 
     Private Sub txt_cant_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_cant.KeyDown
-
         If (e.Key >= Key.D0 And e.Key <= Key.D9) OrElse (e.Key = Key.Enter) _
                 OrElse (e.Key = Key.Up) OrElse (e.Key = Key.Down) _
                 OrElse (e.Key >= Key.NumPad0 And e.Key <= Key.NumPad9) _
@@ -366,20 +369,24 @@ Class Frm_Ventas
             e.Handled = True
             acceptableKey = False
         End If
-
     End Sub
+
 
     Private Sub grd_venta_UnloadingRow(sender As Object, e As DataGridRowEventArgs) Handles grd_venta.UnloadingRow
         Me.Despliega_Totales()
     End Sub
 
     Private Sub btn_busqueda_Click() Handles btn_busqueda.Click
-        modal.Visibility = Windows.Visibility.Visible
-        Dim xform As New Frm_Busqueda(Me)
-        Dim result = xform.ShowDialog()
-        If result = True Then
+        If IsNothing(frm_busqueda) Then
+            modal.Visibility = Windows.Visibility.Visible
+            frm_busqueda = New Frm_Busqueda
+            If (frm_busqueda.ShowDialog()) Then
+                Dim cp As String = frm_busqueda.codigoProducto
+                txt_codigo.Text = cp
+            End If
+            modal.Visibility = Windows.Visibility.Collapsed
+            frm_busqueda = Nothing
         End If
-        modal.Visibility = Windows.Visibility.Collapsed
     End Sub
 
     Private Sub btn_entradas() Handles btn_entrada.Click
@@ -411,7 +418,7 @@ Class Frm_Ventas
                             txt_desc.Text = reader("descripcion")
                             txt_pre.Text = reader("precio_v")
                             txt_pre.Tag = reader("precio_c")
-                            txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+                            txt_imp.Text = (CDec(txt_pre.Text) * CDec(txt_cant.Text)).ToString("####0.00")
                             txt_exis.Text = reader("existencia")
                             xagranel = reader("agranel")
                             si_graba = True
@@ -442,7 +449,6 @@ Class Frm_Ventas
 
     Private Sub btn_graba_Click(sender As Object, e As RoutedEventArgs) Handles btn_graba.Click
         If si_graba And CDec(IIf(txt_pre.Text.Length > 0, txt_pre.Text, 0)) > 0 And CDec(IIf(txt_cant.Text.Length > 0, txt_cant.Text, 0)) > 0 Then
-
             Dim dr As DataRow
 
             dr = ds.Tables(0).NewRow()

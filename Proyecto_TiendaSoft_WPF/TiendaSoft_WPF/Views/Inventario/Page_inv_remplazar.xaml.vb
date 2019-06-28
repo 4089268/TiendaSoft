@@ -8,8 +8,10 @@ Class Page_inv_remplazar
 
         Select Case sender.name
             Case "btn_search"
-                Dim xform As New Frm_Busqueda(tb_search)
-                xform.ShowDialog()
+                Dim xform As New Frm_Busqueda
+                If (xform.ShowDialog()) Then
+                    tb_search.Text = xform.codigoProducto
+                End If
             Case "btn_agregar"
                 Reemplazar_cantidad()
 
