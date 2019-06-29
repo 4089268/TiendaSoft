@@ -6,7 +6,9 @@ Imports System.IO
 Imports System.Threading
 
 Class Page_product_catalagoProducto
-    Dim tablaDatos As DataTable
+    Dim listaProductos As New List(Of itemProducto)
+    Dim tmpListaProductos As New List(Of itemProducto)
+
     Private _p1 As String = ""
     Property xmlProducto As String = ""
     Dim us As New CultureInfo("es-MX")
@@ -24,8 +26,8 @@ Class Page_product_catalagoProducto
 
     Sub Layout_onLoaded() Handles rootLayout.Loaded
         cargarUI()
-        cargarDatos()
-
+        LimpiarCampos()
+        'cargarDatos()
         Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
         Thread.CurrentThread.CurrentUICulture = New CultureInfo("es-MX")
 
@@ -33,17 +35,19 @@ Class Page_product_catalagoProducto
         tb_existencia.IsEnabled = False
         tb_minimo.IsEnabled = False
 
-        Try
-            DataGrid1.SelectedIndex = -1
-        Catch ex As Exception
-        End Try
-
         If (_p1.Length > 0) Then
             tb_search.SearchText = _p1
             Try
-                Dim dataview As DataView = DataGrid1.ItemsSource
-                dataview.RowFilter = String.Format("descripcion like '%" & tb_search.SearchText & "%'")
-                DataGrid1.ItemsSource = dataview
+                tmpListaProductos.Clear()
+
+                For Each xpr In listaProductos
+                    If xpr.descripcion.Contains("tb_search.SearchText") Then
+                        Dim xnewProd As itemProducto = xpr
+                        tmpListaProductos.Add(xnewProd)
+                    End If
+                Next
+                DataGrid1.ItemsSource = Nothing
+                DataGrid1.ItemsSource = tmpListaProductos
             Catch ex As Exception
             End Try
         End If
@@ -75,10 +79,8 @@ Class Page_product_catalagoProducto
             Dim DataAdapter As New SqlDataAdapter(SqlComand)
             Dim dataSet As New DataSet
             DataAdapter.Fill(dataSet, "Resultado")
-            tablaDatos = dataSet.Tables(0)
+            procesarDatos(dataSet.Tables(0))
 
-
-            DataGrid1.ItemsSource = tablaDatos.DefaultView
 
             '******* CARGAR CATALAGOS *******
             Dim SqlComand2 = New SqlCommand
@@ -86,7 +88,7 @@ Class Page_product_catalagoProducto
             SqlComand2.CommandType = CommandType.StoredProcedure
             SqlComand2.CommandText = "[Global].[Sys_Departamentos]"
             SqlComand2.Parameters.Clear()
-            SqlComand2.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "CARGARCATALAGO"))
+            SqlComand2.Parameters.Add(New SqlParameter("@cAlias", "CARGARCATALAGO"))
 
             SqlComand2.Connection = Mi_conexion.conexion
             Dim DataAdapter2 As New SqlDataAdapter(SqlComand2)
@@ -99,6 +101,29 @@ Class Page_product_catalagoProducto
         Else
             MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         End If
+    End Sub
+
+    Private Sub procesarDatos(datos As DataTable)
+        listaProductos.Clear()
+        If datos.Rows.Count > 0 Then
+            For Each xrow In datos.Rows
+                Dim xProdct As New itemProducto
+                xProdct.id_producto = CType(xrow.item("id_producto"), Integer)
+                xProdct.codigo = xrow.item("codigo")
+                xProdct.descripcion = xrow.item("descripcion")
+                xProdct.agranel = CType(xrow.item("agranel"), Boolean)
+                xProdct.usaInventario = CType(xrow.item("usaInventario"), Boolean)
+                xProdct.existencia = CType(xrow.item("existencia"), Double)
+                xProdct.minimo = CType(xrow.item("minimo"), Double)
+                xProdct.id_familia = CType(xrow.item("id_familia"), Integer)
+                xProdct.tipoProducto = CType(xrow.item("tipoProducto"), Integer)
+                xProdct.precio_c = CType(xrow.item("precio_c"), Double)
+                xProdct.precio_v = CType(xrow.item("precio_v"), Double)
+                listaProductos.Add(xProdct)
+            Next
+        End If
+        DataGrid1.ItemsSource = listaProductos
+
     End Sub
 
     Private Sub habilitarCampos(val As Boolean)
@@ -151,46 +176,33 @@ Class Page_product_catalagoProducto
     End Sub
 
     Private Sub cargarProducto()
-        Try
-            Dim us As New CultureInfo("es-MX")
-            Dim dataRow As DataRow = DataGrid1.SelectedItem.Row
-
-            tb_codigo.Text = dataRow.Item("codigo")
-            tb_descripcion.Text = dataRow.Item("descripcion")
-
+        If Not IsNothing(DataGrid1.SelectedItem) Then
+            Dim xproducto As itemProducto = DataGrid1.SelectedItem
+            tb_codigo.Text = xproducto.codigo
+            tb_descripcion.Text = xproducto.descripcion
             tb_precioMayo.Text = 0
+            cb_departa.SelectedValue = xproducto.id_familia
+            tb_existencia.Text = xproducto.existencia
+            tb_minimo.Text = xproducto.minimo
+            cb_invent.IsChecked = xproducto.usaInventario
+            cb_unidad.IsChecked = Not xproducto.agranel
+            cb_granel.IsChecked = xproducto.agranel
 
-            cb_departa.SelectedValue = dataRow.Item("id_familia")
-
-            tb_existencia.Text = CInt(dataRow.Item("existencia"))
-            tb_minimo.Text = CInt(dataRow.Item("minimo"))
-
-            cb_invent.IsChecked = CBool(dataRow.Item("usaInventario"))
-
-            cb_unidad.IsChecked = Not CBool(dataRow.Item("agranel"))
-            cb_granel.IsChecked = CBool(dataRow.Item("agranel"))
-
-            Select Case dataRow.Item("tipoProducto")
+            Select Case xproducto.tipoProducto
                 Case -1 To 0
                     tipo1.IsChecked = True
-                Case "1"
+                Case 1
                     tipo2.IsChecked = True
-                Case "2"
+                Case 2
                     tipo3.IsChecked = True
-                    cargarXml(dataRow.Item("codigo"))
+                    cargarXml(xproducto.codigo)
             End Select
 
-            tb_precioVent.Text = IIf(dataRow.Item("precio_v").ToString = "", "0", CDec(dataRow.Item("precio_v")).ToString("####0.00"))
-            Try
-                tb_precioComp.Text = CDec(dataRow.Item("precio_c")).ToString("####0.00")
-            Catch ex As Exception
-                tb_precioComp.Text = "0"
-            End Try
-
-            cargar_imagen(dataRow.Item("codigo"))
-
-        Catch ex As Exception
-        End Try
+            'tb_precioVent.Text = IIf(dataRow.Item("precio_v").ToString = "", "0", CDec(dataRow.Item("precio_v")).ToString("####0.00"))
+            tb_precioComp.Text = xproducto.precio_c.ToString("####0.00")
+            tb_precioVent.Text = xproducto.precio_v.ToString("####0.00")
+            cargar_imagen(xproducto.codigo)
+        End If
 
     End Sub
 
@@ -217,9 +229,7 @@ Class Page_product_catalagoProducto
     End Sub
 
     Private Sub cargar_imagen(codigo As String)
-
         Try
-
             If (Mi_conexion.Conectar()) Then
                 Dim SqlComand = New SqlCommand
                 SqlComand.CommandTimeout = 500
@@ -387,6 +397,7 @@ Class Page_product_catalagoProducto
         End If
     End Sub
 
+
     '************ EVENTOS UI ************
     Private Sub DataGrid1_selection(sender As Object, e As RoutedEventArgs) Handles DataGrid1.SelectionChanged
         cargarProducto()
@@ -445,9 +456,16 @@ Class Page_product_catalagoProducto
     Private Sub tb_search_search(sender As Object, e As KeyEventArgs) Handles tb_search.KeyDown
         If (e.Key = Key.Enter) Then
             If (tb_search.SearchText <> "") Then
-                Dim dataview As DataView = DataGrid1.ItemsSource
-                dataview.RowFilter = String.Format("descripcion like '%" & tb_search.SearchText & "%'")
-                DataGrid1.ItemsSource = dataview
+                tmpListaProductos.Clear()
+
+                For Each xpr In listaProductos
+                    If xpr.descripcion.ToUpper.Contains(tb_search.SearchText.ToUpper) Then
+                        Dim xnewProd As itemProducto = xpr
+                        tmpListaProductos.Add(xnewProd)
+                    End If
+                Next
+                DataGrid1.ItemsSource = Nothing
+                DataGrid1.ItemsSource = tmpListaProductos
             Else
                 cargarDatos()
             End If
