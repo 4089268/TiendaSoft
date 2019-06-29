@@ -5,14 +5,7 @@ Imports System.IO
 
 Public Class modal_EditarPaquete
     Dim dataTable As DataTable
-    Dim catalagoProducto As Page_product_catalagoProducto
     Property xml As String = ""
-
-    Public Sub New(x As Page_product_catalagoProducto)
-        InitializeComponent()
-        Me.catalagoProducto = x
-    End Sub
-
 
     Private Sub RootLayout_loaded() Handles rootLayout.Loaded
         CargarUI()
@@ -75,25 +68,22 @@ Public Class modal_EditarPaquete
             Case "limpiar"
                 datagrid1.ItemsSource = dataTable.DefaultView
                 datosStackPanel.Children.Clear()
-
         End Select
     End Sub
 
     Private Sub guardar_Click(sender As Object, e As RoutedEventArgs) Handles guardar.Click
         If datosStackPanel.Children.Count > 0 Then
-            Dim xaml As String = "<paquete>"
+            Dim xmlGenerado As String = "<paquete>"
 
             For Each row As UserControl1 In datosStackPanel.Children
-                xaml = xaml & "<ingrediente><codigo>" & row.codigo & "</codigo><cantidad>" & row.cantidad & "</cantidad></ingrediente>"
+                xmlGenerado = xmlGenerado & "<ingrediente><codigo>" & row.codigo & "</codigo><cantidad>" & row.cantidad & "</cantidad></ingrediente>"
             Next
-            xaml = xaml & "</paquete>"
-
-            catalagoProducto.xmlProducto = xaml
-            DialogResult = True
+            xmlGenerado = xmlGenerado & "</paquete>"
+            xml = xmlGenerado
+            Me.DialogResult = True
         Else
-            DialogResult = False
+            Me.DialogResult = False
         End If
-
     End Sub
 
     Private Sub cancelar_Click(sender As Object, e As RoutedEventArgs) Handles cancelar.Click
@@ -101,16 +91,13 @@ Public Class modal_EditarPaquete
     End Sub
 
     Private Sub CargarXml()
-        Dim listaProductos As New List(Of producto_Cargado)
+        Dim listaProductos As New List(Of productoPaquete)
         Using reader As XmlReader = XmlReader.Create(New StringReader(xml))
             Try
                 While (reader.Read())
                     If (reader.NodeType = XmlNodeType.Element And reader.Name = "ingrediente") Then
-
-                        Dim producto As New producto_Cargado
-
+                        Dim producto As New productoPaquete
                         Dim x As Boolean = True
-
                         While x
                             reader.Read()
                             If (reader.NodeType = XmlNodeType.Element And reader.Name = "codigo") Then
@@ -122,7 +109,6 @@ Public Class modal_EditarPaquete
                                 x = False
                             End If
                         End While
-
                         listaProductos.Add(producto)
                     End If
                 End While
@@ -133,7 +119,7 @@ Public Class modal_EditarPaquete
         Dim datos As DataTable = CType(datagrid1.ItemsSource, DataView).Table.Copy
         Dim indexAEliminar As New List(Of Int32)
 
-        For Each x As producto_Cargado In listaProductos
+        For Each x As productoPaquete In listaProductos
             Dim nombre As String = ""
             Dim index As Integer = 0
 
@@ -142,7 +128,7 @@ Public Class modal_EditarPaquete
                     nombre = row.item("descripcion")
                     indexAEliminar.Add(index)
                 End If
-                index = index + 1
+                index += 1
             Next
 
             Dim control As New UserControl1
@@ -151,23 +137,19 @@ Public Class modal_EditarPaquete
             control.cantidad = x.cantidad
             control.update_ui()
             datosStackPanel.Children.Add(control)
-
         Next
 
         indexAEliminar = OrdernarListaMayorMenor(indexAEliminar)
-        For Each index As Int32 In indexAEliminar
+        For Each index As Integer In indexAEliminar
             datos.Rows.RemoveAt(index)
         Next
-
         datagrid1.ItemsSource = datos.DefaultView
-
     End Sub
 
-    Private Function OrdernarListaMayorMenor(lista As List(Of Int32)) As List(Of Int32)
-        
+    Private Function OrdernarListaMayorMenor(lista As List(Of Integer)) As List(Of Integer)
         For i As Integer = 0 To (lista.Count - 2)
             For j As Integer = i + 1 To (lista.Count - 1)
-                Dim c As Int32 = 0
+                Dim c As Integer = 0
                 If (lista(i) < lista(j)) Then
                     c = lista(j)
                     lista(j) = lista(i)
@@ -175,12 +157,6 @@ Public Class modal_EditarPaquete
                 End If
             Next j
         Next i
-
         Return lista
     End Function
-
-End Class
-Class producto_Cargado
-    Property codigo As String
-    Property cantidad As Integer
 End Class

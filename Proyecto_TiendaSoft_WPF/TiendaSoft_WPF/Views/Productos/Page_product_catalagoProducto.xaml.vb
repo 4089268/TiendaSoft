@@ -203,10 +203,9 @@ Class Page_product_catalagoProducto
             tb_precioVent.Text = xproducto.precio_v.ToString("####0.00")
             cargar_imagen(xproducto.codigo)
         End If
-
     End Sub
 
-    Private Sub cargarXml(codigo As Int32)
+    Private Sub cargarXml(codigo As String)
         If (Mi_conexion.Conectar) Then
             Dim SqlComand = New SqlCommand
             SqlComand.CommandTimeout = 500
@@ -217,12 +216,11 @@ Class Page_product_catalagoProducto
             SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Codigo", codigo))
 
             SqlComand.Connection = Mi_conexion.conexion
-            Dim DataAdapter As New SqlDataAdapter(SqlComand)
-            Dim dataSet As New DataSet
-
-            DataAdapter.Fill(dataSet, "Resultado")
-            xmlProducto = CType(dataSet.Tables(0).Rows(0).Item(0), String)
-
+            Using datareader As SqlDataReader = SqlComand.ExecuteReader
+                If datareader.Read Then
+                    xmlProducto = CType(datareader.Item(0), String)
+                End If
+            End Using
         Else
             MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         End If
@@ -288,6 +286,7 @@ Class Page_product_catalagoProducto
         DataGrid1.SelectedItem = Nothing
         cargarDatos()
 
+        tb_search.SearchText = ""
         tb_codigo.Text = ""
         tb_descripcion.Text = ""
 
@@ -335,7 +334,7 @@ Class Page_product_catalagoProducto
                     SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "NUEVO"))
                 Else
                     SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "MODIFICAR"))
-                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@id_producto", DataGrid1.SelectedItem.Row.item("id_producto")))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@id_producto", CType(DataGrid1.SelectedItem, itemProducto).id_producto))
                 End If
 
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Codigo", CType(tb_codigo.Text, Int64)))
@@ -380,15 +379,12 @@ Class Page_product_catalagoProducto
 
                 SqlComand.Connection = Mi_conexion.conexion
                 Dim reader As SqlDataReader = SqlComand.ExecuteReader()
-
                 Try
                     reader.Read()
                     MessageBox.Show(reader("Mensaje"), "", MessageBoxButton.OK, MessageBoxImage.Information)
                 Catch ex As Exception
                 End Try
                 LimpiarCampos()
-                cargarDatos()
-
             Else
                 MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             End If
@@ -419,11 +415,11 @@ Class Page_product_catalagoProducto
             Case "btn_cargarImagen"
                 cargarArchivoImagen()
             Case "btn_modificarpaquete"
-
-                Dim form As New modal_EditarPaquete(Me)
-                form.Owner = Me.Parent
+                Dim form As New modal_EditarPaquete
                 form.xml = xmlProducto
-                Dim res As Boolean = form.ShowDialog()
+                If form.ShowDialog() Then
+                    xmlProducto = form.xml
+                End If
         End Select
     End Sub
 
@@ -493,10 +489,10 @@ Class Page_product_catalagoProducto
         End If
 
         If (sender.name = "tipo3" And tipo3.IsChecked And tipo3.IsEnabled) Then
-            Dim form As New modal_EditarPaquete(Me)
-            form.Owner = Me.Parent
-            Dim res As Boolean = form.ShowDialog()
-            If (Not res) Then
+            Dim form As New modal_EditarPaquete
+            If (form.ShowDialog()) Then
+                xmlProducto = form.xml
+            Else
                 tipo3.IsChecked = False
             End If
         End If

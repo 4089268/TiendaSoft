@@ -11,9 +11,9 @@ Imports System.Windows
 
 ' Revisar los valores de los atributos del ensamblado
 
-<Assembly: AssemblyTitle("Bloquera Gonzales")> 
-<Assembly: AssemblyDescription("Bloquera Gonzales")> 
-<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyTitle("TiendaSoft")>
+<Assembly: AssemblyDescription("TiendaSoft")>
+<Assembly: AssemblyCompany("Soluciones NERUS")>
 <Assembly: AssemblyProduct("Bloquera Gonzales")> 
 <Assembly: AssemblyCopyright("Copyright ©  2017")> 
 <Assembly: AssemblyTrademark("")> 
@@ -42,7 +42,7 @@ Imports System.Windows
 
 
 'El siguiente GUID sirve como identificador de typelib si este proyecto se expone a COM
-<Assembly: Guid("35a1ff02-ee09-4b24-bee7-7a8ab54d50c1")> 
+<Assembly: Guid("35a1ff02-ee09-4b24-bee7-7a8ab54d50c1")>
 
 ' La información de versión de un ensamblado consta de los cuatro valores siguientes:
 '
@@ -55,5 +55,6 @@ Imports System.Windows
 ' mediante el asterisco ('*'), como se muestra a continuación:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.2")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("2.1.5.1")>
+<Assembly: AssemblyFileVersion("2.1.5.1")>
+<Assembly: NeutralResourcesLanguage("es-CU")>
