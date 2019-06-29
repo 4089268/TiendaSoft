@@ -20,11 +20,14 @@
         </Grid.RowDefinitions>
 
         <!-- Row 0 HEADER -->
-        <Image Source="Imagenes/cash_register.png"       Grid.Row="0" HorizontalAlignment="Left" Margin="35,3,3,3"/>
-        <Label Name="lbl_nombre" Content="Punto de Venta"         Grid.Row="0" HorizontalAlignment="Left" Margin="120,0,0,0" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"/>
-        <StackPanel Orientation="Horizontal"    Grid.Row="0" HorizontalAlignment="Right" Margin="0,8,10,8" VerticalAlignment="Center" Background="#eeeeee" Height="64" Width="340">
-            <Label Content="Atiende:"           FontSize="15" VerticalAlignment="Center" Margin="5" FontWeight="Bold"/>
-            <Label Name="label_NombreOperador" Content="Administrador" FontSize="15" VerticalAlignment="Center" Width="167" />
+        <Image Source="Imagenes/cash_register.png" Grid.Row="0" HorizontalAlignment="Left" Margin="35,3,3,3"/>
+        <Label Name="lbl_nombre" Content="Punto de Venta" Grid.Row="0" HorizontalAlignment="Left" Margin="120,0,0,0" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"/>
+        <TextBlock Name="tb_version" Text="x.x.x" Grid.Row="0" HorizontalAlignment="Left" Margin="420,0,0,8" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        
+        <StackPanel Orientation="Horizontal"    Grid.Row="0" HorizontalAlignment="Right" Margin="0,8,10,8" VerticalAlignment="Center" Background="#eeeeee" Height="64" FlowDirection="RightToLeft">
+            <Label Name="label_NombreOperador" Content="*** ****** *** *******" FontSize="15" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+            <Label Content=":" FontSize="15" VerticalAlignment="Center" Margin="0" FontWeight="Bold"/>
+            <Label Content="Atiende " FontSize="15" VerticalAlignment="Center" Margin="0,5" FontWeight="Bold"/>
         </StackPanel>
 
         <!-- Row 1 MENU -->

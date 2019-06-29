@@ -17,11 +17,13 @@ Class Page_inv_agregar
 
         Select Case sender.name
             Case "btn_search"
-                Dim xform As New Frm_Busqueda(tb_search)
-                xform.ShowDialog()
+                Dim xform As New Frm_Busqueda
+                If xform.ShowDialog Then
+                    tb_search.Text = xform.codigoProducto
+                End If
+
             Case "btn_agregar"
                 Agregar_Inventario()
-
         End Select
     End Sub
 
@@ -94,7 +96,6 @@ Class Page_inv_agregar
         End Try
     End Sub
 
-
     '' Validar que se tecleen numeros
     Private Sub validar_numbers(sender As Object, e As TextCompositionEventArgs) Handles tb_nCantidad.PreviewTextInput
         Try
@@ -107,6 +108,4 @@ Class Page_inv_agregar
 
     End Sub
 
-
-    
 End Class

@@ -9,7 +9,7 @@ Class MainWindow
 
     Private Sub rootGrid_onLoaded() Handles rootGrid.Loaded
         Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
-
+        tb_version.Text = xversion
         MostrarBotones(False)
 
         If (xOpererador > 0 And xNombreUsuario.Length > 0 And xOpciones.Length > 0) Then

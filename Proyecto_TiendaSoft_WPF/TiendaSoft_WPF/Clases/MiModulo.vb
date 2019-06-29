@@ -2,18 +2,18 @@
 
 Module MiModulo
 
-#Region " Variables... "
+
     Public Const xNombre = "TIENDASOFT"
     Public Const strApp As String = "POINT"
     Public Const strBasedeDatos As String = "PDV"
+    Public xversion As String = "2.1.4"
 
     Public xOpererador As Int32 = 0
     Public xNombreUsuario As String = ""
     Public xOpciones As String = ""
     Public xAdmin As Boolean = False
 
-    Public Mi_conexion As New Conexion_SQL
-#End Region
+    Public Mi_conexion As New Conexion_Sql
 
 #Region " Variables Ventas"
     Public imp_cambio As Double = 0
