@@ -124,7 +124,6 @@ Public Class Frm_Busqueda
                 Mi_conexion.cerrarConexion()
             End If
         Catch ex As Exception
-            MessageBox.Show("ALGO SALIO MAL", "ERR", MessageBoxButton.OK, MessageBoxImage.Error)
         End Try
     End Sub
 

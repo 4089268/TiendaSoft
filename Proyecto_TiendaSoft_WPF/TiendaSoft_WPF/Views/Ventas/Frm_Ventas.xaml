@@ -3,6 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TIENDASOFT"
+      xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="1000" Title="Ventas" Loaded="Page_Loaded">
     
@@ -38,7 +40,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
         <Label Content="VENTAS" Grid.Row="0"  Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="White" FontWeight="Bold" Background="Gray" Margin="5"/>
 
@@ -57,30 +59,24 @@
                     <Label Content="Agregar"/>
                 </StackPanel>
             </Button>
-            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0"   x:Name="btn_imprimir" Width="120">
+            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0"   x:Name="btn_imprimir" Width="100">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/printer.png" Height="20"/>
                     <Label Content="Imprimir"/>
                 </StackPanel>
             </Button>
-            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_entrada" Width="120">
+            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_entrada" Width="110">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/money_int.png" Height="20"/>
-                    <Label Content="[F8] Entrada"/>
+                    <Label Content="[F8] Entradas"/>
                 </StackPanel>
             </Button>
-            <Button   VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_salida" Width="120">
+            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_salida" Width="100">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/money_out.png" Height="20"/>
                     <Label Content="[F7] Salidas"/>
                 </StackPanel>
-            </Button>
-            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_borrar" Width="120">
-                <StackPanel  Orientation="Horizontal">
-                    <Image Source="/TIENDASOFT;component/Imagenes/eraser.png" Height="20"/>
-                    <Label Content="[Supr] Borrar"/>
-                </StackPanel>
-            </Button>
+            </Button>            
         </StackPanel>
 
         <Grid x:Name="grd_prod" Grid.Row="2">
@@ -105,7 +101,7 @@
             <TextBox x:Name="txt_pre" Grid.Column="3" Style="{StaticResource tb1}"/>
 
             <TextBlock Text="Cantidad:" Grid.Column="4" Style="{StaticResource tbl1}"/>
-            <TextBox x:Name="txt_cant" Grid.Column="5" IsEnabled="True" IsReadOnly="False" Style="{StaticResource tb1}"/>
+            <toolkit:IntegerUpDown x:Name="txt_cant" Grid.Column="5" IsEnabled="True" IsReadOnly="False" Margin ="2,4,2,4" FontFamily="Tahoma" FontSize="11" FontWeight="Medium" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" TextAlignment="Right"  ShowButtonSpinner="False" Text="0"/>
 
             <TextBlock Text="Sub Total:" Grid.Column="6" Style="{StaticResource tbl1}"/>
             <TextBox x:Name="txt_imp" Grid.Column="7" Style="{StaticResource tb1}"/>
@@ -115,35 +111,12 @@
             
             <Button Grid.Column="10" x:Name="btn_graba"  Margin="4" FontFamily="Tahoma" FontSize="11" FontWeight="Bold" Foreground="Navy" VerticalContentAlignment="Center" Content="G" />            
         </Grid>
-        
-        <TabControl Grid.Row="4" Margin="4">
-            <TabItem Header="Ticket 1">
-                <DataGrid x:Name="grd_venta" Grid.Row="4" AlternatingRowBackground="#FF94CAFD" Foreground="#606060" FontFamily="Tahoma" FontWeight="Bold" BorderBrush="Navy" Background="White" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="Navy" ClipboardCopyMode="IncludeHeader" RowHeight="21" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="139" Header="Código"/>
-                        <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="*" Header="Descripción"/>
-                        <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="89" Header="Precio"/>
-                        <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="89" Header="Cant"/>
-                        <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="89" Header="Importe"/>
-                        <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="89" Header="Existencia"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>            
-        </TabControl>        
 
-        <StackPanel Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-            <Label Content="Productos en Total:"   FontSize="20" VerticalAlignment="Center" Margin="30,0,0,0"/>
-            <Label x:Name="lbl_articulos"   Content="0"     Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="35" Foreground="Black" FontWeight="Medium"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Stretch" Orientation="Horizontal">
-            <Button x:Name="btn_cobrar" Content="[F10] COBRAR" Margin="0,5,5,5" Padding="2" Width="180" FontSize="22" FontWeight="Medium"/>
-
-            <Border Background="LightGray" Margin="0,0,10,0" Width="330" Padding="0,0,0,0">
-                <Label x:Name="lbl_total" Content="0.00"  Padding="0,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="35" Foreground="Black" FontWeight="Medium" Width="320"/>
-            </Border>
-        </StackPanel>
-
+        <TabControl Name="tc_tickets" Grid.Row="4" Margin="4">            
+            <TabItem Header="Nuevo Ticket" Name="btn_nuevo" FontWeight="Medium">
+                <Border Background="Gray" Margin="5"/>
+            </TabItem>
+        </TabControl>
         <Border Name="modal" Grid.Row="0" Grid.RowSpan="6"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#bb000000" Visibility="Collapsed"/>
     </Grid>
 </Page>    

@@ -55,7 +55,7 @@ Public Class Nueva_cuenta
 
     Private Sub validar_numeros(sender As Object, e As TextCompositionEventArgs) Handles tb_telefono.PreviewTextInput, tb_saldo.PreviewTextInput
         Try
-            Dim regex As System.Text.RegularExpressions.Regex
+            Dim regex As New System.Text.RegularExpressions.Regex("")
 
             Select Case sender.name
                 Case "tb_telefono"

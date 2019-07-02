@@ -71,127 +71,131 @@ Class Page_Corte
     End Sub
 
     Private Sub executar_corteCaja(tipo As Int16)
-        'Try
-        Dim sqlAdapter As SqlDataAdapter = Mi_conexion.Ejecutar_Procedimiento_dataset("[Global].[Sys_CorteCaja]", {"xtipo", "xidOperador"}, {tipo, xOpererador})
-        Dim dataSet As DataSet = New DataSet
-        sqlAdapter.Fill(dataSet)
+        Try
+            Mi_conexion.Conectar()
 
-        Dim ventasTotales As Decimal = dataSet.Tables(0).Rows(0).Item("Ventas_Totales")
-        Dim ganancias As Decimal = dataSet.Tables(1).Rows(0).Item("Ganancias")
+            Dim sqlAdapter As SqlDataAdapter = Mi_conexion.Ejecutar_Procedimiento_dataset("[Global].[Sys_CorteCaja]", {"xtipo", "xidOperador"}, {tipo, xOpererador})
+            Dim dataSet As DataSet = New DataSet
+            sqlAdapter.Fill(dataSet)
 
-        Select Case (tipo)
-            Case 1
-                cabecera1.Content = "Dinero en Caja"
-                gridDineroCaja.Visibility = Windows.Visibility.Visible
-                Dim c_xInicial As Decimal = dataSet.Tables(2).Rows(0).Item("m_inicial")
-                Dim c_xEntradas As Decimal = dataSet.Tables(2).Rows(0).Item("Entradas")
-                Dim c_xSalidas As Decimal = dataSet.Tables(2).Rows(0).Item("Salidas")
-                Dim v_xefectivo2 As Decimal = dataSet.Tables(3).Rows(0).Item("Efectivo")
-                Dim c_xTotal As Decimal = (c_xInicial + c_xEntradas + v_xefectivo2 - c_xSalidas)
+            Dim ventasTotales As Decimal = dataSet.Tables(0).Rows(0).Item("Ventas_Totales")
+            Dim ganancias As Decimal = dataSet.Tables(1).Rows(0).Item("Ganancias")
 
-
-                c_mInicial.Content = "$" & c_xInicial.ToString("N2")
-                c_Entradas.Content = "+ $" & c_xEntradas.ToString("N2")
-                c_Salidas.Content = "- $" & c_xSalidas.ToString("N2")
-                c_Ventas.Content = "+ $" & v_xefectivo2.ToString("N2")
-
-                c_Total.Content = "$" & c_xTotal.ToString("N2")
-
-                sv_turnos.Visibility = Windows.Visibility.Collapsed
-                gridDineroCaja.Visibility = Windows.Visibility.Visible
-
-            Case 2
-                cabecera1.Content = "Turnos del Dia"
-                gridDineroCaja.Visibility = Windows.Visibility.Collapsed
-                sv_turnos.Visibility = Windows.Visibility.Visible
-
-                sp_turnos.Children.Clear()
-                For Each xrow As DataRow In dataSet.Tables(2).Rows
-                    Agr_DetalleTurnos(xrow.Item("nombre"), xrow.Item("fecha"), xrow.Item("m_inicial"), xrow.Item("m_final"), sp_turnos)
-                Next
-
-        End Select
-
-        tb_ventasTotales.Content = ventasTotales.ToString("N2")
-        tb_Ganancias.Content = ganancias.ToString("N2")
-
-        ''Ventas por tipo de pago
-        Dim v_xefectivo As Decimal = dataSet.Tables(3).Rows(0).Item("Efectivo")
-        Dim v_xtarjeta As Decimal = dataSet.Tables(3).Rows(0).Item("Tarjeta")
-        Dim v_xtotal As Decimal = v_xefectivo + v_xtarjeta
-        Me.v_Efectivo.Content = "$" & v_xefectivo.ToString("N2")
-        Me.v_tarjeta.Content = "$" & v_xtarjeta.ToString("N2")
-        Me.v_total.Content = "$" & v_xtotal.ToString("N2")
-
-
-        ''EntradasDeEfectivo
-        sp_entradas.Children.Clear()
-        TotalEntradas.Content = dataSet.Tables(4).Rows.Count
-        For Each xrow As DataRow In dataSet.Tables(4).Rows
             Select Case (tipo)
                 Case 1
-                    Agr_EntradasSalidasEfectivo(1, xrow.Item("descripcion").ToString, xrow.Item("monto").ToString, "", "", sp_entradas)
-                    lbl_Enombre.Visibility = Windows.Visibility.Collapsed
-                    lbl_Ehora.Visibility = Windows.Visibility.Collapsed
-                    lbl_Enombre.Margin = New Thickness(0, 0, 0, 0)
-                    lbl_EDescripcion.Margin = New Thickness(10, 0, 0, 0)
-                Case 2
-                    Agr_EntradasSalidasEfectivo(2, xrow.Item("descripcion").ToString, xrow.Item("monto").ToString, xrow.Item("nombre").ToString, xrow.Item("fecha").ToString, sp_entradas)
-                    lbl_Enombre.Visibility = Windows.Visibility.Visible
-                    lbl_Ehora.Visibility = Windows.Visibility.Visible
-                    lbl_Enombre.Margin = New Thickness(10, 0, 0, 0)
-                    lbl_EDescripcion.Margin = New Thickness(0, 0, 0, 0)
-            End Select
-        Next
+                    cabecera1.Content = "Dinero en Caja"
+                    gridDineroCaja.Visibility = Windows.Visibility.Visible
+                    Dim c_xInicial As Decimal = dataSet.Tables(2).Rows(0).Item("m_inicial")
+                    Dim c_xEntradas As Decimal = dataSet.Tables(2).Rows(0).Item("Entradas")
+                    Dim c_xSalidas As Decimal = dataSet.Tables(2).Rows(0).Item("Salidas")
+                    Dim v_xefectivo2 As Decimal = dataSet.Tables(3).Rows(0).Item("Efectivo")
+                    Dim c_xTotal As Decimal = (c_xInicial + c_xEntradas + v_xefectivo2 - c_xSalidas)
 
-        ''SalidasDeEfectivo
-        sp_salidas.Children.Clear()
-        totalSalidas.Content = dataSet.Tables(5).Rows.Count
-        For Each xrow As DataRow In dataSet.Tables(5).Rows
-            Select Case (tipo)
+
+                    c_mInicial.Content = "$" & c_xInicial.ToString("N2")
+                    c_Entradas.Content = "+ $" & c_xEntradas.ToString("N2")
+                    c_Salidas.Content = "- $" & c_xSalidas.ToString("N2")
+                    c_Ventas.Content = "+ $" & v_xefectivo2.ToString("N2")
+
+                    c_Total.Content = "$" & c_xTotal.ToString("N2")
+
+                    sv_turnos.Visibility = Windows.Visibility.Collapsed
+                    gridDineroCaja.Visibility = Windows.Visibility.Visible
+
+                Case 2
+                    cabecera1.Content = "Turnos del Dia"
+                    gridDineroCaja.Visibility = Windows.Visibility.Collapsed
+                    sv_turnos.Visibility = Windows.Visibility.Visible
+
+                    sp_turnos.Children.Clear()
+                    For Each xrow As DataRow In dataSet.Tables(2).Rows
+                        Agr_DetalleTurnos(xrow.Item("nombre"), xrow.Item("fecha"), xrow.Item("m_inicial"), xrow.Item("m_final"), sp_turnos)
+                    Next
+
+            End Select
+
+            tb_ventasTotales.Content = ventasTotales.ToString("N2")
+            tb_Ganancias.Content = ganancias.ToString("N2")
+
+            ''Ventas por tipo de pago
+            Dim v_xefectivo As Decimal = dataSet.Tables(3).Rows(0).Item("Efectivo")
+            Dim v_xtarjeta As Decimal = dataSet.Tables(3).Rows(0).Item("Tarjeta")
+            Dim v_xtotal As Decimal = v_xefectivo + v_xtarjeta
+            Me.v_Efectivo.Content = "$" & v_xefectivo.ToString("N2")
+            Me.v_tarjeta.Content = "$" & v_xtarjeta.ToString("N2")
+            Me.v_total.Content = "$" & v_xtotal.ToString("N2")
+
+
+            ''EntradasDeEfectivo
+            sp_entradas.Children.Clear()
+            TotalEntradas.Content = dataSet.Tables(4).Rows.Count
+            For Each xrow As DataRow In dataSet.Tables(4).Rows
+                Select Case (tipo)
+                    Case 1
+                        Agr_EntradasSalidasEfectivo(1, xrow.Item("descripcion").ToString, xrow.Item("monto").ToString, "", "", sp_entradas)
+                        lbl_Enombre.Visibility = Windows.Visibility.Collapsed
+                        lbl_Ehora.Visibility = Windows.Visibility.Collapsed
+                        lbl_Enombre.Margin = New Thickness(0, 0, 0, 0)
+                        lbl_EDescripcion.Margin = New Thickness(10, 0, 0, 0)
+                    Case 2
+                        Agr_EntradasSalidasEfectivo(2, xrow.Item("descripcion").ToString, xrow.Item("monto").ToString, xrow.Item("nombre").ToString, xrow.Item("fecha").ToString, sp_entradas)
+                        lbl_Enombre.Visibility = Windows.Visibility.Visible
+                        lbl_Ehora.Visibility = Windows.Visibility.Visible
+                        lbl_Enombre.Margin = New Thickness(10, 0, 0, 0)
+                        lbl_EDescripcion.Margin = New Thickness(0, 0, 0, 0)
+                End Select
+            Next
+
+            ''SalidasDeEfectivo
+            sp_salidas.Children.Clear()
+            totalSalidas.Content = dataSet.Tables(5).Rows.Count
+            For Each xrow As DataRow In dataSet.Tables(5).Rows
+                Select Case (tipo)
+                    Case 1
+                        Agr_EntradasSalidasEfectivo(1, xrow.Item("descripcion").ToString, xrow.Item("monto").ToString, "", "", sp_salidas)
+                        lbl_Snombre.Visibility = Windows.Visibility.Collapsed
+                        lbl_Shora.Visibility = Windows.Visibility.Collapsed
+                        lbl_Snombre.Margin = New Thickness(0, 0, 0, 0)
+                        lbl_SDescripcion.Margin = New Thickness(10, 0, 0, 0)
+                    Case 2
+                        Agr_EntradasSalidasEfectivo(2, xrow.Item("descripcion").ToString, xrow.Item("monto").ToString, xrow.Item("nombre").ToString, xrow.Item("fecha").ToString, sp_salidas)
+                        lbl_Snombre.Visibility = Windows.Visibility.Visible
+                        lbl_Shora.Visibility = Windows.Visibility.Visible
+                        lbl_Snombre.Margin = New Thickness(10, 0, 0, 0)
+                        lbl_SDescripcion.Margin = New Thickness(0, 0, 0, 0)
+                End Select
+            Next
+
+            ''Detalle ventas
+            sp_Ventas.Children.Clear()
+            TotalVentas.Content = dataSet.Tables(7).Rows.Count
+            For Each xrow As DataRow In dataSet.Tables(7).Rows
+                Select Case (tipo)
+                    Case 1
+                        Agr_DetalleVentas(1, "", xrow.Item("fecha").ToString, xrow.Item("total").ToString, xrow.Item("pago").ToString, xrow.Item("cambio").ToString, xrow.Item("Tipo_Cobro").ToString, xrow.Item("id_venta").ToString, Me.sp_Ventas)
+                        lbl_ventaNombre.Visibility = Windows.Visibility.Collapsed
+                        lbl_fecha.Margin = New Thickness(25, 0, 0, 0)
+                    Case 2
+                        Agr_DetalleVentas(2, xrow.Item("nombre").ToString, xrow.Item("fecha").ToString, xrow.Item("total").ToString, xrow.Item("pago").ToString, xrow.Item("cambio").ToString, xrow.Item("Tipo_Cobro").ToString, xrow.Item("id_venta").ToString, Me.sp_Ventas)
+                        lbl_ventaNombre.Visibility = Windows.Visibility.Visible
+                        lbl_fecha.Margin = New Thickness(0, 0, 0, 0)
+                End Select
+            Next
+
+            '' DATOS VENDEDOR 
+            Select Case tipo
                 Case 1
-                    Agr_EntradasSalidasEfectivo(1, xrow.Item("descripcion").ToString, xrow.Item("monto").ToString, "", "", sp_salidas)
-                    lbl_Snombre.Visibility = Windows.Visibility.Collapsed
-                    lbl_Shora.Visibility = Windows.Visibility.Collapsed
-                    lbl_Snombre.Margin = New Thickness(0, 0, 0, 0)
-                    lbl_SDescripcion.Margin = New Thickness(10, 0, 0, 0)
+                    lb_nombre.Content = "Corte de " & dataSet.Tables(6).Rows(0).Item("nombre") & " del " & dataSet.Tables(6).Rows(0).Item("fecha")
+                    lb_fecha.Content = " De " & dataSet.Tables(6).Rows(0).Item("h_inicial") & " a las " & dataSet.Tables(6).Rows(0).Item("h_final") & " - (Turno Actual)"
                 Case 2
-                    Agr_EntradasSalidasEfectivo(2, xrow.Item("descripcion").ToString, xrow.Item("monto").ToString, xrow.Item("nombre").ToString, xrow.Item("fecha").ToString, sp_salidas)
-                    lbl_Snombre.Visibility = Windows.Visibility.Visible
-                    lbl_Shora.Visibility = Windows.Visibility.Visible
-                    lbl_Snombre.Margin = New Thickness(10, 0, 0, 0)
-                    lbl_SDescripcion.Margin = New Thickness(0, 0, 0, 0)
+                    lb_fecha.Content = " Corte del  " & dataSet.Tables(6).Rows(0).Item("fecha")
             End Select
-        Next
 
-        ''Detalle ventas
-        sp_Ventas.Children.Clear()
-        TotalVentas.Content = dataSet.Tables(7).Rows.Count
-        For Each xrow As DataRow In dataSet.Tables(7).Rows
-            Select Case (tipo)
-                Case 1
-                    Agr_DetalleVentas(1, "", xrow.Item("fecha").ToString, xrow.Item("total").ToString, xrow.Item("pago").ToString, xrow.Item("cambio").ToString, xrow.Item("Tipo_Cobro").ToString, xrow.Item("id_venta").ToString, Me.sp_Ventas)
-                    lbl_ventaNombre.Visibility = Windows.Visibility.Collapsed
-                    lbl_fecha.Margin = New Thickness(25, 0, 0, 0)
-                Case 2
-                    Agr_DetalleVentas(2, xrow.Item("nombre").ToString, xrow.Item("fecha").ToString, xrow.Item("total").ToString, xrow.Item("pago").ToString, xrow.Item("cambio").ToString, xrow.Item("Tipo_Cobro").ToString, xrow.Item("id_venta").ToString, Me.sp_Ventas)
-                    lbl_ventaNombre.Visibility = Windows.Visibility.Visible
-                    lbl_fecha.Margin = New Thickness(0, 0, 0, 0)
-            End Select
-        Next
+            Mi_conexion.cerrarConexion()
+        Catch ex As Exception
 
-        '' DATOS VENDEDOR 
-        Select Case tipo
-            Case 1
-                lb_nombre.Content = "Corte de " & dataSet.Tables(6).Rows(0).Item("nombre") & " del " & dataSet.Tables(6).Rows(0).Item("fecha")
-                lb_fecha.Content = " De " & dataSet.Tables(6).Rows(0).Item("h_inicial") & " a las " & dataSet.Tables(6).Rows(0).Item("h_final") & " - (Turno Actual)"
-            Case 2
-                lb_fecha.Content = " Corte del  " & dataSet.Tables(6).Rows(0).Item("fecha")
-        End Select
-
-        ' Catch ex As Exception
-        ' MessageBox.Show("ALGO SALIO MAL :(", "ERR", MessageBoxButton.OK, MessageBoxImage.Error)
-        'End Try
+            MessageBox.Show("ALGO SALIO MAL :(", "ERR", MessageBoxButton.OK, MessageBoxImage.Error)
+        End Try
 
     End Sub
 

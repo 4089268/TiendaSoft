@@ -9,7 +9,8 @@ Class Frm_Ventas
     Property PagoCredito As Boolean = False
     Property id_credito As Integer = -1
 
-    Dim ds As DataSet = New DataSet()
+    'Dim ds As DataSet = New DataSet()
+
     Dim strCurrency As String = ""
     Dim acceptableKey As Boolean = False
     Dim xagranel As Boolean = False
@@ -17,7 +18,6 @@ Class Frm_Ventas
 
     Dim xcmd As SqlCommand
     Dim xreader As SqlDataReader
-
     Dim frm_busqueda As Frm_Busqueda
 
     Public Shared CustomRoutedCommand As New RoutedCommand()
@@ -40,74 +40,9 @@ Class Frm_Ventas
         System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = "."
 
         HotkeyManager.Current.AddOrReplace("Buscar", Key.F1, Nothing, AddressOf btn_busqueda_Click)
-        HotkeyManager.Current.AddOrReplace("BorrarProduct", Key.F6, Nothing, AddressOf btn_borrar_articulo)
         HotkeyManager.Current.AddOrReplace("SalidaDinero", Key.F7, Nothing, AddressOf btn_salidas)
         HotkeyManager.Current.AddOrReplace("EntradaDinero", Key.F8, Nothing, AddressOf btn_entradas)
-        HotkeyManager.Current.AddOrReplace("Cobrar", Key.F10, Nothing, AddressOf btn_cobrar_Click)
-
-        Dim dt As New DataTable
-        dt.Columns.Add(New DataColumn("id_producto", GetType(Int32)))
-        dt.Columns.Add(New DataColumn("codigo", GetType(String)))
-        dt.Columns.Add(New DataColumn("descripcion", GetType(String)))
-        dt.Columns.Add(New DataColumn("precio_v", GetType(Decimal)))
-        dt.Columns.Add(New DataColumn("precio_c", GetType(Decimal)))
-        dt.Columns.Add(New DataColumn("cantidad", GetType(Decimal)))
-        dt.Columns.Add(New DataColumn("importe", GetType(Decimal)))
-        dt.Columns.Add(New DataColumn("existencia", GetType(Decimal)))
-        ds.Tables.Add(dt)
-
-        grd_venta.AutoGenerateColumns = False
-        grd_venta.Columns.Clear()
-        grd_venta.IsReadOnly = False
-        grd_venta.CanUserAddRows = False
-
-        Dim TextBoxColumn1 As New DataGridTextColumn
-        TextBoxColumn1.Header = "Código"
-        TextBoxColumn1.Binding = New Binding("codigo")
-        TextBoxColumn1.Width = 139
-        TextBoxColumn1.IsReadOnly = True
-
-        Dim TextBoxColumn2 As New DataGridTextColumn
-        TextBoxColumn2.Header = "Descripción"
-        TextBoxColumn2.Binding = New Binding("descripcion")
-        TextBoxColumn2.Width = New DataGridLength(1, DataGridLengthUnitType.Star)
-        TextBoxColumn2.IsReadOnly = True
-
-        Dim TextBoxColumn3 As New DataGridTextColumn
-        TextBoxColumn3.Header = "Precio"
-        TextBoxColumn3.Width = 89
-        TextBoxColumn3.Binding = New Binding("precio_v")
-        TextBoxColumn3.IsReadOnly = True
-
-        Dim TextBoxColumn4 As New DataGridTextColumn
-        TextBoxColumn4.Header = "Cant"
-        TextBoxColumn4.Binding = New Binding("cantidad")
-        TextBoxColumn4.Width = 89
-        TextBoxColumn4.IsReadOnly = True
-
-        Dim TextBoxColumn5 As New DataGridTextColumn
-        TextBoxColumn5.Header = "Importe"
-        TextBoxColumn5.Binding = New Binding("importe")
-        TextBoxColumn5.Width = 89
-        TextBoxColumn5.IsReadOnly = True
-
-
-        Dim TextBoxColumn6 As New DataGridTextColumn
-        TextBoxColumn6.Header = "Existencia"
-        TextBoxColumn6.Width = 89
-        TextBoxColumn6.Binding = New Binding("existencia")
-        TextBoxColumn6.IsReadOnly = True
-
-
-        grd_venta.Columns.Add(TextBoxColumn1)
-        grd_venta.Columns.Add(TextBoxColumn2)
-        grd_venta.Columns.Add(TextBoxColumn3)
-        grd_venta.Columns.Add(TextBoxColumn4)
-        grd_venta.Columns.Add(TextBoxColumn5)
-        grd_venta.Columns.Add(TextBoxColumn6)
-
-        grd_venta.ItemsSource = ds.Tables(0).DefaultView
-
+        btn_nuevoTicketClick()
 
         ''***BOTON IMPRIMIR DESACTIVADO HASTA TERMINARLO
         btn_imprimir.IsEnabled = False
@@ -115,30 +50,27 @@ Class Frm_Ventas
 
     End Sub
 
-    Private Sub Despliega_Totales()
-        Dim xart As Decimal = 0
-        Dim xtot As Decimal = 0
-
-        For i = 0 To ds.Tables(0).Rows.Count - 1
-            Try
-                xart = xart + ds.Tables(0).Rows(i).Item("cantidad")
-                xtot = xtot + ds.Tables(0).Rows(i).Item("importe")
-            Catch
-            End Try
-
-        Next
-        lbl_articulos.Content = xart
-        lbl_total.Content = FormatCurrency(xtot, 2)
-        Me.imp_cobrar = xtot
-
-    End Sub
-
     Private Sub limpiar_Campos()
         txt_desc.Text = ""
         txt_pre.Text = "0.00"
         txt_imp.Text = "0.00"
-        txt_cant.Text = "1"
+        txt_exis.Text = ""
+
+        If txt_cant.Text.Length < 1 Then
+            txt_cant.Text = "1"
+        ElseIf txt_cant.Text = "0" Then
+            txt_cant.Text = "1"
+        End If
+
         txt_cant.IsEnabled = True
+    End Sub
+
+    Private Sub renombrarTickets()
+        For i As Integer = 0 To (tc_tickets.Items.Count - 2)
+            Dim xtab As TabItem = CType(tc_tickets.Items(i), TabItem)
+            xtab.Header = "Ticket " & (i + 1)
+            CType(xtab.Content, uc_frmTicket).index = i
+        Next
     End Sub
 
     '********** EVENTOS UI **********
@@ -189,6 +121,8 @@ Class Frm_Ventas
                         txt_exis.Text = listaProductos(0).existencia
                         xagranel = listaProductos(0).agranel
                         si_graba = True
+
+
                     Else
                         Dim frm As New Frm_seleccionarProducto(listaProductos)
                         If (frm.ShowDialog) Then
@@ -205,12 +139,22 @@ Class Frm_Ventas
             End Try
 
             If newCodigo.Length > 0 Then
-                txt_codigo.Text = newCodigo
+                If newCodigo = txt_codigo.Text Then
+                    txt_codigo.Tag = listaProductos(0).id_producto
+                    txt_desc.Text = listaProductos(0).descripcion
+                    txt_pre.Text = listaProductos(0).precio_v
+                    txt_pre.Tag = listaProductos(0).precio_c
+                    txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+                    txt_exis.Text = listaProductos(0).existencia
+                    xagranel = listaProductos(0).agranel
+                    si_graba = True
+                Else
+                    txt_codigo.Text = newCodigo
+                End If
             End If
             Mi_conexion.cerrarConexion()
         End If
     End Sub
-
     Private Sub txt_codigo_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_codigo.KeyDown
         If e.Key = Key.OemPlus _
             OrElse e.Key = Key.Add _
@@ -256,95 +200,6 @@ Class Frm_Ventas
             e.Handled = True
         End If
     End Sub
-
-    Private Sub btn_cobrar_Click() Handles btn_cobrar.Click
-
-        Dim xform As New Frm_Cobrar(Me.imp_cobrar, Me)
-
-        Dim result = xform.ShowDialog()
-        If result = True And Mi_conexion.Conectar Then
-
-            Dim xid_prod As Int32 = 0
-            Dim xpre1 As Decimal = 0
-            Dim xpre2 As Decimal = 0
-            Dim xcant As Decimal = 0
-            Dim ximpo As Decimal = 0
-            Dim xexis As Decimal = 0
-            Dim dss As New DataSet
-            dss.DataSetName = "VENTAS"
-            Dim dts As New DataTable
-            dts.Columns.Add(New DataColumn("fecha", GetType(DateTime)))
-            dts.Columns.Add(New DataColumn("id_operador", GetType(Integer)))
-            dts.Columns.Add(New DataColumn("total", GetType(Decimal)))
-            dts.Columns.Add(New DataColumn("pago", GetType(Decimal)))
-            dts.Columns.Add(New DataColumn("cambio", GetType(Decimal)))
-            dts.Columns.Add(New DataColumn("tipoCobro", GetType(Integer)))
-            dts.TableName = "TMP_VENTAS"
-            dss.Tables.Add(dts)
-
-            Dim dr1 As DataRow
-            dr1 = dss.Tables(0).NewRow()
-            dr1("fecha") = Date.Now()
-            dr1("id_operador") = xOpererador
-            dr1("total") = imp_pagar
-
-            If PagoCredito Then
-                dr1("pago") = imp_cobrar
-                dr1("cambio") = 0
-                dr1("tipoCobro") = 2
-                dts.Rows.Add(dr1)
-            Else
-                dr1("pago") = imp_pago
-                dr1("cambio") = imp_cambio
-                dr1("tipoCobro") = 1
-                dts.Rows.Add(dr1)
-            End If
-
-            Dim dt2 As DataTable
-            dt2 = ds.Tables(0).Copy()
-            dt2.TableName = "TMP_DETVENTAS"
-            dss.Tables.Add(dt2)
-
-            Dim xxml As String = dss.GetXml()
-            Dim cmd As New SqlCommand()
-            cmd.CommandType = CommandType.StoredProcedure
-            cmd.CommandText = "dbo.usp_guarda_xml"
-            cmd.Connection = Mi_conexion.conexion
-            cmd.Parameters.Clear()
-            cmd.Parameters.AddWithValue("@cAlias", "VENTAS")
-            cmd.Parameters.AddWithValue("@cAccion", "1")
-            cmd.Parameters.AddWithValue("@xmlTables", dss.GetXml())
-            cmd.Parameters.AddWithValue("@xidCredito", id_credito)
-
-
-            Dim sw_grabo As Boolean = True
-            Try
-                cmd.ExecuteNonQuery()
-            Catch ex As Exception
-                sw_grabo = False
-                MessageBox.Show("!Error al grabar..." + Chr(13) + ex.Message)
-            End Try
-
-            If sw_grabo Then
-                ds.Tables(0).Rows.Clear()
-                Me.Despliega_Totales()
-            End If
-
-            Mi_conexion.cerrarConexion()
-        End If
-    End Sub
-
-    Private Sub btn_imprimir_Click(sender As Object, e As RoutedEventArgs) Handles btn_imprimir.Click
-
-        Dim printDialog As New PrintDialog()
-        If printDialog.ShowDialog() = True Then
-            Dim paginator As New Paginador_Ticket(ds.Tables(0), New Typeface("Calibri"), 16, 40, New Size(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight))
-
-            printDialog.PrintDocument(paginator, "Ticket")
-        End If
-
-    End Sub
-
     Private Sub txt_cant_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_cant.KeyDown
         If (e.Key >= Key.D0 And e.Key <= Key.D9) OrElse (e.Key = Key.Enter) _
                 OrElse (e.Key = Key.Up) OrElse (e.Key = Key.Down) _
@@ -370,35 +225,12 @@ Class Frm_Ventas
             acceptableKey = False
         End If
     End Sub
-
-
-    Private Sub grd_venta_UnloadingRow(sender As Object, e As DataGridRowEventArgs) Handles grd_venta.UnloadingRow
-        Me.Despliega_Totales()
+    Private Sub cantida_textChanged() Handles txt_cant.ValueChanged
+        Try
+            txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+        Catch ex As Exception
+        End Try
     End Sub
-
-    Private Sub btn_busqueda_Click() Handles btn_busqueda.Click
-        If IsNothing(frm_busqueda) Then
-            modal.Visibility = Windows.Visibility.Visible
-            frm_busqueda = New Frm_Busqueda
-            If (frm_busqueda.ShowDialog()) Then
-                Dim cp As String = frm_busqueda.codigoProducto
-                txt_codigo.Text = cp
-            End If
-            modal.Visibility = Windows.Visibility.Collapsed
-            frm_busqueda = Nothing
-        End If
-    End Sub
-
-    Private Sub btn_entradas() Handles btn_entrada.Click
-        Dim xForm As New Frm_SalidaDinero(1)
-        xForm.ShowDialog()
-    End Sub
-
-    Private Sub btn_salidas() Handles btn_salida.Click
-        Dim xForm As New Frm_SalidaDinero(2)
-        xForm.ShowDialog()
-    End Sub
-
     Private Sub btn_enter_click(sender As Object, e As RoutedEventArgs) Handles btn_enter.Click
         If Mi_conexion.Conectar Then
             Try
@@ -447,77 +279,89 @@ Class Frm_Ventas
         End If
     End Sub
 
+    Private Sub btn_nuevoTicketClick() Handles btn_nuevo.MouseLeftButtonUp
+        If tc_tickets.Items.Count < 11 Then
+            Dim x As New TabItem
+            Dim frmTicket As New uc_frmTicket
+            frmTicket.xFrmVentas = Me
+            x.Header = "Ticket #"
+            x.Content = frmTicket
+            x.FontWeight = FontWeights.Medium
+            tc_tickets.Items.Insert((tc_tickets.Items.Count - 1), x)
+            renombrarTickets()
+            tc_tickets.SelectedIndex = (tc_tickets.Items.Count - 2)
+        End If
+        tc_tickets.SelectedIndex = (tc_tickets.Items.Count - 2)
+    End Sub
+    Public Sub btn_cerrarTicketClick(i As Integer)
+        tc_tickets.Items.RemoveAt(i)
+        If tc_tickets.Items.Count <= 1 Then
+            btn_nuevoTicketClick()
+        Else
+            tc_tickets.SelectedIndex = 0
+        End If
+        renombrarTickets()
+    End Sub
+
     Private Sub btn_graba_Click(sender As Object, e As RoutedEventArgs) Handles btn_graba.Click
-        If si_graba And CDec(IIf(txt_pre.Text.Length > 0, txt_pre.Text, 0)) > 0 And CDec(IIf(txt_cant.Text.Length > 0, txt_cant.Text, 0)) > 0 Then
-            Dim dr As DataRow
+        Dim ok As Boolean = True
+        If CDec(IIf(txt_pre.Text.Length > 0, txt_pre.Text, 0)) <= 0 And CDec(IIf(txt_cant.Text.Length > 0, txt_cant.Text, 0)) <= 0 Then
+            ok = False
+        End If
 
-            dr = ds.Tables(0).NewRow()
-            dr("id_producto") = txt_codigo.Tag
-            dr("codigo") = txt_codigo.Text
-            dr("descripcion") = txt_desc.Text
-            dr("precio_v") = txt_pre.Text
-            dr("precio_c") = txt_pre.Tag
-            dr("cantidad") = txt_cant.Text
-            dr("importe") = txt_pre.Text * txt_cant.Text
-            dr("existencia") = txt_exis.Text
+        If si_graba And ok And tc_tickets.SelectedIndex < (tc_tickets.Items.Count - 1) Then
+            Dim itemTicket As New dataModel_ticketProduct
+            itemTicket.idProducto = CType(txt_codigo.Tag, Integer)
+            itemTicket.codigo = txt_codigo.Text
+            itemTicket.descripción = txt_desc.Text
+            itemTicket.precio = CType(txt_pre.Text, Double)
+            itemTicket.cantidad = CType(txt_cant.Text, Integer)
+            itemTicket.importe = (itemTicket.precio * itemTicket.cantidad)
 
-            Dim mis_rows = ds.Tables(0).Select("codigo=" + "'" + txt_codigo.Text + "'")
-            If mis_rows.Count > 0 Then
-                For Each rows In mis_rows
-                    rows.Item("cantidad") = rows.Item("cantidad") + dr("cantidad")
-                    rows.Item("importe") = rows.Item("cantidad") * rows.Item("precio_v")
-                Next
-            Else
-                ds.Tables(0).Rows.Add(dr)
-            End If
+            itemTicket.precio_c = CType(txt_pre.Tag, Double)
+            itemTicket.existencia = CType(txt_exis.Text, Integer)
 
-            Despliega_Totales()
+            CType(CType(tc_tickets.SelectedItem, TabItem).Content, uc_frmTicket).agregarProducto(itemTicket)
+
+            limpiar_Campos()
             txt_codigo.Text = ""
             txt_codigo.Tag = ""
-            txt_desc.Text = ""
-            txt_pre.Text = ""
             txt_cant.Text = "1"
-            txt_imp.Text = ""
-            txt_exis.Text = ""
-
-            grd_venta.ItemsSource = ds.Tables(0).DefaultView
             si_graba = False
             txt_codigo.Focus()
         Else
             txt_codigo.Focus()
         End If
-
     End Sub
 
-    Private Sub btn_borrar_articulo() Handles btn_borrar.Click
-        Try
-            If (grd_venta.SelectedIndex <> -1) Then
-                Dim index As Integer = grd_venta.SelectedIndex
-                Dim datos As DataView = grd_venta.ItemsSource
-                datos.Item(index).Delete()
-                grd_venta.ItemsSource = datos
-            Else
-                MessageBox.Show("Seleccione un producto para removerlo", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+    Private Sub btn_busqueda_Click() Handles btn_busqueda.Click
+        If IsNothing(frm_busqueda) Then
+            modal.Visibility = Windows.Visibility.Visible
+            frm_busqueda = New Frm_Busqueda
+            If (frm_busqueda.ShowDialog()) Then
+                Dim cp As String = frm_busqueda.codigoProducto
+                txt_codigo.Text = cp
             End If
-        Catch ex As Exception
-            MessageBox.Show("Seleccione un producto para removerlo", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-        End Try
+            modal.Visibility = Windows.Visibility.Collapsed
+            frm_busqueda = Nothing
+            txt_codigo.Focus()
+        End If
     End Sub
+    Private Sub btn_imprimir_Click(sender As Object, e As RoutedEventArgs) Handles btn_imprimir.Click
+        'Dim printDialog As New PrintDialog()
+        'If printDialog.ShowDialog() = True Then
+        '    Dim paginator As New Paginador_Ticket(ds.Tables(0), New Typeface("Calibri"), 16, 40, New Size(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight))
 
-    Private Sub validar_CantidadNumeros(sender As Object, e As TextCompositionEventArgs) Handles txt_cant.PreviewTextInput
-        Try
-            Dim regex As New System.Text.RegularExpressions.Regex("[^0-9]+")
-
-            e.Handled = regex.IsMatch(e.Text)
-        Catch ex As Exception
-        End Try
+        '    printDialog.PrintDocument(paginator, "Ticket")
+        'End If
     End Sub
-
-    Private Sub cantida_textChanged() Handles txt_cant.TextChanged
-        Try
-            txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
-        Catch ex As Exception
-        End Try
+    Private Sub btn_entradas() Handles btn_entrada.Click
+        Dim xForm As New Frm_SalidaDinero(1)
+        xForm.ShowDialog()
+    End Sub
+    Private Sub btn_salidas() Handles btn_salida.Click
+        Dim xForm As New Frm_SalidaDinero(2)
+        xForm.ShowDialog()
     End Sub
 
 End Class

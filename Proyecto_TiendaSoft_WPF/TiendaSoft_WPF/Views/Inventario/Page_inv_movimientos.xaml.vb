@@ -5,7 +5,7 @@ Imports System.Globalization
 Class Page_inv_movimientos
     Private Sub rootLayout_loaded() Handles rootLayout.Loaded
         cargarUI()
-        ''cargarDatos()
+        cargarDatos()
     End Sub
 
     Private Sub cargarUI()
@@ -15,11 +15,12 @@ Class Page_inv_movimientos
         myDatagrid.RowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.Collapsed
 
         myDatagrid.Columns.Add(crear_datagridColumn("nombre", 250, "NOOMBRE USUARIO", False))
-        myDatagrid.Columns.Add(crear_datagridColumn("fecha", 200, "FECHA MOVIMIENTO", False))
+        myDatagrid.Columns.Add(crear_datagridColumn("fecha", 170, "FECHA MOVIMIENTO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("descripcion", 400, "PRODUCTO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("movDescripcion", 130, "MOVIMIENTO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("inv_anterior", 110, "INV. ANTERIOR", False))
         myDatagrid.Columns.Add(crear_datagridColumn("int_nuevo", 110, "INV. NUEVO", False))
+        myDatagrid.Columns.Add(crear_datagridColumn("diferencia", 100, "DIFERENCIA", False))
 
         dp_fecha1.SelectedDate = Date.Now
         dp_fecha2.SelectedDate = Date.Now
