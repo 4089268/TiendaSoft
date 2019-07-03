@@ -40,12 +40,9 @@ Class Page_Corte
         End Select
     End Sub
     Private Sub Crear_labels(x As Integer)
-
         Me.lb_nombre = New Label
         Me.lb_fecha = New Label
-
         sp_datos.Children.Clear()
-
         Select Case x
             Case 1
                 lb_nombre.FontSize = 18
@@ -58,7 +55,7 @@ Class Page_Corte
 
                 sp_datos.Children.Add(lb_nombre)
                 sp_datos.Children.Add(lb_fecha)
-                btn_cerrarTurno.Visibility = Windows.Visibility.Visible
+                'btn_cerrarTurno.Visibility = Windows.Visibility.Visible
 
             Case 2
                 lb_fecha.FontSize = 26
@@ -67,7 +64,6 @@ Class Page_Corte
                 sp_datos.Children.Add(lb_fecha)
                 btn_cerrarTurno.Visibility = Windows.Visibility.Hidden
         End Select
-
     End Sub
 
     Private Sub executar_corteCaja(tipo As Int16)
@@ -114,8 +110,8 @@ Class Page_Corte
 
             End Select
 
-            tb_ventasTotales.Content = ventasTotales.ToString("N2")
-            tb_Ganancias.Content = ganancias.ToString("N2")
+            tb_ventasTotales.Content = "$ " & ventasTotales.ToString("N2")
+            tb_Ganancias.Content = "$ " & ganancias.ToString("N2")
 
             ''Ventas por tipo de pago
             Dim v_xefectivo As Decimal = dataSet.Tables(3).Rows(0).Item("Efectivo")
@@ -193,7 +189,6 @@ Class Page_Corte
 
             Mi_conexion.cerrarConexion()
         Catch ex As Exception
-
             MessageBox.Show("ALGO SALIO MAL :(", "ERR", MessageBoxButton.OK, MessageBoxImage.Error)
         End Try
 

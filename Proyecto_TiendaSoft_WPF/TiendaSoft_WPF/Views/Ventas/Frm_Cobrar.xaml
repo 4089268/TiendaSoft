@@ -52,8 +52,8 @@
                 <Label Content="Pago con:"  VerticalContentAlignment="Top" HorizontalContentAlignment="Right" FontFamily="Tahoma" FontSize="20" Grid.Column="0" Grid.Row="0"/>
                 <Label Content="Su cambio:" VerticalContentAlignment="Top"  HorizontalContentAlignment="Right" FontFamily="Tahoma" FontSize="20" Grid.Column="0" Grid.Row="1"/>
 
-                <toolkit:DecimalUpDown x:Name="txt_paga" Margin="3,4,15,4" FontFamily="Tahoma" FontSize="18" Grid.Column="1" Grid.Row="0" ShowButtonSpinner="False"/>
-                <toolkit:DecimalUpDown x:Name="txt_cambio" Margin="3,4,15,4" FontFamily="Tahoma" FontSize="18" IsEnabled="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" ShowButtonSpinner="False"/>
+                <toolkit:DecimalUpDown x:Name="txt_paga"   Margin="3,4,15,4" FontFamily="Tahoma" FontSize="18" Grid.Column="1" Grid.Row="0" ShowButtonSpinner="False" FormatString="C2"/>
+                <toolkit:DecimalUpDown x:Name="txt_cambio" Margin="3,4,15,4" FontFamily="Tahoma" FontSize="18" IsEnabled="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" ShowButtonSpinner="False" FormatString="C2"/>
 
             </Grid>
             <Grid Name="grid_Credito" HorizontalAlignment="Stretch" Height="80" Visibility="Collapsed">
