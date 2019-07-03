@@ -18,7 +18,9 @@ Class Frm_Ventas
 
     Dim xcmd As SqlCommand
     Dim xreader As SqlDataReader
+
     Dim frm_busqueda As Frm_Busqueda
+    Dim frm_salidaDiner As Frm_SalidaDinero = Nothing
 
     Public Shared CustomRoutedCommand As New RoutedCommand()
 
@@ -40,8 +42,8 @@ Class Frm_Ventas
         System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = "."
 
         HotkeyManager.Current.AddOrReplace("Buscar", Key.F1, Nothing, AddressOf btn_busqueda_Click)
-        HotkeyManager.Current.AddOrReplace("SalidaDinero", Key.F7, Nothing, AddressOf btn_salidas)
-        HotkeyManager.Current.AddOrReplace("EntradaDinero", Key.F8, Nothing, AddressOf btn_entradas)
+        HotkeyManager.Current.AddOrReplace("EntradaDinero", Key.F7, Nothing, AddressOf btn_entradas)
+        HotkeyManager.Current.AddOrReplace("SalidaDinero", Key.F8, Nothing, AddressOf btn_salidas)
         btn_nuevoTicketClick()
 
         ''***BOTON IMPRIMIR DESACTIVADO HASTA TERMINARLO
@@ -356,15 +358,17 @@ Class Frm_Ventas
         'End If
     End Sub
     Private Sub btn_entradas() Handles btn_entrada.Click
-        If Me.IsLoaded Then
-            Dim xForm As New Frm_SalidaDinero(1)
-            xForm.ShowDialog()
+        If Me.IsLoaded And IsNothing(frm_salidaDiner) Then
+            frm_salidaDiner = New Frm_SalidaDinero(1)
+            frm_salidaDiner.ShowDialog()
+            frm_salidaDiner = Nothing
         End If
     End Sub
     Private Sub btn_salidas() Handles btn_salida.Click
-        If Me.IsLoaded Then
-            Dim xForm As New Frm_SalidaDinero(2)
-            xForm.ShowDialog()
+        If Me.IsLoaded And IsNothing(frm_salidaDiner) Then
+            frm_salidaDiner = New Frm_SalidaDinero(2)
+            frm_salidaDiner.ShowDialog()
+            frm_salidaDiner = Nothing
         End If
     End Sub
 

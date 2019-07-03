@@ -68,13 +68,13 @@
             <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_entrada" Width="110">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/money_int.png" Height="20"/>
-                    <Label Content="[F8] Entradas"/>
+                    <Label Content="[F7] Entradas"/>
                 </StackPanel>
             </Button>
             <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_salida" Width="100">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/money_out.png" Height="20"/>
-                    <Label Content="[F7] Salidas"/>
+                    <Label Content="[F8] Salidas"/>
                 </StackPanel>
             </Button>            
         </StackPanel>
