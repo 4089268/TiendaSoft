@@ -6,13 +6,25 @@
              xmlns:local="clr-namespace:TIENDASOFT"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="WhiteSmoke">
+    <UserControl.Resources>
+        <Style TargetType="DataGridRow">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style TargetType="DataGridRow" x:Key="componente">
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="#808080"/>
+            <Setter Property="Background" Value="#e8e8e8"/>
+        </Style>
+    </UserControl.Resources>
+        
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         
-        <DataGrid x:Name="dg_venta" Grid.Row="0" AlternatingRowBackground="#FF94CAFD" Foreground="#606060" FontFamily="Tahoma" FontWeight="Bold" Background="White" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="Navy" RowHeight="21" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid x:Name="dg_venta" Grid.Row="0" Foreground="#606060" FontFamily="Tahoma" FontWeight="Bold" Background="White" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="LightGray" RowHeight="21" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding codigo}" Width="140" Header="Código"/>
                 <DataGridTextColumn Binding="{Binding descripción}" Width="*" Header="Descripción"/>

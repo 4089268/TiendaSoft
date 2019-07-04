@@ -5,17 +5,33 @@ Class Page_Inventario
 
     Private _mainWindow As MainWindow
 
+    Public Sub New()
+        InitializeComponent()
+    End Sub
+    Public Sub New(main As MainWindow)
+        InitializeComponent()
+        _mainWindow = main
+    End Sub
 
     Private Sub rootLayout() Handles rotLayout.Loaded
         navigationframe.Navigate(New Page_inv_agregar)
     End Sub
+    Private Sub actividadButons()
+        btn_agregarInv.IsEnabled = True
+        btn_bajaInv.IsEnabled = True
+        btn_remplazarInv.IsEnabled = True
+        btn_bajosInv.IsEnabled = True
+        btn_ReporteInv.IsEnabled = True
+        btn_MovimientoInv.IsEnabled = True
+    End Sub
 
-    Private Sub btn_clicks(sender As Object, e As RoutedEventArgs) Handles btn_agregarInv.Click, btn_remplazarInv.Click, btn_bajosInv.Click, btn_MovimientoInv.Click, btn_ReporteInv.Click
+    Private Sub btn_clicks(sender As Object, e As RoutedEventArgs) Handles btn_agregarInv.Click, btn_remplazarInv.Click, btn_bajosInv.Click, btn_MovimientoInv.Click, btn_ReporteInv.Click, btn_bajaInv.Click
         actividadButons()
-
-        CType(sender, Button).IsEnabled = True
-
+        CType(sender, Button).IsEnabled = False
         Select Case sender.name
+            Case "btn_bajaInv"
+                navigationframe.Navigate(New Page_inv_darBaja)
+
             Case "btn_agregarInv"
                 navigationframe.Navigate(New Page_inv_agregar)
 
@@ -34,21 +50,9 @@ Class Page_Inventario
 
     End Sub
 
-    Private Sub actividadButons()
-        btn_agregarinv.IsEnabled = True
-    End Sub
-
     '' Abre la opcion de productos
     Sub editarProdcuto(p1 As String)
         _mainWindow.editarProducto(p1)
-    End Sub
-
-    Public Sub New()
-        InitializeComponent()
-    End Sub
-    Public Sub New(main As MainWindow)
-        InitializeComponent()
-        _mainWindow = main
     End Sub
 
 End Class

@@ -73,6 +73,27 @@ Public Class Conexion_Sql
         Return DataAdapter
     End Function
 
+
+    Function Ejecutar_Procedimiento_dataReader(procedureName As String, params As List(Of SqlParameter)) As SqlDataReader
+        Dim xsqlReader As SqlDataReader = Nothing
+        Try
+            Dim xSqlCommand = New SqlCommand
+            xSqlCommand.CommandTimeout = 1000
+            xSqlCommand.CommandType = CommandType.StoredProcedure
+            xSqlCommand.CommandText = procedureName
+            xSqlCommand.Parameters.Clear()
+            For Each sqlp In params
+                xSqlCommand.Parameters.Add(sqlp)
+            Next
+            xSqlCommand.Connection = conexion
+            xsqlReader = xSqlCommand.ExecuteReader
+
+        Catch ex As Exception
+            MessageBox.Show("Algo salio mal al ejecutar el procedimiento almacenado :(")
+        End Try
+        Return xsqlReader
+    End Function
+
     Function Ejecutar_query(xqu As String) As DataTable
         Dim xSqlCommand = New SqlCommand
         xSqlCommand.CommandTimeout = 500
