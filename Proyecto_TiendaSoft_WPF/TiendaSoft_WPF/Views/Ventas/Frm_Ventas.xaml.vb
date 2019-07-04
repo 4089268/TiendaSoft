@@ -15,10 +15,13 @@ Class Frm_Ventas
     Dim acceptableKey As Boolean = False
     Dim xagranel As Boolean = False
     Dim si_graba As Boolean = False
+    Dim noMostrarVntPaquetes As Boolean = False
 
     Dim xcmd As SqlCommand
     Dim xreader As SqlDataReader
+
     Dim frm_busqueda As Frm_Busqueda
+    Dim frm_salidaDiner As Frm_SalidaDinero = Nothing
 
     Public Shared CustomRoutedCommand As New RoutedCommand()
 
@@ -40,8 +43,8 @@ Class Frm_Ventas
         System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = "."
 
         HotkeyManager.Current.AddOrReplace("Buscar", Key.F1, Nothing, AddressOf btn_busqueda_Click)
-        HotkeyManager.Current.AddOrReplace("SalidaDinero", Key.F7, Nothing, AddressOf btn_salidas)
-        HotkeyManager.Current.AddOrReplace("EntradaDinero", Key.F8, Nothing, AddressOf btn_entradas)
+        HotkeyManager.Current.AddOrReplace("EntradaDinero", Key.F7, Nothing, AddressOf btn_entradas)
+        HotkeyManager.Current.AddOrReplace("SalidaDinero", Key.F8, Nothing, AddressOf btn_salidas)
         btn_nuevoTicketClick()
 
         ''***BOTON IMPRIMIR DESACTIVADO HASTA TERMINARLO
@@ -52,6 +55,7 @@ Class Frm_Ventas
 
     Private Sub limpiar_Campos()
         txt_desc.Text = ""
+        txt_desc.Tag = ""
         txt_pre.Text = "0.00"
         txt_imp.Text = "0.00"
         txt_exis.Text = ""
@@ -93,48 +97,60 @@ Class Frm_Ventas
             xcmd.Connection = Mi_conexion.conexion
             xcmd.Parameters.Clear()
             Try
-                xreader = xcmd.ExecuteReader()
-                si_graba = False
-                If xreader.HasRows Then
-                    Do While xreader.Read()
-                        Dim prod As New itemProducto
-                        prod.id_producto = CType(xreader("id_producto"), Int64)
-                        prod.codigo = xreader("codigo")
-                        prod.descripcion = xreader("descripcion")
-                        prod.agranel = CType(xreader("agranel"), Boolean)
-                        prod.precio_c = CType(xreader("precio_c"), Double)
-                        prod.precio_v = CType(xreader("precio_v"), Double)
-                        prod.usaInventario = CType(xreader("usaInventario"), Boolean)
-                        prod.existencia = CType(xreader("existencia"), Double)
-                        prod.minimo = CType(xreader("minimo"), Double)
-                        prod.id_familia = CType(xreader("id_familia"), Integer)
-                        prod.tipoProducto = CType(xreader("tipoProducto"), Integer)
-                        listaProductos.Add(prod)
-                    Loop
-
-                    If listaProductos.Count = 1 Then
-                        txt_codigo.Tag = listaProductos(0).id_producto
-                        txt_desc.Text = listaProductos(0).descripcion
-                        txt_pre.Text = listaProductos(0).precio_v
-                        txt_pre.Tag = listaProductos(0).precio_c
-                        txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
-                        txt_exis.Text = listaProductos(0).existencia
-                        xagranel = listaProductos(0).agranel
-                        si_graba = True
-
-
-                    Else
-                        Dim frm As New Frm_seleccionarProducto(listaProductos)
-                        If (frm.ShowDialog) Then
-                            newCodigo = frm.nuevoCodigo
-                        Else
-                            txt_codigo.Text = ""
-                        End If
-                    End If
-                Else
+                Using xreader = xcmd.ExecuteReader()
                     si_graba = False
-                End If
-                xreader.Close()
+                    If xreader.HasRows Then
+                        Do While xreader.Read()
+                            Dim prod As New itemProducto
+                            prod.id_producto = CType(xreader("id_producto"), Int64)
+                            prod.codigo = xreader("codigo")
+                            prod.descripcion = xreader("descripcion")
+                            prod.agranel = CType(xreader("agranel"), Boolean)
+                            prod.precio_c = CType(xreader("precio_c"), Double)
+                            prod.precio_v = CType(xreader("precio_v"), Double)
+                            prod.usaInventario = CType(xreader("usaInventario"), Boolean)
+                            prod.existencia = CType(xreader("existencia"), Double)
+                            prod.minimo = CType(xreader("minimo"), Double)
+                            prod.id_familia = CType(xreader("id_familia"), Integer)
+                            prod.tipoProducto = CType(xreader("tipoProducto"), Integer)
+                            listaProductos.Add(prod)
+                        Loop
+
+                        If listaProductos.Count = 1 Then
+                            txt_codigo.Tag = listaProductos(0).id_producto
+                            txt_desc.Text = listaProductos(0).descripcion
+                            txt_desc.Tag = listaProductos(0).tipoProducto
+                            txt_pre.Text = listaProductos(0).precio_v
+                            txt_pre.Tag = listaProductos(0).precio_c
+                            txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+                            txt_exis.Text = listaProductos(0).existencia
+                            xagranel = listaProductos(0).agranel
+                            si_graba = True
+                        Else
+                            If noMostrarVntPaquetes Then
+                                txt_codigo.Tag = listaProductos(0).id_producto
+                                txt_desc.Text = listaProductos(0).descripcion
+                                txt_desc.Tag = listaProductos(0).tipoProducto
+                                txt_pre.Text = listaProductos(0).precio_v
+                                txt_pre.Tag = listaProductos(0).precio_c
+                                txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+                                txt_exis.Text = listaProductos(0).existencia
+                                xagranel = listaProductos(0).agranel
+                                si_graba = True
+                                noMostrarVntPaquetes = False
+                            Else
+                                Dim frm As New Frm_seleccionarProducto(listaProductos)
+                                If (frm.ShowDialog) Then
+                                    newCodigo = frm.nuevoCodigo
+                                Else
+                                    txt_codigo.Text = ""
+                                End If
+                            End If
+                        End If
+                    Else
+                        si_graba = False
+                    End If
+                End Using
             Catch
             End Try
 
@@ -142,6 +158,7 @@ Class Frm_Ventas
                 If newCodigo = txt_codigo.Text Then
                     txt_codigo.Tag = listaProductos(0).id_producto
                     txt_desc.Text = listaProductos(0).descripcion
+                    txt_desc.Tag = listaProductos(0).tipoProducto
                     txt_pre.Text = listaProductos(0).precio_v
                     txt_pre.Tag = listaProductos(0).precio_c
                     txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
@@ -317,9 +334,9 @@ Class Frm_Ventas
             itemTicket.precio = CType(txt_pre.Text, Double)
             itemTicket.cantidad = CType(txt_cant.Text, Integer)
             itemTicket.importe = (itemTicket.precio * itemTicket.cantidad)
-
             itemTicket.precio_c = CType(txt_pre.Tag, Double)
             itemTicket.existencia = CType(txt_exis.Text, Integer)
+            itemTicket.tipoProducto = CType(txt_desc.Tag, Integer)
 
             CType(CType(tc_tickets.SelectedItem, TabItem).Content, uc_frmTicket).agregarProducto(itemTicket)
 
@@ -340,6 +357,7 @@ Class Frm_Ventas
             frm_busqueda = New Frm_Busqueda
             If (frm_busqueda.ShowDialog()) Then
                 Dim cp As String = frm_busqueda.codigoProducto
+                noMostrarVntPaquetes = True
                 txt_codigo.Text = cp
             End If
             modal.Visibility = Windows.Visibility.Collapsed
@@ -356,12 +374,18 @@ Class Frm_Ventas
         'End If
     End Sub
     Private Sub btn_entradas() Handles btn_entrada.Click
-        Dim xForm As New Frm_SalidaDinero(1)
-        xForm.ShowDialog()
+        If Me.IsLoaded And IsNothing(frm_salidaDiner) Then
+            frm_salidaDiner = New Frm_SalidaDinero(1)
+            frm_salidaDiner.ShowDialog()
+            frm_salidaDiner = Nothing
+        End If
     End Sub
     Private Sub btn_salidas() Handles btn_salida.Click
-        Dim xForm As New Frm_SalidaDinero(2)
-        xForm.ShowDialog()
+        If Me.IsLoaded And IsNothing(frm_salidaDiner) Then
+            frm_salidaDiner = New Frm_SalidaDinero(2)
+            frm_salidaDiner.ShowDialog()
+            frm_salidaDiner = Nothing
+        End If
     End Sub
 
 End Class

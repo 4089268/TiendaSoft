@@ -16,11 +16,12 @@ Class Page_inv_movimientos
 
         myDatagrid.Columns.Add(crear_datagridColumn("nombre", 250, "NOOMBRE USUARIO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("fecha", 170, "FECHA MOVIMIENTO", False))
-        myDatagrid.Columns.Add(crear_datagridColumn("descripcion", 400, "PRODUCTO", False))
+        myDatagrid.Columns.Add(crear_datagridColumn("descripcion", 300, "PRODUCTO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("movDescripcion", 130, "MOVIMIENTO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("inv_anterior", 110, "INV. ANTERIOR", False))
         myDatagrid.Columns.Add(crear_datagridColumn("int_nuevo", 110, "INV. NUEVO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("diferencia", 100, "DIFERENCIA", False))
+        myDatagrid.Columns.Add(crear_datagridColumn("comentario", 240, "COMENTARIO", False))
 
         dp_fecha1.SelectedDate = Date.Now
         dp_fecha2.SelectedDate = Date.Now

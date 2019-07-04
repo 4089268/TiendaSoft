@@ -55,6 +55,6 @@ Imports System.Windows
 ' mediante el asterisco ('*'), como se muestra a continuación:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.1.6.1")>
-<Assembly: AssemblyFileVersion("2.1.6.1")>
+<Assembly: AssemblyVersion("2.1.9.1")>
+<Assembly: AssemblyFileVersion("2.1.9.1")>
 <Assembly: NeutralResourcesLanguage("es-CU")>

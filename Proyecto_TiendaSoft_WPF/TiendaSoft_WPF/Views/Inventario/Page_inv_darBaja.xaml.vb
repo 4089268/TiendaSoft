@@ -1,7 +1,7 @@
-﻿Imports System.Data.SqlClient
-Imports System.Data
+﻿Imports System.Data
+Imports System.Data.SqlClient
 
-Class Page_inv_remplazar
+Class Page_inv_darBaja
     Dim isOk As Boolean = False
 
     Sub buttons_click(sender As Object, e As RoutedEventArgs) Handles btn_search.Click, btn_agregar.Click
@@ -9,12 +9,12 @@ Class Page_inv_remplazar
         Select Case sender.name
             Case "btn_search"
                 Dim xform As New Frm_Busqueda
-                If (xform.ShowDialog()) Then
+                If xform.ShowDialog Then
                     tb_search.Text = xform.codigoProducto
                 End If
-            Case "btn_agregar"
-                Reemplazar_cantidad()
 
+            Case "btn_agregar"
+                darDeBaja()
         End Select
     End Sub
 
@@ -53,15 +53,15 @@ Class Page_inv_remplazar
                     tb_nCantidad.Text = "0"
                     isOk = False
                 End If
+                tb_comentario.Text = ""
             Else
                 MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             End If
         Catch ex As Exception
         End Try
-        tb_comentario.Text = ""
     End Sub
 
-    Private Sub Reemplazar_cantidad()
+    Private Sub darDeBaja()
         Try
             If (Mi_conexion.Conectar And isOk) Then
                 Dim SqlComand = New SqlCommand
@@ -69,7 +69,7 @@ Class Page_inv_remplazar
                 SqlComand.CommandType = CommandType.StoredProcedure
                 SqlComand.CommandText = "[Global].[sys_Inventario]"
                 SqlComand.Parameters.Clear()
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "RREMPLAZAR"))
+                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "DARDEBAJA"))
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@id_operador", xOpererador))
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@codigo", tb_search.Text))
                 SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xCantidad", CInt(tb_nCantidad.Text)))
@@ -88,16 +88,13 @@ Class Page_inv_remplazar
         End Try
     End Sub
 
-    '' ***** Validar que se tecleen numeros *****
+    '' Validar que se tecleen numeros
     Private Sub validar_numbers(sender As Object, e As TextCompositionEventArgs) Handles tb_nCantidad.PreviewTextInput
         Try
             Dim regex As System.Text.RegularExpressions.Regex
             regex = New System.Text.RegularExpressions.Regex("[^0-9]+")
-
             e.Handled = regex.IsMatch(e.Text)
         Catch ex As Exception
         End Try
-
     End Sub
-
 End Class

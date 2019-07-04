@@ -23,6 +23,60 @@ Public Class uc_frmTicket
         Next
         If Not encontrado Then
             listaProductos.Add(p)
+            If p.tipoProducto = 2 Then
+                Try
+                    If Mi_conexion.Conectar Then
+                        Dim params As New List(Of SqlParameter)
+                        params.Add(New SqlParameter("@cAlias", "OBTENERCOMPONENTES"))
+                        params.Add(New SqlParameter("@codigo", p.codigo))
+
+                        Using dReader As SqlDataReader = Mi_conexion.Ejecutar_Procedimiento_dataReader("[Global].[Sys_Productos]", params)
+                            While dReader.Read
+                                Dim x As New dataModel_ticketProduct
+                                x.idProducto = dReader.Item("id_producto")
+                                x.codigo = dReader.Item("codigo")
+                                x.descripción = "   |__ " & dReader.Item("descripcion")
+                                x.precio_c = dReader.Item("precio_c")
+                                x.precio = dReader.Item("precio_v")
+                                x.cantidad = CType(dReader.Item("cantidadxPaquete"), Integer) * p.cantidad
+                                x.existencia = dReader.Item("existencia")
+                                x.tipoProducto = dReader.Item("tipoProducto")
+                                x.importe = CType(dReader.Item("precio_v"), Integer) * x.cantidad
+                                x.esComponente = True
+                                x.codigoPaquete = dReader.Item("codigoPaquete")
+                                listaProductos.Add(x)
+                            End While
+                        End Using
+                        Mi_conexion.cerrarConexion()
+                    End If
+                Catch ex As Exception
+                    MessageBox.Show("", "Error al cargar los componentes del paquete.", MessageBoxButton.OK, MessageBoxImage.Error)
+                End Try
+            End If
+        Else
+            If p.tipoProducto = 2 Then
+                Try
+                    If Mi_conexion.Conectar Then
+                        Dim params As New List(Of SqlParameter)
+                        params.Add(New SqlParameter("@cAlias", "OBTENERCOMPONENTES"))
+                        params.Add(New SqlParameter("@codigo", p.codigo))
+
+                        Using dReader As SqlDataReader = Mi_conexion.Ejecutar_Procedimiento_dataReader("[Global].[Sys_Productos]", params)
+                            While dReader.Read
+                                For Each x In listaProductos
+                                    If x.codigo = dReader.Item("codigo") Then
+                                        x.cantidad += CType(dReader.Item("cantidadxPaquete"), Integer) * p.cantidad
+                                        x.importe = CType(dReader.Item("precio_v"), Integer) * x.cantidad
+                                    End If
+                                Next
+                            End While
+                        End Using
+                        Mi_conexion.cerrarConexion()
+                    End If
+                Catch ex As Exception
+                    MessageBox.Show("", "Error al cargar los componentes del paquete.", MessageBoxButton.OK, MessageBoxImage.Error)
+                End Try
+            End If
         End If
 
         calcularTotal()
@@ -31,18 +85,27 @@ Public Class uc_frmTicket
     End Sub
 
     Public Sub calcularTotal()
+        Dim xcount As Integer = 0
         Dim totl As Double = 0
         For Each item In listaProductos
-            totl += item.importe
+            If Not item.esComponente Then
+                totl += item.importe
+                xcount += item.cantidad
+            End If
         Next
         total = totl
         lbl_total.Content = total.ToString("$ ###0.00")
-        lbl_articulos.Content = listaProductos.Count
+        lbl_articulos.Content = xcount
     End Sub
 
     ''*************  EVENTOS UI *************
     Private Sub grd_venta_UnloadingRow(sender As Object, e As DataGridRowEventArgs) Handles dg_venta.UnloadingRow
         calcularTotal()
+    End Sub
+    Private Sub dg_venta_rowLoaded(sender As Object, e As DataGridRowEventArgs) Handles dg_venta.LoadingRow
+        If e.Row.Item.esComponente Then
+            e.Row.Style = CType(FindResource("componente"), Style)
+        End If
     End Sub
 
     Private Sub btn_cobrar_Click() Handles btn_cobrar.Click
@@ -140,15 +203,26 @@ Public Class uc_frmTicket
         End If
     End Sub
 
+    ''** BORRAR PRODUCTO **
     Private Sub Dg_venta_KeyUp(sender As Object, e As KeyEventArgs) Handles dg_venta.KeyUp
-        If e.Key = Key.Delete Then
-            Try
+        Try
+            If e.Key = Key.Delete And Not CType(dg_venta.SelectedItem, dataModel_ticketProduct).esComponente Then
+                If CType(dg_venta.SelectedItem, dataModel_ticketProduct).tipoProducto = 2 Then
+                    Dim tmp_list As New List(Of dataModel_ticketProduct)
+                    tmp_list = listaProductos.ToList
+                    For Each xitem In tmp_list
+                        If xitem.codigoPaquete = CType(dg_venta.SelectedItem, dataModel_ticketProduct).codigo Then
+                            listaProductos.Remove(xitem)
+                        End If
+                    Next
+
+                End If
                 listaProductos.Remove(CType(dg_venta.SelectedItem, dataModel_ticketProduct))
                 dg_venta.ItemsSource = Nothing
                 dg_venta.ItemsSource = listaProductos
-            Catch ex As Exception
-            End Try
-        End If
+            End If
+        Catch ex As Exception
+        End Try
     End Sub
 End Class
 
@@ -161,5 +235,7 @@ Public Class dataModel_ticketProduct
     Property cantidad As Integer = 0
     Property importe As Double = 0
     Property existencia As Integer = 0
+    Property tipoProducto As Integer = 0
     Property esComponente As Boolean = False
+    Property codigoPaquete As String = ""
 End Class

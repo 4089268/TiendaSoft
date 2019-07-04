@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>2.1.6.%2a</ApplicationVersion>
+    <ApplicationVersion>2.1.9.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -191,6 +191,9 @@
     <Compile Include="Views\Inventario\Page_inv_bajos.xaml.vb">
       <DependentUpon>Page_inv_bajos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Inventario\Page_inv_darBaja.xaml.vb">
+      <DependentUpon>Page_inv_darBaja.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Inventario\Page_inv_movimientos.xaml.vb">
       <DependentUpon>Page_inv_movimientos.xaml</DependentUpon>
     </Compile>
@@ -248,9 +251,6 @@
     </Compile>
     <Compile Include="Views\Productos\Page_productos.xaml.vb">
       <DependentUpon>Page_productos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Ventas\Page_ventas.xaml.vb">
-      <DependentUpon>Page_ventas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Productos\Page_product_catalagoDepartamentos.xaml.vb">
       <DependentUpon>Page_product_catalagoDepartamentos.xaml</DependentUpon>
@@ -332,6 +332,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Inventario\Page_inv_darBaja.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Inventario\Page_inv_movimientos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -405,10 +409,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Productos\Page_productos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Ventas\Page_ventas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -777,6 +777,18 @@
   <ItemGroup>
     <Resource Include="Imagenes\money_int.png" />
     <Resource Include="Imagenes\money_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Recorte\rec_calculator.png" />
+    <Resource Include="Imagenes\Recorte\rec_ganancias.png" />
+    <Resource Include="Imagenes\Recorte\rec_ganancias2.png" />
+    <Resource Include="Imagenes\Recorte\rec_shopping_cart.png" />
+    <Resource Include="Imagenes\Recorte\rec_shopping_bag.png" />
+    <Resource Include="Imagenes\Recorte\rec_tipoPagos.png" />
+    <Resource Include="Imagenes\Recorte\rec_ventas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\box_broken.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
