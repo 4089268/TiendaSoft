@@ -27,6 +27,7 @@ Class Page_product_catalagoProducto
     Sub Layout_onLoaded() Handles rootLayout.Loaded
         cargarUI()
         LimpiarCampos()
+        tb_search.SearchText = ""
         'cargarDatos()
         Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
         Thread.CurrentThread.CurrentUICulture = New CultureInfo("es-MX")
@@ -129,11 +130,14 @@ Class Page_product_catalagoProducto
     Private Sub habilitarCampos(val As Boolean)
         If val Then
             form.Background = Brushes.White
+            DataGrid1.Foreground = Brushes.WhiteSmoke
         Else
-            form.Background = Brushes.WhiteSmoke
+            form.Background = Brushes.LightGray
+            DataGrid1.Foreground = Brushes.Black
         End If
 
         DataGrid1.IsEnabled = Not val
+        tb_search.IsEnabled = Not val
 
         btn_nuevo.IsEnabled = Not val
         btn_modif.IsEnabled = Not val
@@ -286,7 +290,6 @@ Class Page_product_catalagoProducto
         DataGrid1.SelectedItem = Nothing
         cargarDatos()
 
-        tb_search.SearchText = ""
         tb_codigo.Text = ""
         tb_descripcion.Text = ""
 
@@ -385,6 +388,7 @@ Class Page_product_catalagoProducto
                 Catch ex As Exception
                 End Try
                 LimpiarCampos()
+                tb_search.SearchText = ""
             Else
                 MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             End If
@@ -403,6 +407,7 @@ Class Page_product_catalagoProducto
         Select Case sender.name
             Case "btn_nuevo"
                 LimpiarCampos()
+                tb_search.SearchText = ""
                 habilitarCampos(True)
             Case "btn_modif"
                 habilitarCampos(True)
@@ -450,6 +455,7 @@ Class Page_product_catalagoProducto
     End Sub
 
     Private Sub tb_search_search(sender As Object, e As KeyEventArgs) Handles tb_search.KeyDown
+        LimpiarCampos()
         If (e.Key = Key.Enter) Then
             If (tb_search.SearchText <> "") Then
                 tmpListaProductos.Clear()

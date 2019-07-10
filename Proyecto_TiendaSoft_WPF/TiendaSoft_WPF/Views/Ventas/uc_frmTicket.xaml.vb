@@ -15,7 +15,7 @@ Public Class uc_frmTicket
     Public Sub agregarProducto(p As dataModel_ticketProduct)
         Dim encontrado As Boolean = False
         For Each x In listaProductos
-            If x.codigo = p.codigo Then
+            If x.codigo = p.codigo And Not x.esComponente Then
                 x.cantidad += p.cantidad
                 x.importe = x.cantidad * x.precio
                 encontrado = True
