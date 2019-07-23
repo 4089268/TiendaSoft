@@ -160,16 +160,18 @@ Public Class uc_frmTicket
                     dt2.Columns.Add(New DataColumn("importe", GetType(Decimal)))
                     dt2.Columns.Add(New DataColumn("existencia", GetType(Decimal)))
                     For Each product In listaProductos
-                        Dim xrow = dt2.NewRow
-                        xrow.Item("id_producto") = product.idProducto
-                        xrow.Item("codigo") = product.codigo
-                        xrow.Item("descripcion") = product.descripción
-                        xrow.Item("precio_v") = product.precio
-                        xrow.Item("precio_c") = product.precio_c
-                        xrow.Item("cantidad") = product.cantidad
-                        xrow.Item("importe") = product.importe
-                        xrow.Item("existencia") = product.existencia
-                        dt2.Rows.Add(xrow)
+                        If Not product.esComponente Then
+                            Dim xrow = dt2.NewRow
+                            xrow.Item("id_producto") = product.idProducto
+                            xrow.Item("codigo") = product.codigo
+                            xrow.Item("descripcion") = product.descripción
+                            xrow.Item("precio_v") = product.precio
+                            xrow.Item("precio_c") = product.precio_c
+                            xrow.Item("cantidad") = product.cantidad
+                            xrow.Item("importe") = product.importe
+                            xrow.Item("existencia") = product.existencia
+                            dt2.Rows.Add(xrow)
+                        End If
                     Next
                     dt2.TableName = "TMP_DETVENTAS"
                     dss.Tables.Add(dt2)
