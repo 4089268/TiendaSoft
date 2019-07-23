@@ -24,7 +24,7 @@
 
                 <StackPanel HorizontalAlignment="Center" Margin="5,0,0,5" Orientation="Horizontal">
                     <Label Content="Descripcion: " Width="100"/>
-                    <TextBox Name="tb_descripcion" Width="250"/>
+                    <TextBox Name="tb_descripcion" Width="250" MaxLength="50"/>
                 </StackPanel>                
                 
                 

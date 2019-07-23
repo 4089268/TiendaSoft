@@ -1,36 +1,86 @@
 ﻿<Window x:Class="Frm_DetalleVenta"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title=" Detalle Venta xxxxx" Height="300" Width="870" ResizeMode="NoResize" Icon="/TIENDASOFT;component/Imagenes/bill.png" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow">
+    Title=" Detalle Venta xxxxx" Height="400" Width="750" ResizeMode="NoResize" Icon="/TIENDASOFT;component/Imagenes/bill.png" 
+    WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow">
+    <Window.Resources>
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#33333333"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="LightGray"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="auto"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#202020"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#202020"/>            
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>            
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="Padding" Value="4,0,0,0"/>
+            <Setter Property="IsReadOnly" Value="True"/>            
+        </Style>
+    </Window.Resources>    
     <Grid Name="LayoutRoot" Background="WhiteSmoke" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="28"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="4"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Content="Importe Total: "    FontSize="20" FontWeight="Medium" Margin="20,0,0,0"/>
-            <Label Content="0.00"               FontSize="20" FontWeight="Medium" Name="lbl_importe"/>
-            <Label Content="Ganancia Total: "   FontSize="20" FontWeight="Medium" Margin="60,0,0,0"/>
-            <Label Content="0.00"               FontSize="20" FontWeight="Medium" Name="lbl_ganancia"/>
-        </StackPanel>
+        <Grid Grid.Row="0" Margin="2,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Row="0" Grid.Column="0" Content="FECHA: " />
+            <Label Grid.Row="0" Grid.Column="2" Content="CAJERO: "/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="2019-07-23 14:25" Name="tb_fecha"/>            
+            <TextBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Text="-*-" Name="tb_operador"/>
+            
+            <Label Grid.Row="1" Grid.Column="0" Content="TIPO PAGO: "/>
+            <Label Grid.Row="1" Grid.Column="2" Content="Importe Total: "/>            
+            <Label Grid.Row="1" Grid.Column="4" Content="Ganancia Total: "/>
+            
+            <TextBox Grid.Row="1" Grid.Column="1" Text="-*-" Name="tb_tipoPago"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Text="0.00" Name="tb_importe"/>
+            <TextBox Grid.Row="1" Grid.Column="5" Text="0.00" Name="tb_ganancia"/>
+        </Grid>
         
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,2" Background="#bdbdbd">
-            <Label Content="Descricion"     Width="280" FontWeight="Medium" BorderBrush="Black" Margin="10,0,0,0" />
-            <Label Content="Precio Compra"  Width="110" FontWeight="Medium" BorderBrush="Black"/>
-            <Label Content="Precio Venta"   Width="110" FontWeight="Medium" BorderBrush="Black"/>
-            <Label Content="Cantidad"       Width="80"  FontWeight="Medium" BorderBrush="Black"/>
-            <Label Content="Importe"        Width="130" FontWeight="Medium" BorderBrush="Black"/>
-            <Label Content="Ganancia"       Width="120" FontWeight="Medium" BorderBrush="Black"/>          
-        </StackPanel>
-        
-        <Border Grid.Row="1" BorderThickness="1" Height="2" BorderBrush="Gray" VerticalAlignment="Bottom"/>
-        
-        <ScrollViewer Margin="0" Background="#eeeeee" Grid.Row="2" HorizontalScrollBarVisibility="Hidden">
-            <StackPanel Name="sp_datos"/>
-        </ScrollViewer>                    
+        <DataGrid Name="dg_ventas" Grid.Row="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Descripcion"    Binding="{Binding Descripcion}" Width="*"/>
+                <DataGridTextColumn Header="Precio Compra"  Binding="{Binding precio_c}"    Width="110"/>
+                <DataGridTextColumn Header="Precio Venta"   Binding="{Binding precio_v}"    Width="110"/>
+                <DataGridTextColumn Header="Cantidad"       Binding="{Binding cantidad}"    Width="110"/>
+                <DataGridTextColumn Header="Importe"        Binding="{Binding importe}"     Width="110"/>
+                <DataGridTextColumn Header="Ganancia"       Binding="{Binding ganancia}"    Width="110"/>
+            </DataGrid.Columns>            
+        </DataGrid>        
     </Grid>
 </Window>
-
-    
