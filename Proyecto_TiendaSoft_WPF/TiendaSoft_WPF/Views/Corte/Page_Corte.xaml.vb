@@ -15,6 +15,8 @@ Class Page_Corte
         btn_Cajero.Focus()
         Crear_labels(1)
         executar_corteCaja(1)
+
+        btn_imprimir.Visibility = Visibility.Collapsed
     End Sub
 
     Private Sub executar_corteCaja(tipo As Int16)
