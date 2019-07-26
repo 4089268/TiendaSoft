@@ -26,9 +26,8 @@ Class Page_product_catalagoProducto
 
     Sub Layout_onLoaded() Handles rootLayout.Loaded
         cargarUI()
-        LimpiarCampos()
-        tb_search.SearchText = ""
-        'cargarDatos()
+        LimpiarCampos(True)
+        tb_search.Text = ""
         Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
         Thread.CurrentThread.CurrentUICulture = New CultureInfo("es-MX")
 
@@ -37,7 +36,7 @@ Class Page_product_catalagoProducto
         tb_minimo.IsEnabled = False
 
         If (_p1.Length > 0) Then
-            tb_search.SearchText = _p1
+            tb_search.Text = _p1
             Try
                 tmpListaProductos.Clear()
 
@@ -286,9 +285,11 @@ Class Page_product_catalagoProducto
 
     End Sub
 
-    Private Sub LimpiarCampos()
+    Private Sub LimpiarCampos(xCargarDatos As Boolean)
         DataGrid1.SelectedItem = Nothing
-        cargarDatos()
+        If xCargarDatos Then
+            cargarDatos()
+        End If
 
         tb_codigo.Text = ""
         tb_descripcion.Text = ""
@@ -305,7 +306,7 @@ Class Page_product_catalagoProducto
         tipo1.IsChecked = False
         tipo2.IsChecked = False
         tipo3.IsChecked = False
-
+        btn_calcularCosto.Visibility = Windows.Visibility.Collapsed
         xmlProducto = ""
         img1.Source = Nothing
 
@@ -387,8 +388,8 @@ Class Page_product_catalagoProducto
                     MessageBox.Show(reader("Mensaje"), "", MessageBoxButton.OK, MessageBoxImage.Information)
                 Catch ex As Exception
                 End Try
-                LimpiarCampos()
-                tb_search.SearchText = ""
+                LimpiarCampos(True)
+                tb_search.Text = ""
             Else
                 MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             End If
@@ -406,8 +407,9 @@ Class Page_product_catalagoProducto
     Private Sub button_click(sender As Object, e As RoutedEventArgs) Handles btn_Cancelar.Click, btn_nuevo.Click, btn_modif.Click, btn_Guardar.Click, btn_cargarImagen.Click, btn_modificarpaquete.Click
         Select Case sender.name
             Case "btn_nuevo"
-                LimpiarCampos()
-                tb_search.SearchText = ""
+                LimpiarCampos(True)
+                'tb_search.SearchText = ""
+                tb_search.Text = ""
                 habilitarCampos(True)
             Case "btn_modif"
                 habilitarCampos(True)
@@ -455,13 +457,12 @@ Class Page_product_catalagoProducto
     End Sub
 
     Private Sub tb_search_search(sender As Object, e As KeyEventArgs) Handles tb_search.KeyDown
-        LimpiarCampos()
+        LimpiarCampos(False)
         If (e.Key = Key.Enter) Then
-            If (tb_search.SearchText <> "") Then
+            If (tb_search.Text <> "") Then
                 tmpListaProductos.Clear()
-
                 For Each xpr In listaProductos
-                    If xpr.descripcion.ToUpper.Contains(tb_search.SearchText.ToUpper) Then
+                    If xpr.descripcion.ToUpper.Contains(tb_search.Text.ToUpper) Or xpr.codigo.Contains(tb_search.Text.ToUpper) Then
                         Dim xnewProd As itemProducto = xpr
                         tmpListaProductos.Add(xnewProd)
                     End If
@@ -480,7 +481,15 @@ Class Page_product_catalagoProducto
         Else
             cb_unidad.IsChecked = Not cb_granel.IsChecked
         End If
-        tiposUnidad.Visibility = IIf(cb_unidad.IsChecked, 0, 2)
+
+        If cb_unidad.IsChecked Then
+            formGrid.RowDefinitions(3).Height = New GridLength(30)
+            tiposUnidad.Visibility = 0
+        Else
+            formGrid.RowDefinitions(3).Height = New GridLength(0)
+            tiposUnidad.Visibility = 2
+        End If
+
     End Sub
 
     Private Sub CheckBoxGroup2(sender As Object, e As Windows.RoutedEventArgs) Handles tipo1.Checked, tipo2.Checked, tipo3.Checked, tipo3.Unchecked
@@ -505,8 +514,10 @@ Class Page_product_catalagoProducto
 
         If (tipo3.IsChecked) Then
             btn_modificarpaquete.Visibility = Windows.Visibility.Visible
+            btn_calcularCosto.Visibility= Windows.Visibility.Visible
         Else
             btn_modificarpaquete.Visibility = Windows.Visibility.Collapsed
+            btn_calcularCosto.Visibility = Windows.Visibility.Collapsed
         End If
 
     End Sub
@@ -520,5 +531,9 @@ Class Page_product_catalagoProducto
             Case 2
                 CType(sender, Image).Source = FindResource("ImageIcon2")
         End Select
+    End Sub
+
+    Private Sub btn_calcularCost() Handles btn_calcularCosto.Click
+        MessageBox.Show(xmlProducto)
     End Sub
 End Class

@@ -1,8 +1,81 @@
 ﻿<Application x:Class="Application"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"             
     StartupUri="Form_LogIn.xaml">
     <Application.Resources>
         
-    </Application.Resources>
+        <system:Double x:Key="fontSize_normal">12</system:Double>
+        
+        <SolidColorBrush x:Key="c_primario" Color="#8BA6E9"/>
+        <SolidColorBrush x:Key="c_secundario" Color="#202020"/>
+        <SolidColorBrush x:Key="c_3" Color="#3A5795"/>
+        <SolidColorBrush x:Key="c_4" Color="#BED0F4"/>
+        <SolidColorBrush x:Key="c_5" Color="#333333"/>       
+
+        <Style TargetType="Label" x:Key="lbl_normal">
+            <Setter Property="FontSize" Value="{StaticResource fontSize_normal}" />
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{StaticResource c_secundario}" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style TargetType="CheckBox" x:Key="chb_normal">
+            <Setter Property="FontSize" Value="{StaticResource fontSize_normal}" />
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{StaticResource c_secundario}" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="tb_normal">
+            <Setter Property="FontSize" Value="{StaticResource fontSize_normal}" />
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{StaticResource c_secundario}" />
+            <Setter Property="Padding" Value="2,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style TargetType="ComboBox" x:Key="cb_normal">
+            <Setter Property="FontSize" Value="{StaticResource fontSize_normal}" />
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{StaticResource c_secundario}" />
+            <Setter Property="Padding" Value="2,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style TargetType="toolkit:DecimalUpDown" x:Key="tk_dec_normal">
+            <Setter Property="FontSize" Value="{StaticResource fontSize_normal}" />
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{StaticResource c_secundario}" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FormatString" Value="C2"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        
+        <Style TargetType="toolkit:IntegerUpDown" x:Key="tk_int_normal">
+            <Setter Property="FontSize" Value="{StaticResource fontSize_normal}" />
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{StaticResource c_secundario}" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FormatString" Value="G"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+    </Application.Resources>    
 </Application>

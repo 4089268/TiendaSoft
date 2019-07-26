@@ -12,7 +12,6 @@ Class Frm_Ventas
     'Dim ds As DataSet = New DataSet()
 
     Dim strCurrency As String = ""
-    Dim acceptableKey As Boolean = False
     Dim xagranel As Boolean = False
     Dim si_graba As Boolean = False
     Dim noMostrarVntPaquetes As Boolean = False
@@ -80,7 +79,6 @@ Class Frm_Ventas
     '********** EVENTOS UI **********
     Private Sub txt_codigo_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txt_codigo.TextChanged
         limpiar_Campos()
-
         If Mi_conexion.Conectar Then
             Dim newCodigo = ""
             txt_desc.Text = ""
@@ -177,14 +175,12 @@ Class Frm_Ventas
             OrElse e.Key = Key.Add _
             OrElse e.Key = Key.Subtract _
             OrElse e.Key = Key.OemMinus _
-            OrElse (e.Key = Key.Enter) _
-            OrElse (e.Key = Key.Escape) _
             OrElse (e.Key = Key.Tab) _
             OrElse (e.Key >= Key.NumPad0 And e.Key <= Key.NumPad9) _
-            OrElse (e.Key >= Key.D0 And e.Key <= Key.D9) Then
+            OrElse (e.Key >= Key.D0 And e.Key <= Key.D9) _
+            OrElse (e.Key = Key.Enter) Then
 
             If (e.Key = Key.OemPlus Or e.Key = Key.Add) Then
-
                 If txt_cant.Text.Length > 0 Then
                     txt_cant.Text = CStr(CDec(txt_cant.Text) + 1)
                 Else
@@ -199,17 +195,16 @@ Class Frm_Ventas
                 Else
                     txt_cant.Text = "1"
                 End If
-
                 e.Handled = True
             End If
 
             If (e.Key = Key.Enter) Then
                 If Not xagranel And si_graba Then
                     Me.btn_graba_Click(sender, e)
-                Else
-                    Dim request = New TraversalRequest(FocusNavigationDirection.Next)
-                    request.Wrapped = True
-                    DirectCast(sender, TextBox).MoveFocus(request)
+                    'Else
+                    'Dim request = New TraversalRequest(FocusNavigationDirection.Next)
+                    'request.Wrapped = True
+                    'DirectCast(sender, TextBox).MoveFocus(request)
                 End If
                 e.Handled = True
             End If
@@ -231,15 +226,13 @@ Class Frm_Ventas
                 txt_cant.Text = CStr(IIf(CDec(txt_cant.Text) > 1, CDec(txt_cant.Text) - 1, CDec(txt_cant.Text)))
             End If
 
-            If e.Key = Key.Enter Then
-                acceptableKey = False
+            If e.Key = Key.Enter And txt_desc.Text.Length > 1 Then
                 Me.btn_graba_Click(sender, e)
             Else
-                acceptableKey = True
+                e.Handled = True
             End If
         Else
             e.Handled = True
-            acceptableKey = False
         End If
     End Sub
     Private Sub cantida_textChanged() Handles txt_cant.ValueChanged
