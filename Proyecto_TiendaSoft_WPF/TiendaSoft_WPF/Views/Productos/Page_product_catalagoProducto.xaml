@@ -23,8 +23,7 @@
                     </StackPanel>
                 </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>
-        
+        </DataGridTemplateColumn>        
     </Page.Resources>
 
     <Grid x:Name="rootLayout" Background="White">
@@ -38,10 +37,16 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <dxe:SearchControl Name="tb_search" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10,0,5,0" />
-        
+        <!--<dxe:SearchControl Name="tb_search" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10,0,5,0" FontSize="{StaticResource fontSize_normal}"/>-->
+        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,2,2" Orientation="Horizontal">
+            <Border BorderBrush="#808080" BorderThickness="1,1,0,1" Margin="0,2">
+                <Image Source="/TIENDASOFT;component/Imagenes/search2.png" Margin="4" Width="16"/>
+            </Border>
+            <TextBox Name="tb_search" BorderBrush="#808080" Margin="0,2,2,2" Width="255" Style="{StaticResource tb_normal}"/>
+        </StackPanel>
+
         <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="10,5" x:Name="form">
-            <Grid Margin="10,10,0,0">
+            <Grid Margin="10,10,0,0" Name="formGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="*"/>
@@ -63,82 +68,80 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Codigo de Barras:"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" />
-                <Label Content="Descripcion:"       Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
-                <Label Content="Se vende por:"      Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" />
-                <Label Content="Tipo producto:"     Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" />
-                <Label Content="Precio Costo:"      Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" />
-                <Label Content="Precio Venta:"      Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" />
-                <Label Content="Precio Mayoreo:"    Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" />
-                <Label Content="Departamento:"      Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right" />
-                <Label Content="Hay:"                Grid.Row="10" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_hay"/>
-                <Label Content="Minimo:"             Grid.Row="11" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_min"/>
+                <Label Content="Codigo de Barras:"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Descripcion:"       Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Se vende por:"      Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Tipo producto:"     Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Precio Costo:"      Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Precio Venta:"      Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Precio Mayoreo:"    Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Departamento:"      Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Hay:"                Grid.Row="10" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_hay" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Minimo:"             Grid.Row="11" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_min" Style="{StaticResource lbl_normal}"/>
 
-                <TextBox Grid.Row="0"  Grid.Column="1" Width="280" Margin="3" HorizontalAlignment="Left" x:Name="tb_codigo" MaxLength="14"/>
-                <TextBox Grid.Row="1"  Grid.Column="1" Width="350" Margin="3" HorizontalAlignment="Left" x:Name="tb_descripcion" CharacterCasing="Upper"/>
+                <TextBox Grid.Row="0"  Grid.Column="1" Width="280" x:Name="tb_codigo" MaxLength="14" Style="{StaticResource tb_normal}"/>
+                <TextBox Grid.Row="1"  Grid.Column="1" Width="350" x:Name="tb_descripcion" MaxLength="180" CharacterCasing="Upper" Style="{StaticResource tb_normal}"/>
+                
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                    <CheckBox x:Name="cb_unidad" Content="Unidad/Pza"  Margin="10,0"/>
-                    <CheckBox x:Name="cb_granel" Content="Granel"      Margin="10,0"/>                    
+                    <CheckBox x:Name="cb_unidad" Content="Unidad/Pza"  Margin="10,0" Style="{StaticResource chb_normal}"/>
+                    <CheckBox x:Name="cb_granel" Content="Granel"      Margin="10,0" Style="{StaticResource chb_normal}"/>
                 </StackPanel>
                 <StackPanel x:Name="tiposUnidad" Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" >
-                    <CheckBox x:Name="tipo1" Content="Normal"       Margin="10,0"/>
-                    <CheckBox x:Name="tipo2" Content="Componente"   Margin="10,0"/>
-                    <CheckBox x:Name="tipo3" Content="Paquete"      Margin="10,0"/>
-                    <Button Name="btn_modificarpaquete" Content="modificar" Height="15" FontSize="8" Visibility="Hidden"/>                        
+                    <CheckBox x:Name="tipo1" Content="Normal"       Margin="10,0" Style="{StaticResource chb_normal}"/>
+                    <CheckBox x:Name="tipo2" Content="Componente"   Margin="10,0" Style="{StaticResource chb_normal}"/>
+                    <CheckBox x:Name="tipo3" Content="Paquete"      Margin="10,0" Style="{StaticResource chb_normal}"/>
+                    <Button Name="btn_modificarpaquete" Content="modificar" Height="15" FontSize="8" Visibility="Hidden"/>
                 </StackPanel>
 
-                <toolkit:DecimalUpDown x:Name="tb_precioComp"  Grid.Row="4"  Grid.Column="1" Width="150" Margin="3" HorizontalAlignment="Left" HorizontalContentAlignment="Right" FormatString="C2" ShowButtonSpinner="False"/>
-
-                <toolkit:DecimalUpDown Grid.Row="6"  Grid.Column="1" Width="150" Margin="3" HorizontalAlignment="Left" x:Name="tb_precioVent"  HorizontalContentAlignment="Right" FormatString="C2" ShowButtonSpinner="False"/>
-                <TextBox Grid.Row="7"  Grid.Column="1" Width="150" Margin="3" HorizontalAlignment="Left" x:Name="tb_precioMayo" HorizontalContentAlignment="Right" IsEnabled="False"/>
-                <ComboBox Grid.Row="8" Grid.Column="1" Width="220" Margin="3" HorizontalAlignment="Left" x:Name="cb_departa" DisplayMemberPath = "descripcion" SelectedValuePath = "id_familia"/>
-                <CheckBox Grid.Row="9" Grid.Column="1" Width="220" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Este producto utiliza inventario" x:Name="cb_invent"/>
-                <toolkit:IntegerUpDown Grid.Row="10"  Grid.Column="1" Width="150" Margin="3" HorizontalAlignment="Left" x:Name="tb_existencia" ShowButtonSpinner="False" FormatString="G"/>
-                <toolkit:IntegerUpDown Grid.Row="11" Grid.Column="1" Width="150" Margin="3" HorizontalAlignment="Left" x:Name="tb_minimo" ShowButtonSpinner="False" FormatString="G"/>
+                <toolkit:DecimalUpDown  Grid.Row="4"  Grid.Column="1" Width="150" x:Name="tb_precioComp" HorizontalContentAlignment="Right" FormatString="C2" ShowButtonSpinner="False" Style="{StaticResource tk_dec_normal}"/>
+                <Button                 Grid.Row="4"  Grid.Column="1" Width="70" x:Name="btn_calcularCosto" Margin="155,6,2,6" Content="  CALCULAR  " FontWeight="Medium" HorizontalAlignment="Left" FontSize="8"/>
+                <toolkit:DecimalUpDown  Grid.Row="6"  Grid.Column="1" Width="150" x:Name="tb_precioVent" HorizontalContentAlignment="Right" FormatString="C2" ShowButtonSpinner="False" Style="{StaticResource tk_dec_normal}"/>
+                <TextBox                Grid.Row="7"  Grid.Column="1" Width="150" x:Name="tb_precioMayo" HorizontalContentAlignment="Right" IsEnabled="False" Style="{StaticResource tb_normal}"/>
+                <ComboBox               Grid.Row="8"  Grid.Column="1" Width="220" x:Name="cb_departa" DisplayMemberPath = "descripcion" SelectedValuePath = "id_familia" Style="{StaticResource cb_normal}"/>
+                <CheckBox               Grid.Row="9"  Grid.Column="1" Width="220" x:Name="cb_invent" Content="Este producto utiliza inventario" Style="{StaticResource chb_normal}"/>
+                <toolkit:IntegerUpDown  Grid.Row="10" Grid.Column="1" Width="150" x:Name="tb_existencia"  ShowButtonSpinner="True" Style="{StaticResource tk_int_normal}"/>
+                <toolkit:IntegerUpDown  Grid.Row="11" Grid.Column="1" Width="150" x:Name="tb_minimo"      ShowButtonSpinner="True" Style="{StaticResource tk_int_normal}"/>
 
                 <StackPanel Grid.Row="12"  Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30"  Margin="0,40,0,0">
                     
                 </StackPanel>
 
-                <Border Grid.Column="2" Grid.Row="0" Grid.RowSpan="6" Margin="5" BorderBrush="Gray" BorderThickness="1">
+                <Border Grid.Column="2" Grid.Row="0" Grid.RowSpan="8" Margin="2,2,10,2" BorderBrush="Gray" BorderThickness="1" Height="140" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                     <Border.Background>
                         <ImageBrush ImageSource="/TIENDASOFT;component/Imagenes/img_icon.png" Stretch="Uniform" />
                     </Border.Background>
                     <Image Name="img1" HorizontalAlignment="Stretch" />
                 </Border>
-                <Button Name="btn_cargarImagen" Content="Cargar Imagen" Grid.Column="2" Grid.Row="6" Margin="0,2" Width="120"/>                               
+                <Button Name="btn_cargarImagen" Content="Cargar Imagen" Grid.Column="2" Grid.Row="0" Grid.RowSpan="10" Margin="2,155,0,10" HorizontalAlignment="Center" VerticalAlignment="Top" Height="24" Width="120" FontSize="{StaticResource fontSize_normal}" FontWeight="Medium" Background="#EFEBE9"/>
 
             </Grid>
         </Border>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="-150,0,0,0">
-
             <Button x:Name="btn_nuevo" Background="White" BorderBrush="White" Margin="20,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/new.png" Width="25" Margin="2,0,0,0"/>
-                    <Label Margin="2,0,0,0" Content="Nuevo" FontWeight="SemiBold" Foreground="Gray"/>
+                    <Label Margin="2,0,0,0" Content="NUEVO" Foreground="{StaticResource c_5}" Style="{StaticResource lbl_normal}"/>
                 </StackPanel>
             </Button>
             <Button x:Name="btn_modif" Background="White" BorderBrush="White" Margin="20,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/modif.png" Width="25" Margin="2,0,0,0"/>
-                    <Label Margin="2,0,0,0" Content="Modificar" FontWeight="SemiBold" Foreground="Gray"/>
+                    <Label Margin="2,0,0,0" Content="MODIFICAR" Foreground="{StaticResource c_5}" Style="{StaticResource lbl_normal}"/>
                 </StackPanel>
             </Button>
-
             <Button x:Name="btn_Guardar" Background="White" BorderBrush="White" Margin="40,0,0,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/save.png" Width="25" Margin="2,0,0,0"/>
-                    <Label Margin="2,0,0,0" Content="Guardar Cambios" FontWeight="SemiBold" Foreground="Gray"/>
+                    <Label Margin="2,0,0,0" Content="GUARDAR CAMBIOS" Foreground="{StaticResource c_5}" Style="{StaticResource lbl_normal}"/>
                 </StackPanel>
             </Button>
             <Button x:Name="btn_Cancelar"  Background="White" BorderBrush="White" Margin="40,0,0,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/cancel.png" Width="25" Margin="2,0,0,0"/>
-                    <Label Margin="2,0,0,0" Content="Cancelar" FontWeight="SemiBold" Foreground="Gray"/>
+                    <Label Margin="2,0,0,0" Content="CANCELAR" Foreground="{StaticResource c_5}" Style="{StaticResource lbl_normal}"/>
                 </StackPanel>
             </Button>
-
         </StackPanel>
 
         <DataGrid x:Name="DataGrid1" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Margin="5" />
