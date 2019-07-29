@@ -100,7 +100,7 @@ Class Frm_Ventas
                     If xreader.HasRows Then
                         Do While xreader.Read()
                             Dim prod As New itemProducto
-                            prod.id_producto = CType(xreader("id_producto"), Int64)
+                            prod.id_producto = CType(xreader("id_producto"), Integer)
                             prod.codigo = xreader("codigo")
                             prod.descripcion = xreader("descripcion")
                             prod.agranel = CType(xreader("agranel"), Boolean)
@@ -154,15 +154,19 @@ Class Frm_Ventas
 
             If newCodigo.Length > 0 Then
                 If newCodigo = txt_codigo.Text Then
-                    txt_codigo.Tag = listaProductos(0).id_producto
-                    txt_desc.Text = listaProductos(0).descripcion
-                    txt_desc.Tag = listaProductos(0).tipoProducto
-                    txt_pre.Text = listaProductos(0).precio_v
-                    txt_pre.Tag = listaProductos(0).precio_c
-                    txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
-                    txt_exis.Text = listaProductos(0).existencia
-                    xagranel = listaProductos(0).agranel
-                    si_graba = True
+                    For Each xp In listaProductos
+                        If xp.codigo = newCodigo Then
+                            txt_codigo.Tag = xp.id_producto
+                            txt_desc.Text = xp.descripcion
+                            txt_desc.Tag = xp.tipoProducto
+                            txt_pre.Text = xp.precio_v
+                            txt_pre.Tag = xp.precio_c
+                            txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+                            txt_exis.Text = xp.existencia
+                            xagranel = xp.agranel
+                            si_graba = True
+                        End If
+                    Next
                 Else
                     txt_codigo.Text = newCodigo
                 End If
