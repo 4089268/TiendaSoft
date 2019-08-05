@@ -22,10 +22,8 @@ Class Page_Corte
     Private Sub executar_corteCaja(tipo As Int16)
         Try
             Mi_conexion.Conectar()
-
-            Dim sqlAdapter As SqlDataAdapter = Mi_conexion.Ejecutar_Procedimiento_dataset("[Global].[Sys_CorteCaja]", {"xtipo", "xidOperador"}, {tipo, xOpererador})
-            Dim dataSet As DataSet = New DataSet
-            sqlAdapter.Fill(dataSet)
+            Dim dataSet As New DataSet
+            Mi_conexion.Ejecutar_Procedimiento_dataAdapter("[Global].[Sys_CorteCaja]", {"xtipo", "xidOperador"}, {tipo, xOpererador}).Fill(dataSet, "resultado")
 
             Dim ventasTotales As Decimal = dataSet.Tables(0).Rows(0).Item("Ventas_Totales")
             Dim ganancias As Decimal = dataSet.Tables(1).Rows(0).Item("Ganancias")

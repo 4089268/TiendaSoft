@@ -106,7 +106,8 @@ Public Class Frm_Busqueda
             Dim codigo As String = grd_productos.SelectedItem.codigo
             Dim dataSet As New DataSet
             If Mi_conexion.Conectar Then
-                Mi_conexion.Ejecutar_Procedimiento_dataset("[Global].[sys_cargarImagen]", {"codigo"}, {codigo}).Fill(dataSet, "Resultado")
+                Mi_conexion.Ejecutar_Procedimiento_dataAdapter("[Global].[sys_cargarImagen]", {"codigo"}, {codigo}).Fill(dataSet, "resultado")
+
                 ''CargarImagen
                 Try
                     Dim bitmapImage As New BitmapImage

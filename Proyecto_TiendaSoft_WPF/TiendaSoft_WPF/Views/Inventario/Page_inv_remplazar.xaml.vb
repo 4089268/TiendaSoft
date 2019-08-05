@@ -22,27 +22,22 @@ Class Page_inv_remplazar
         Try
             If (Mi_conexion.Conectar) Then
                 If (tb_search.Text.Length > 0) Then
-                    Dim SqlComand = New SqlCommand
-                    SqlComand.CommandTimeout = 500
-                    SqlComand.CommandType = CommandType.StoredProcedure
-                    SqlComand.CommandText = "[Global].[sys_Inventario]"
-                    SqlComand.Parameters.Clear()
-                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "CANTIDADACTUAL"))
-                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@codigo", tb_search.Text))
-
-                    SqlComand.Connection = Mi_conexion.conexion
-                    Dim DataAdapter As New SqlDataAdapter(SqlComand)
                     Dim dataSet As New DataSet
-                    DataAdapter.Fill(dataSet, "Resultado")
+                    Dim params As New List(Of SqlParameter)
+                    params.Add(New SqlParameter("@xAlias", "CANTIDADACTUAL"))
+                    params.Add(New SqlParameter("@codigo", tb_search.Text))
+                    Mi_conexion.Ejecutar_Procedimiento_dataAdapter("[Global].[sys_Inventario]", params).Fill(dataSet, "resultado")
 
                     If (dataSet.Tables(0).Rows.Count > 0) Then
                         tb_ACantidad.Text = dataSet.Tables(0).Rows(0).Item("existencia")
                         lb_descripcion.Content = dataSet.Tables(0).Rows(0).Item("descripcion")
+                        lb_descripcion.Tag = dataSet.Tables(0).Rows(0).Item("id_producto")
                         tb_nCantidad.Text = "0"
                         isOk = True
                     Else
                         tb_ACantidad.Text = "0"
                         lb_descripcion.Content = "--"
+                        lb_descripcion.Tag = ""
                         tb_nCantidad.Text = "0"
                         isOk = False
                     End If
@@ -50,6 +45,7 @@ Class Page_inv_remplazar
                 Else
                     tb_ACantidad.Text = "0"
                     lb_descripcion.Content = "--"
+                    lb_descripcion.Tag =
                     tb_nCantidad.Text = "0"
                     isOk = False
                 End If
@@ -64,24 +60,16 @@ Class Page_inv_remplazar
     Private Sub Reemplazar_cantidad()
         Try
             If (Mi_conexion.Conectar And isOk) Then
-                Dim SqlComand = New SqlCommand
-                SqlComand.CommandTimeout = 500
-                SqlComand.CommandType = CommandType.StoredProcedure
-                SqlComand.CommandText = "[Global].[sys_Inventario]"
-                SqlComand.Parameters.Clear()
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xAlias", "RREMPLAZAR"))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@id_operador", xOpererador))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@codigo", tb_search.Text))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xCantidad", CInt(tb_nCantidad.Text)))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@comentario", tb_comentario.Text))
-
-                SqlComand.Connection = Mi_conexion.conexion
-                Dim DataAdapter As New SqlDataAdapter(SqlComand)
                 Dim dataSet As New DataSet
-                DataAdapter.Fill(dataSet, "Resultado")
+                Dim params As New List(Of SqlParameter)
+                params.Add(New SqlParameter("@xAlias", "REEMPLAZAR"))
+                params.Add(New SqlParameter("@id_operador", xOpererador))
+                params.Add(New SqlParameter("@xidProducto", CInt(lb_descripcion.Tag)))
+                params.Add(New SqlParameter("@xCantidad", CInt(tb_nCantidad.Text)))
+                params.Add(New SqlParameter("@comentario", tb_comentario.Text))
 
+                Mi_conexion.Ejecutar_Procedimiento_dataAdapter("[Global].[sys_Inventario]", params).Fill(dataSet, "resultados")
                 MessageBox.Show(dataSet.Tables(0).Rows(0).Item("mensaje"), "", MessageBoxButton.OK, MessageBoxImage.Information)
-
                 cargar_Cantidad()
             End If
         Catch ex As Exception

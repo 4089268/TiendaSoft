@@ -53,7 +53,7 @@ Public Class Conexion_Sql
         End Try
     End Function
 
-    Function Ejecutar_Procedimiento_dataset(procedureName As String, param As String(), valores As String()) As SqlDataAdapter
+    Function Ejecutar_Procedimiento_dataAdapter(procedureName As String, param As String(), valores As String()) As SqlDataAdapter
         If (param.Length <> valores.Length) Then
             MessageBox.Show("Arreglos de Parametros y valores tienen diferentes tamano", "Alert", MessageBoxButton.OK, MessageBoxImage.Information)
         End If
@@ -69,10 +69,24 @@ Public Class Conexion_Sql
             i = i + 1
         Next
         xSqlCommand.Connection = conexion
-        Dim DataAdapter As New SqlDataAdapter(xSqlCommand)
-        Return DataAdapter
+        Dim dataAdapter As New SqlDataAdapter(xSqlCommand)
+        Return dataAdapter
     End Function
 
+    Function Ejecutar_Procedimiento_dataAdapter(procedureName As String, params As List(Of SqlParameter)) As SqlDataAdapter
+        Dim xSqlCommand = New SqlCommand
+        xSqlCommand.CommandTimeout = 500
+        xSqlCommand.CommandType = CommandType.StoredProcedure
+        xSqlCommand.CommandText = procedureName
+        xSqlCommand.Parameters.Clear()
+
+        For Each parm As SqlParameter In params
+            xSqlCommand.Parameters.Add(parm)
+        Next
+        xSqlCommand.Connection = conexion
+        Dim dataAdapter As New SqlDataAdapter(xSqlCommand)
+        Return dataAdapter
+    End Function
 
     Function Ejecutar_Procedimiento_dataReader(procedureName As String, params As List(Of SqlParameter)) As SqlDataReader
         Dim xsqlReader As SqlDataReader = Nothing
