@@ -59,7 +59,7 @@ Public Class modal_EditarPaquete
 
                     Dim control As New UserControl1
                     control.nombre = row.Item("descripcion").ToString
-                    control.codigo = row.Item("codigo")
+                    control.id_producto = row.Item("id_producto")
                     control.update_ui()
                     datosStackPanel.Children.Add(control)
 
@@ -76,7 +76,7 @@ Public Class modal_EditarPaquete
             Dim xmlGenerado As String = "<paquete>"
 
             For Each row As UserControl1 In datosStackPanel.Children
-                xmlGenerado = xmlGenerado & "<ingrediente><codigo>" & row.codigo & "</codigo><cantidad>" & row.cantidad & "</cantidad></ingrediente>"
+                xmlGenerado = xmlGenerado & "<ingrediente><codigo>" & row.id_producto & "</codigo><cantidad>" & row.cantidad & "</cantidad></ingrediente>"
             Next
             xmlGenerado = xmlGenerado & "</paquete>"
             xml = xmlGenerado
@@ -124,7 +124,7 @@ Public Class modal_EditarPaquete
             Dim index As Integer = 0
 
             For Each row In datos.Rows
-                If (row.item("codigo").ToString = x.codigo) Then
+                If (row.item("id_producto").ToString = x.codigo) Then
                     nombre = row.item("descripcion")
                     indexAEliminar.Add(index)
                 End If
@@ -133,7 +133,7 @@ Public Class modal_EditarPaquete
 
             Dim control As New UserControl1
             control.nombre = nombre
-            control.codigo = x.codigo
+            control.id_producto = x.codigo
             control.cantidad = x.cantidad
             control.update_ui()
             datosStackPanel.Children.Add(control)

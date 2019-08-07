@@ -13,7 +13,12 @@
         <BitmapImage x:Key="ImageIcon0" UriSource="/TIENDASOFT;component/Imagenes/bagFood.png"></BitmapImage>
         <BitmapImage x:Key="ImageIcon1" UriSource="/TIENDASOFT;component/Imagenes/componente.png"></BitmapImage>
         <BitmapImage x:Key="ImageIcon2" UriSource="/TIENDASOFT;component/Imagenes/paquete.png"></BitmapImage>
+
+        <SolidColorBrush x:Key="Color1" Color="#FFF59D" />
+        <SolidColorBrush x:Key="Color2" Color="#4DD0E1" />
+        <SolidColorBrush x:Key="Color3" Color="#7986CB" />
         
+
         <DataGridTemplateColumn Header="Descripcion"  x:Name="img" x:Key="img"  >
             <DataGridTemplateColumn.CellTemplate >
                 <DataTemplate>
@@ -23,7 +28,19 @@
                     </StackPanel>
                 </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>        
+        </DataGridTemplateColumn>
+
+        <DataGridTemplateColumn Header="Descripcion" x:Key="color">
+            <DataGridTemplateColumn.CellTemplate >
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                        <Label Name="lbl_tipoProduct" Height="15" Width="15" VerticalAlignment="Center" HorizontalAlignment="Center"  Loaded="lbl_tipoProduct_Loaded" Tag="{Binding tipoProducto}"/>
+                        <Label Content="{Binding descripcion}" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        
     </Page.Resources>
 
     <Grid x:Name="rootLayout" Background="White">
@@ -148,3 +165,5 @@
 
     </Grid>
 </Page>
+
+    

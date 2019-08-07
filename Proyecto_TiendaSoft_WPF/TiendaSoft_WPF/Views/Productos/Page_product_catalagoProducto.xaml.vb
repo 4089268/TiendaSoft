@@ -60,8 +60,8 @@ Class Page_product_catalagoProducto
         DataGrid1.AutoGenerateColumns = False
         DataGrid1.RowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.Collapsed
 
-        DataGrid1.Columns.Insert(0, Resources("img"))
-        DataGrid1.Columns(0).Width = DataGrid1.ActualWidth - 12
+        DataGrid1.Columns.Insert(0, Resources("color"))
+        DataGrid1.Columns(0).Width = DataGrid1.ActualWidth - 20
     End Sub
 
     Private Sub cargarDatos()
@@ -104,6 +104,7 @@ Class Page_product_catalagoProducto
     End Sub
 
     Private Sub procesarDatos(datos As DataTable)
+        DataGrid1.ItemsSource = Nothing
         listaProductos.Clear()
         If datos.Rows.Count > 0 Then
             For Each xrow In datos.Rows
@@ -123,7 +124,6 @@ Class Page_product_catalagoProducto
             Next
         End If
         DataGrid1.ItemsSource = listaProductos
-
     End Sub
 
     Private Sub habilitarCampos(val As Boolean)
@@ -313,89 +313,95 @@ Class Page_product_catalagoProducto
     End Sub
 
     Private Sub GuardarCambios()
-        Dim ok As Boolean = True
-        If (tb_codigo.Text.Length <= 0 And tb_descripcion.Text.Length <= 0 And tb_precioComp.Text.Length <= 0 And tb_precioVent.Text.Length <= 0) Then
-            ok = False
-        End If
-
-        If (cb_unidad.IsChecked = False And cb_granel.IsChecked = False) Then
-            ok = False
-        End If
-
-        If (tipo1.IsChecked = False And tipo2.IsChecked = False And tipo3.IsChecked = False) Then
-            ok = False
-        End If
-
-        If (ok) Then
-            If (Mi_conexion.Conectar) Then
-                Dim SqlComand = New SqlCommand
-                SqlComand.CommandTimeout = 500
-                SqlComand.CommandType = CommandType.StoredProcedure
-                SqlComand.CommandText = "[Global].[Sys_Productos]"
-                SqlComand.Parameters.Clear()
-
-                If (DataGrid1.SelectedIndex = -1) Then
-                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "NUEVO"))
-                Else
-                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "MODIFICAR"))
-                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@id_producto", CType(DataGrid1.SelectedItem, itemProducto).id_producto))
-                End If
-
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Codigo", CType(tb_codigo.Text, Int64)))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Descripcion", tb_descripcion.Text))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Granel", cb_granel.IsChecked))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@precioC", System.Convert.ToDecimal(tb_precioComp.Value, us)))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@precioV", System.Convert.ToDecimal(tb_precioVent.Value, us)))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@usInv", cb_invent.IsChecked))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@existen", CInt(tb_existencia.Text)))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@minimo", CInt(tb_minimo.Text)))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@idDepartamento", CInt(cb_departa.SelectedValue)))
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xmlProducto", xmlProducto))
-
-                Dim tipoProducto As Int16 = 0
-
-                If tipo1.IsChecked Then
-                    tipoProducto = 0
-                End If
-                If tipo2.IsChecked Then
-                    tipoProducto = 1
-                End If
-                If tipo3.IsChecked Then
-                    tipoProducto = 2
-                End If
-
-                SqlComand.Parameters.Add(New SqlClient.SqlParameter("@tipoProducto", tipoProducto))
+        Try
 
 
-                'Preparando imagen para guardarla'
-                Try
-                    Dim bitmapImage As New BitmapImage
-                    bitmapImage.BeginInit()
-                    bitmapImage.UriSource = New Uri(img1.Source.ToString)
-                    bitmapImage.EndInit()
-                    Dim memStream As New MemoryStream
-                    Dim encoder As New JpegBitmapEncoder
-                    encoder.Frames.Add(BitmapFrame.Create(bitmapImage))
-                    encoder.Save(memStream)
-                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@image", CType(memStream.ToArray(), Byte())))
-                Catch ex As Exception
-                End Try
-
-                SqlComand.Connection = Mi_conexion.conexion
-                Dim reader As SqlDataReader = SqlComand.ExecuteReader()
-                Try
-                    reader.Read()
-                    MessageBox.Show(reader("Mensaje"), "", MessageBoxButton.OK, MessageBoxImage.Information)
-                Catch ex As Exception
-                End Try
-                LimpiarCampos(True)
-                tb_search.Text = ""
-            Else
-                MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Dim ok As Boolean = True
+            If (tb_codigo.Text.Length <= 0 And tb_descripcion.Text.Length <= 0 And tb_precioComp.Text.Length <= 0 And tb_precioVent.Text.Length <= 0) Then
+                ok = False
             End If
-        Else
-            MessageBox.Show("Verifique que los campos no esten vacios", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation)
-        End If
+
+            If (cb_unidad.IsChecked = False And cb_granel.IsChecked = False) Then
+                ok = False
+            End If
+
+            If (tipo1.IsChecked = False And tipo2.IsChecked = False And tipo3.IsChecked = False) Then
+                ok = False
+            End If
+
+            If (ok) Then
+                If (Mi_conexion.Conectar) Then
+                    Dim SqlComand = New SqlCommand
+                    SqlComand.CommandTimeout = 500
+                    SqlComand.CommandType = CommandType.StoredProcedure
+                    SqlComand.CommandText = "[Global].[Sys_Productos]"
+                    SqlComand.Parameters.Clear()
+
+                    If (DataGrid1.SelectedIndex = -1) Then
+                        SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "NUEVO"))
+                    Else
+                        SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "MODIFICAR"))
+                        SqlComand.Parameters.Add(New SqlClient.SqlParameter("@id_producto", CType(DataGrid1.SelectedItem, itemProducto).id_producto))
+                    End If
+
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Codigo", CType(tb_codigo.Text, Int64)))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Descripcion", tb_descripcion.Text))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Granel", cb_granel.IsChecked))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@precioC", System.Convert.ToDecimal(tb_precioComp.Value, us)))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@precioV", System.Convert.ToDecimal(tb_precioVent.Value, us)))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@usInv", cb_invent.IsChecked))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@existen", CInt(tb_existencia.Text)))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@minimo", CInt(tb_minimo.Text)))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@idDepartamento", CInt(cb_departa.SelectedValue)))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xmlProducto", xmlProducto))
+
+                    Dim tipoProducto As Int16 = 0
+
+                    If tipo1.IsChecked Then
+                        tipoProducto = 0
+                    End If
+                    If tipo2.IsChecked Then
+                        tipoProducto = 1
+                    End If
+                    If tipo3.IsChecked Then
+                        tipoProducto = 2
+                    End If
+
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@tipoProducto", tipoProducto))
+
+
+                    'Preparando imagen para guardarla'
+                    Try
+                        Dim bitmapImage As New BitmapImage
+                        bitmapImage.BeginInit()
+                        bitmapImage.UriSource = New Uri(img1.Source.ToString)
+                        bitmapImage.EndInit()
+                        Dim memStream As New MemoryStream
+                        Dim encoder As New JpegBitmapEncoder
+                        encoder.Frames.Add(BitmapFrame.Create(bitmapImage))
+                        encoder.Save(memStream)
+                        SqlComand.Parameters.Add(New SqlClient.SqlParameter("@image", CType(memStream.ToArray(), Byte())))
+                    Catch ex As Exception
+                    End Try
+
+                    SqlComand.Connection = Mi_conexion.conexion
+                    Dim reader As SqlDataReader = SqlComand.ExecuteReader()
+                    Try
+                        reader.Read()
+                        MessageBox.Show(reader("Mensaje"), "", MessageBoxButton.OK, MessageBoxImage.Information)
+                    Catch ex As Exception
+                    End Try
+                    LimpiarCampos(True)
+                    tb_search.Text = ""
+                Else
+                    MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                End If
+            Else
+                MessageBox.Show("Verifique que los campos no esten vacios", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation)
+            End If
+
+        Catch ex As Exception
+        End Try
     End Sub
 
 
@@ -530,6 +536,17 @@ Class Page_product_catalagoProducto
                 CType(sender, Image).Source = FindResource("ImageIcon1")
             Case 2
                 CType(sender, Image).Source = FindResource("ImageIcon2")
+        End Select
+    End Sub
+
+    Private Sub lbl_tipoProduct_Loaded(sender As Object, e As RoutedEventArgs)
+        Select Case (sender.tag)
+            Case -1 To 0
+                CType(sender, Label).Background = FindResource("Color1")
+            Case 1
+                CType(sender, Label).Background = FindResource("Color2")
+            Case 2
+                CType(sender, Label).Background = FindResource("Color3")
         End Select
     End Sub
 
