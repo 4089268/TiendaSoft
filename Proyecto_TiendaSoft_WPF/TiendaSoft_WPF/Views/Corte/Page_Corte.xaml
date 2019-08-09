@@ -159,8 +159,8 @@
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Nombre"         Binding="{Binding nombre}"      Width="200*"/>
                                     <DataGridTextColumn Header="Fecha Inicio"   Binding="{Binding fecha}"       Width="90" CellStyle="{Binding dg_cell_center}"/>
-                                    <DataGridTextColumn Header="Monto Inicial"  Binding="{Binding descripcion}" Width="110*"/>
-                                    <DataGridTextColumn Header="Monto Final"    Binding="{Binding monto}"       Width="110*" CellStyle="{StaticResource dg_cell_currecy}"/>
+                                    <DataGridTextColumn Header="Monto Inicial"  Binding="{Binding m_inicial}" Width="110*"/>
+                                    <DataGridTextColumn Header="Monto Final"    Binding="{Binding m_final}"       Width="110*" CellStyle="{StaticResource dg_cell_currecy}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>

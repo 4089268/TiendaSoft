@@ -9,11 +9,14 @@ Public Class Frm_Inicio
 
     Private Sub btn_iniciar() Handles btn_start.Click
 
-        Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
+        Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
         Try
             If (Mi_conexion.Conectar()) Then
                 Dim reader As SqlDataReader
-                reader = Mi_conexion.Ejecutar_Procedimiento("[Global].[Sys_PSesiones]", {"xAlias", "idOperador", "xMonto"}, {"INICIAR", xOpererador, CDec(tb_monto.Text)})
+                If (tb_monto.Text.Length <= 0) Then
+                    tb_monto.Text = "0"
+                End If
+                reader = Mi_conexion.Ejecutar_Procedimiento("[Global].[Sys_PSesiones]", {"xAlias", "idOperador", "xMonto"}, {"INICIAR", xOpererador, IIf(tb_monto.Text = "", 0, CDec(tb_monto.Text))})
 
                 Dim mensaje As String = ""
                 Try
@@ -34,7 +37,6 @@ Public Class Frm_Inicio
 
         Catch ex As Exception
         End Try
-       
 
         Me.Close()
     End Sub
