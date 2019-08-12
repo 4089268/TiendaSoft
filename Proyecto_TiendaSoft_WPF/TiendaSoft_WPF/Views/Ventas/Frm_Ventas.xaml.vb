@@ -66,6 +66,7 @@ Class Frm_Ventas
         End If
 
         txt_cant.IsEnabled = True
+        si_graba = False
     End Sub
 
     Private Sub renombrarTickets()
@@ -77,7 +78,10 @@ Class Frm_Ventas
     End Sub
 
     '********** EVENTOS UI **********
-    Private Sub txt_codigo_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txt_codigo.TextChanged
+    Private Sub txt_codigo_TextChanged_limpiar() Handles txt_codigo.TextChanged
+        limpiar_Campos()
+    End Sub
+    Private Sub txt_codigo_TextChanged() '**** Handles txt_codigo.TextChanged (sender As Object, e As TextChangedEventArgs)
         limpiar_Campos()
         If Mi_conexion.Conectar Then
             Dim newCodigo = ""
@@ -88,7 +92,7 @@ Class Frm_Ventas
 
             Dim listaProductos As New List(Of itemProducto)
 
-            Dim xcod As String = TryCast(sender.text, String)
+            Dim xcod As String = TryCast(txt_codigo.Text, String)
             xcmd = New SqlCommand()
             xcmd.CommandType = CommandType.Text
             xcmd.CommandText = "EXEC [Global].[Sys_Productos] @cAlias = 'BUSQUEDARAPIDA', @Descripcion = '" & xcod & "'"
@@ -202,15 +206,13 @@ Class Frm_Ventas
                 e.Handled = True
             End If
 
-            If (e.Key = Key.Enter) Then
-                If Not xagranel And si_graba Then
-                    Me.btn_graba_Click(sender, e)
-                    'Else
-                    'Dim request = New TraversalRequest(FocusNavigationDirection.Next)
-                    'request.Wrapped = True
-                    'DirectCast(sender, TextBox).MoveFocus(request)
-                End If
+            If (e.Key = Key.Enter And si_graba And Not xagranel) Then
+                Me.btn_graba_Click(sender, e)
+                limpiar_Campos()
                 e.Handled = True
+            End If
+            If (e.Key = Key.Enter) Then
+                txt_codigo_TextChanged()
             End If
         Else
             e.Handled = True
