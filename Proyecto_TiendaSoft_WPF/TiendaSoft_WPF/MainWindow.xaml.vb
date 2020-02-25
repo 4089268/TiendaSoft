@@ -8,7 +8,7 @@ Class MainWindow
     Dim dispatcherTimer As Windows.Threading.DispatcherTimer
 
     Private Sub rootGrid_onLoaded() Handles rootGrid.Loaded
-        Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
+        Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
         tb_version.Text = xversion
         MostrarBotones(False)
 

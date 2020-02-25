@@ -1,10 +1,10 @@
 ﻿Imports System.Data.SqlClient
 
 Module MiModulo
-    Public Const xNombre = "TIENDASOFT"
+    Public Const xNombre = "Bloquera Gonzalez"
     Public Const strApp As String = "POINT"
     Public Const strBasedeDatos As String = "PDV"
-    Public xversion As String = "2.1.17"
+    Public xversion As String = "2.1.20"
 
     Public xOpererador As Int32 = 0
     Public xNombreUsuario As String = ""

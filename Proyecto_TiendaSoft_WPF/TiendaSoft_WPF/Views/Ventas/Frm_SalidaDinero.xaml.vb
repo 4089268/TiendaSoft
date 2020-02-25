@@ -10,7 +10,7 @@ Public Class Frm_SalidaDinero
     End Sub
     Public Sub New(tipo As Int16)
         InitializeComponent()
-        Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
+        Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
         Me.xtipo = tipo
 
         If (tipo = 1) Then

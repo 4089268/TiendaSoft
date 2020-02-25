@@ -67,6 +67,10 @@ Class Frm_Ventas
 
         txt_cant.IsEnabled = True
         si_graba = False
+        btn_enter_image.Source = FindResource("img2")
+        btn_enter_label.Content = "Cargar"
+
+
     End Sub
 
     Private Sub renombrarTickets()
@@ -78,11 +82,10 @@ Class Frm_Ventas
     End Sub
 
     '********** EVENTOS UI **********
-    Private Sub txt_codigo_TextChanged_limpiar() Handles txt_codigo.TextChanged
-        limpiar_Campos()
+    Private Sub txt_codigo_TextChanged() Handles txt_codigo.TextChanged
+        cargarDatosProductos()
     End Sub
-    Private Sub txt_codigo_TextChanged() '**** Handles txt_codigo.TextChanged (sender As Object, e As TextChangedEventArgs)
-        limpiar_Campos()
+    Private Sub cargarDatosProductos()
         If Mi_conexion.Conectar Then
             Dim newCodigo = ""
             txt_desc.Text = ""
@@ -130,15 +133,19 @@ Class Frm_Ventas
                             si_graba = True
                         Else
                             If noMostrarVntPaquetes Then
-                                txt_codigo.Tag = listaProductos(0).id_producto
-                                txt_desc.Text = listaProductos(0).descripcion
-                                txt_desc.Tag = listaProductos(0).tipoProducto
-                                txt_pre.Text = listaProductos(0).precio_v
-                                txt_pre.Tag = listaProductos(0).precio_c
-                                txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
-                                txt_exis.Text = listaProductos(0).existencia
-                                xagranel = listaProductos(0).agranel
-                                si_graba = True
+                                For Each xp In listaProductos
+                                    If xp.codigo = txt_codigo.Text Then
+                                        txt_codigo.Tag = xp.id_producto
+                                        txt_desc.Text = xp.descripcion
+                                        txt_desc.Tag = xp.tipoProducto
+                                        txt_pre.Text = xp.precio_v
+                                        txt_pre.Tag = xp.precio_c
+                                        txt_imp.Text = CDec(txt_pre.Text) * CDec(txt_cant.Text)
+                                        txt_exis.Text = xp.existencia
+                                        xagranel = xp.agranel
+                                        si_graba = True
+                                    End If
+                                Next
                                 noMostrarVntPaquetes = False
                             Else
                                 Dim frm As New Frm_seleccionarProducto(listaProductos)
@@ -175,10 +182,17 @@ Class Frm_Ventas
                     txt_codigo.Text = newCodigo
                 End If
             End If
+
+            If si_graba Then
+                btn_enter_image.Source = FindResource("img1")
+                btn_enter_label.Content = "Agregar"
+            End If
             Mi_conexion.cerrarConexion()
         End If
     End Sub
+
     Private Sub txt_codigo_KeyDown(sender As Object, e As KeyEventArgs) Handles txt_codigo.KeyDown
+        Dim hi As Boolean = True
         If e.Key = Key.OemPlus _
             OrElse e.Key = Key.Add _
             OrElse e.Key = Key.Subtract _
@@ -209,10 +223,12 @@ Class Frm_Ventas
             If (e.Key = Key.Enter And si_graba And Not xagranel) Then
                 Me.btn_graba_Click(sender, e)
                 limpiar_Campos()
+                hi = False
                 e.Handled = True
             End If
-            If (e.Key = Key.Enter) Then
-                txt_codigo_TextChanged()
+
+            If (e.Key = Key.Enter And hi) Then
+                cargarDatosProductos()
             End If
         Else
             e.Handled = True
@@ -248,51 +264,64 @@ Class Frm_Ventas
         End Try
     End Sub
     Private Sub btn_enter_click(sender As Object, e As RoutedEventArgs) Handles btn_enter.Click
-        If Mi_conexion.Conectar Then
-            Try
-                Dim xcod As String = TryCast(txt_codigo.Text, String)
-                Dim cmd As New SqlCommand()
+        Dim hi As Boolean = True
 
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = "select id_producto,codigo,descripcion,isnull(precio_v,0) as precio_v,isnull(precio_c,0) as precio_c,isnull(existencia,0) as existencia, agranel from Opr_Productos where isnull(inactivo,0)=0 and codigo='" + xcod + "'"
-                cmd.Connection = Mi_conexion.conexion
-                cmd.Parameters.Clear()
-                Try
-                    Dim reader As SqlDataReader = cmd.ExecuteReader()
-                    si_graba = False
-                    If reader.HasRows Then
-                        Do While reader.Read()
-                            txt_codigo.Tag = reader("id_producto")
-                            txt_desc.Text = reader("descripcion")
-                            txt_pre.Text = reader("precio_v")
-                            txt_pre.Tag = reader("precio_c")
-                            txt_imp.Text = (CDec(txt_pre.Text) * CDec(txt_cant.Text)).ToString("####0.00")
-                            txt_exis.Text = reader("existencia")
-                            xagranel = reader("agranel")
-                            si_graba = True
-                        Loop
-                    Else
-                        si_graba = False
-                    End If
-                    reader.Close()
-                Catch er As Exception
-                End Try
-
-                If Not xagranel And si_graba Then
-                    Me.btn_graba_Click(sender, e)
-                    txt_cant.IsEnabled = True
-                Else
-                    txt_cant.IsEnabled = True
-                    Dim request = New TraversalRequest(FocusNavigationDirection.Next)
-                    request.Wrapped = True
-                    DirectCast(sender, TextBox).MoveFocus(request)
-                End If
-                e.Handled = True
-            Catch ex As Exception
-            Finally
-                Mi_conexion.cerrarConexion()
-            End Try
+        If (si_graba And Not xagranel) Then
+            Me.btn_graba_Click(sender, e)
+            limpiar_Campos()
+            hi = False
+            e.Handled = True
         End If
+
+        If (Key.Enter And hi) Then
+            cargarDatosProductos()
+        End If
+
+        'If Mi_conexion.Conectar Then
+        '    Try
+        '        Dim xcod As String = TryCast(txt_codigo.Text, String)
+        '        Dim cmd As New SqlCommand()
+
+        '        cmd.CommandType = CommandType.Text
+        '        cmd.CommandText = "select id_producto,codigo,descripcion,isnull(precio_v,0) as precio_v,isnull(precio_c,0) as precio_c,isnull(existencia,0) as existencia, agranel from Opr_Productos where isnull(inactivo,0)=0 and codigo='" + xcod + "'"
+        '        cmd.Connection = Mi_conexion.conexion
+        '        cmd.Parameters.Clear()
+        '        Try
+        '            Dim reader As SqlDataReader = cmd.ExecuteReader()
+        '            si_graba = False
+        '            If reader.HasRows Then
+        '                Do While reader.Read()
+        '                    txt_codigo.Tag = reader("id_producto")
+        '                    txt_desc.Text = reader("descripcion")
+        '                    txt_pre.Text = reader("precio_v")
+        '                    txt_pre.Tag = reader("precio_c")
+        '                    txt_imp.Text = (CDec(txt_pre.Text) * CDec(txt_cant.Text)).ToString("####0.00")
+        '                    txt_exis.Text = reader("existencia")
+        '                    xagranel = reader("agranel")
+        '                    si_graba = True
+        '                Loop
+        '            Else
+        '                si_graba = False
+        '            End If
+        '            reader.Close()
+        '        Catch er As Exception
+        '        End Try
+
+        '        If Not xagranel And si_graba Then
+        '            Me.btn_graba_Click(sender, e)
+        '            txt_cant.IsEnabled = True
+        '        Else
+        '            txt_cant.IsEnabled = True
+        '            Dim request = New TraversalRequest(FocusNavigationDirection.Next)
+        '            request.Wrapped = True
+        '            DirectCast(sender, TextBox).MoveFocus(request)
+        '        End If
+        '        e.Handled = True
+        '    Catch ex As Exception
+        '    Finally
+        '        Mi_conexion.cerrarConexion()
+        '    End Try
+        'End If
     End Sub
 
     Private Sub btn_nuevoTicketClick() Handles btn_nuevo.MouseLeftButtonUp
@@ -385,6 +414,16 @@ Class Frm_Ventas
             frm_salidaDiner.ShowDialog()
             frm_salidaDiner = Nothing
         End If
+    End Sub
+
+    Public Sub crear_log(data As String)
+        If Not EventLog.SourceExists("TiendaSoft") Then
+            EventLog.CreateEventSource("TiendaSoft", "TiendaSoft_log")
+            Return
+        End If
+        Dim myLog As New EventLog()
+        myLog.Source = "TiendaSoft"
+        myLog.WriteEntry(data)
     End Sub
 
 End Class

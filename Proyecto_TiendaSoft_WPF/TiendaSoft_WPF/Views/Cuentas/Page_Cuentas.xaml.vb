@@ -5,8 +5,8 @@ Imports System.Data
 
 Class Page_Cuentas
     Private Sub me_loaded_Done() Handles Me.Loaded
-        Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
-        Thread.CurrentThread.CurrentUICulture = New CultureInfo("en-US")
+        Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
+        Thread.CurrentThread.CurrentUICulture = New CultureInfo("es-MX")
 
         cargarUI()
         cargarDatos()

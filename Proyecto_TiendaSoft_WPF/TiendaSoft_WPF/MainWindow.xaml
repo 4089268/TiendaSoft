@@ -20,9 +20,11 @@
         </Grid.RowDefinitions>
 
         <!-- Row 0 HEADER -->
-        <Image Source="Imagenes/cash_register.png" Grid.Row="0" HorizontalAlignment="Left" Margin="35,3,3,3"/>
-        <Label Name="lbl_nombre" Content="TIENDA SOFT" Grid.Row="0" HorizontalAlignment="Left" Margin="120,0,0,0" FontSize="40" FontWeight="Bold" VerticalAlignment="Center"/>
-        <TextBlock Name="tb_version" Text="x.x.x" Grid.Row="0" HorizontalAlignment="Left" Margin="390,0,0,8" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <Image Source="logoBlock.ico" Grid.Row="0" HorizontalAlignment="Left" Margin="35,3,3,3"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Stretch">
+            <Label Name="lbl_nombre" Content="Bloquera Gonzales"  FontSize="40" FontWeight="Bold" />
+            <TextBlock Name="tb_version" Text="x.x.x" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" Margin="5,0,0,9"/>
+        </StackPanel>
         
         <StackPanel Orientation="Horizontal"    Grid.Row="0" HorizontalAlignment="Right" Margin="0,8,10,8" VerticalAlignment="Center" Background="#eeeeee" Height="64" FlowDirection="RightToLeft">
             <Label Name="label_NombreOperador" Content="*** ****** *** *******" FontSize="15" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>

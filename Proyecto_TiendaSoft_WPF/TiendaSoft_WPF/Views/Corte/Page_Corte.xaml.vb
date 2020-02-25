@@ -8,8 +8,8 @@ Class Page_Corte
     Dim lb_fecha As Label
 
     Private Sub rootLayout_loaded() Handles rootLayout.Loaded
-        Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
-        Thread.CurrentThread.CurrentUICulture = New CultureInfo("en-US")
+        Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
+        Thread.CurrentThread.CurrentUICulture = New CultureInfo("es-MX")
 
         Crear_labels(1)
         btn_Cajero.Focus()

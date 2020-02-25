@@ -6,7 +6,7 @@ Public Class Frm_Corte
     Dim xDialogResult As Boolean = False
 
     Private Sub rootGrid_onLoaded() Handles rootGrid.Loaded
-        System.Threading.Thread.CurrentThread.CurrentCulture = New CultureInfo("en-US")
+        System.Threading.Thread.CurrentThread.CurrentCulture = New CultureInfo("es-MX")
 
         If (Mi_conexion.Conectar()) Then
             Dim Cmd_Login = New SqlCommand

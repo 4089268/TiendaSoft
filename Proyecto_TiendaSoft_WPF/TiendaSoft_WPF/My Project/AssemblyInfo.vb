@@ -16,9 +16,8 @@ Imports System.Windows
 <Assembly: AssemblyCompany("Soluciones NERUS")>
 <Assembly: AssemblyProduct("Bloquera Gonzales")> 
 <Assembly: AssemblyCopyright("Copyright ©  2017")> 
-<Assembly: AssemblyTrademark("")> 
-<Assembly: ComVisible(false)>
-
+<Assembly: AssemblyTrademark("")>
+<Assembly: ComVisible(False)>
 'Para comenzar a compilar aplicaciones que se puedan traducir, establezca 
 '<UICulture>CultureYouAreCodingWith</UICulture> en el archivo .vbproj
 'dentro de <PropertyGroup>. Por ejemplo, si utiliza inglés de EE.UU. en 
@@ -55,6 +54,6 @@ Imports System.Windows
 ' mediante el asterisco ('*'), como se muestra a continuación:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.1.17.1")>
-<Assembly: AssemblyFileVersion("2.1.17.1")>
-<Assembly: NeutralResourcesLanguage("es-CU")>
+<Assembly: AssemblyVersion("2.1.20.1")>
+<Assembly: AssemblyFileVersion("2.1.20.1")>
+<Assembly: NeutralResourcesLanguage("es-MX")>

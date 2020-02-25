@@ -30,6 +30,9 @@
             <Setter Property="TextAlignment" Value="Right"/>
         </Style>
 
+        <BitmapImage x:Key="img1" UriSource="/TIENDASOFT;component/Imagenes/new.png" />
+        <BitmapImage x:Key="img2" UriSource="/TIENDASOFT;component/Imagenes/database_download.png" />
+
     </Page.Resources>
 
     <Grid Name="RootLayout" Background="#f0f0f0">
@@ -54,8 +57,9 @@
             <TextBox Name="txt_codigo" Text="" BorderThickness="1,1,1,1" Margin="4" FontSize="16" VerticalContentAlignment="Center" Padding="1" Width="300"/>
             <Button Margin="4" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="10"  Name="btn_enter" FontWeight="Medium" Width="80">
                 <StackPanel  Orientation="Horizontal">
-                    <Image Source="/TIENDASOFT;component/Imagenes/new.png" Height="20"/>
-                    <Label Content="Agregar"/>
+                    <!--<Image Source="/TIENDASOFT;component/Imagenes/new.png" Height="20"/>-->
+                    <Image Name="btn_enter_image" Source="{StaticResource img2}" Height="20"/>
+                    <Label Name="btn_enter_label" Content="Cargar"/>
                 </StackPanel>
             </Button>
             <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0"   x:Name="btn_imprimir" Width="100">
