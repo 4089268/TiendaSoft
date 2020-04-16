@@ -19,7 +19,7 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\Salvador\PROYECTOS\TiendaSoft_wpf\Instalador
-OutputBaseFilename={#MyAppName}+{#MyAppVersion}
+OutputBaseFilename={#MyAppName}_{#MyAppVersion}
 SetupIconFile=C:\Users\Salvador\PROYECTOS\TiendaSoft_wpf\Instalador\icono.ico
 Compression=lzma
 SolidCompression=yes
