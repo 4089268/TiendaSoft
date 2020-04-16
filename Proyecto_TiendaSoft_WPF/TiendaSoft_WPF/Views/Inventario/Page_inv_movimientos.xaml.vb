@@ -14,7 +14,7 @@ Class Page_inv_movimientos
         myDatagrid.Columns.Clear()
         myDatagrid.RowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.Collapsed
 
-        myDatagrid.Columns.Add(crear_datagridColumn("nombre", 250, "NOOMBRE USUARIO", False))
+        myDatagrid.Columns.Add(crear_datagridColumn("nombre", 250, "NOMBRE USUARIO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("fecha", 170, "FECHA MOVIMIENTO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("descripcion", 300, "PRODUCTO", False))
         myDatagrid.Columns.Add(crear_datagridColumn("movDescripcion", 130, "MOVIMIENTO", False))

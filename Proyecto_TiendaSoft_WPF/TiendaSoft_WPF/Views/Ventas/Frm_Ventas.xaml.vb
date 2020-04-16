@@ -49,7 +49,7 @@ Class Frm_Ventas
         ''***BOTON IMPRIMIR DESACTIVADO HASTA TERMINARLO
         btn_imprimir.IsEnabled = False
         btn_imprimir.Visibility = Windows.Visibility.Collapsed
-
+        limpiar_Campos()
     End Sub
 
     Private Sub limpiar_Campos()

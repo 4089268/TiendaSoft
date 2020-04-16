@@ -20,9 +20,9 @@
         </Grid.RowDefinitions>
 
         <!-- Row 0 HEADER -->
-        <Image Source="logoBlock.ico" Grid.Row="0" HorizontalAlignment="Left" Margin="35,3,3,3"/>
+        <Image Source="Imagenes/cash_register.png" Grid.Row="0" HorizontalAlignment="Left" Margin="35,3,3,3"/>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Stretch">
-            <Label Name="lbl_nombre" Content="Bloquera Gonzales"  FontSize="40" FontWeight="Bold" />
+            <Label Name="lbl_nombre" Content="TIENDA SOFT"  FontSize="40" FontWeight="Bold" />
             <TextBlock Name="tb_version" Text="x.x.x" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" Margin="5,0,0,9"/>
         </StackPanel>
         
