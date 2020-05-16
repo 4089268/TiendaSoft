@@ -159,18 +159,22 @@ Class MainWindow
     Private Sub saliendo(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
 
         Dim formSaliendo As New Frm_Saliendo
-        If (formSaliendo.ShowDialog()) Then
-            Dim form As New Form_LogIn
-            form.Show()
-        Else
+
+        If (Not formSaliendo.ShowDialog()) Then
             btn_Salir.IsEnabled = True
             e.Cancel = True
         End If
+
+        'If (formSaliendo.ShowDialog()) Then
+        '    Dim form As New Form_LogIn
+        '    form.Show()
+        'Else
+        '    btn_Salir.IsEnabled = True
+        '    e.Cancel = True
+        'End If
     End Sub
 
     Private Sub Salir_desdeCorte()
-
-
     End Sub
 
     Sub editarProducto(p1 As String)

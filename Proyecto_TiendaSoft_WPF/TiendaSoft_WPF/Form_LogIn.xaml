@@ -5,6 +5,45 @@
         Title="LOG IN" Width="400" Height="240" BorderThickness="0" UseLayoutRounding="False" ResizeMode="NoResize" 
         ShowInTaskbar="True" Background="WhiteSmoke"  Icon="Imagenes/keyIcon.png" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
 
+    <Window.Resources>
+        <Style TargetType="Border" x:Key="borderBoton">
+            <Setter Property="Width" Value="75" />
+            <Setter Property="Height" Value="23" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="40,0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#888888" />
+            <Setter Property="CornerRadius" Value="4" />            
+            <Setter Property="Background">
+                <Setter.Value>                    
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#D0D0D0" Offset="0"/>
+                        <GradientStop Color="#EAEAEA" Offset="0.1"/>
+                        <GradientStop Color="#EAEAEA" Offset="0.83"/>
+                        <GradientStop Color="#C0C0C0" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#c0c0c0" Offset="0"/>
+                                <GradientStop Color="#dAdAdA" Offset="0.1"/>
+                                <GradientStop Color="#dAdAdA" Offset="0.83"/>
+                                <GradientStop Color="#b0b0b0" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+            
+        </Style>
+    </Window.Resources>
+
     <Border BorderBrush="#424242" BorderThickness="2">
         <Grid x:Name="rootGrid">
             <Grid.RowDefinitions>
@@ -12,16 +51,16 @@
                 <RowDefinition Height ="*"/>
                 <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
-            
-            
+
+
             <StackPanel Grid.Row="0" Background="#424242" Orientation="Horizontal">
                 <Image Source="Imagenes/cash_register.png" Width="50" HorizontalAlignment="Left" Margin="45,0,0,0"/>
                 <Label Name="lbl_name" Content="PUNTO DE VENTA" VerticalAlignment="Center" FontSize="20" Margin="18,0,0,0" Foreground="WhiteSmoke" FontWeight="Medium"/>
             </StackPanel>
-                        
+
             <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0">
                 <Label Content="Comenzar Nuevo Turno"  HorizontalAlignment="Left" FontSize="20" FontWeight="Medium" Margin="45,0,0,0"/>
-                
+
                 <StackPanel Orientation="Horizontal" Margin="10,0" Height="50" HorizontalAlignment="Center">
                     <Image  Grid.Row="1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="30" Source="Imagenes/user.png" />
                     <TextBox        Grid.Row="1" Name="tb_usuario" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center" Width="258" Height="29" Text="" VerticalContentAlignment="Center"/>
@@ -31,14 +70,20 @@
                     <Image          Grid.Row="1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="30" Source="Imagenes/pass.png" />
                     <PasswordBox    Grid.Row="1" Name="tb_password" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center" Width="258" Height="29" Password="" VerticalContentAlignment="Center"/>
                 </StackPanel>
-                
-            </StackPanel>       
-            
-            <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button x:Name="OKButton"   Content="Iniciar"   Width="75" Height="23" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,0"/>
-                <Button x:Name="btn_salir"      Content="salir"     Width="75" Height="23" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,0"/>
+
             </StackPanel>
+
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
                 
+                <Border x:Name="OKButton" Style="{StaticResource borderBoton}">
+                    <TextBlock  Text="INICIAR"  VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium"/>
+                </Border>
+                <Border  x:Name="btn_salir" Style="{StaticResource borderBoton}">
+                    <TextBlock  Text="SALIR"  VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium"/>
+                </Border>                
+                
+            </StackPanel>
+
         </Grid>
     </Border>
 </Window>

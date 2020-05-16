@@ -32,7 +32,7 @@
         <DatePicker  Width="100"  Name="dp_fecha2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="256,0,0,2"/>        
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom">
-            <dxe:SearchControl Name="tb_search"     Grid.Row="2" Width="300"             Margin="5,0,0,0" />            
+            <dxe:SearchControl Name="tb_search" Grid.Row="2" Width="300" Margin="5,0,0,0" />
         </StackPanel>
         
         <Label Name="lbl_totMovimientos" Grid.Row="2" VerticalAlignment="Bottom" Content="Movimientos: 0" Margin="0,0,0,-7" FontWeight="SemiBold" FontSize="20" HorizontalAlignment="Center"/>

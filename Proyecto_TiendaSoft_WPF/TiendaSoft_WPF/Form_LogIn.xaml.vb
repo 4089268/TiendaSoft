@@ -25,7 +25,7 @@ Public Class Form_LogIn
         tb_usuario.Focus()
     End Sub
 
-    Private Sub OKButton_Click(sender As Object, e As RoutedEventArgs) Handles OKButton.Click
+    Private Sub OKButton_Click(sender As Object, e As RoutedEventArgs) Handles OKButton.MouseLeftButtonUp
         Dim reader As SqlDataReader = Mi_conexion.Ejecutar_Procedimiento("[dbo].[Sys_Login]", {"cUsu", "cPass", "cApp"}, {tb_usuario.Text, tb_password.Password, strApp})
         Dim Logearse As String = ""
         Try
@@ -54,7 +54,7 @@ Public Class Form_LogIn
                             ReanudarSesion()
                     End Select
                 End If
-                
+
             Else
                 MessageBox.Show("Usuario y/o contraseña no validos", "", MessageBoxButton.OK, MessageBoxImage.Stop)
             End If
@@ -64,11 +64,9 @@ Public Class Form_LogIn
             Me.Close()
         End Try
 
-
-
     End Sub
 
-    Private Sub btn_salir_onclic() Handles btn_salir.Click
+    Private Sub Btn_salir_onclic() Handles btn_salir.MouseLeftButtonUp
         Me.Close()
     End Sub
 
