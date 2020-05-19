@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TiendaSoft"
-#define MyAppVersion "2.1.21"
+#define MyAppVersion "2.1.23"
 #define MyAppPublisher "Soluciones Nerus"
 #define MyAppExeName "TIENDASOFT.exe"
 
@@ -18,9 +18,9 @@ DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=C:\Users\Salvador\PROYECTOS\TiendaSoft_wpf\Instalador
+OutputDir=C:\Users\chava\Proyectos\TiendaSoft\Instalador
 OutputBaseFilename={#MyAppName}_{#MyAppVersion}
-SetupIconFile=C:\Users\Salvador\PROYECTOS\TiendaSoft_wpf\Instalador\icono.ico
+SetupIconFile=C:\Users\chava\Proyectos\TiendaSoft\Instalador\icono.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -32,7 +32,7 @@ Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\Salvador\PROYECTOS\TiendaSoft_wpf\Proyecto_TiendaSoft_WPF\TiendaSoft_WPF\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\chava\Proyectos\TiendaSoft\Proyecto_TiendaSoft_WPF\TiendaSoft_WPF\bin\Debug\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
