@@ -14,7 +14,12 @@ Class Page_Inventario
     End Sub
 
     Private Sub rootLayout() Handles rotLayout.Loaded
-        navigationframe.Navigate(New Page_inv_agregar)
+        'navigationframe.Navigate(New Page_inv_agregar)
+        'btn_agregarInv.IsEnabled = False
+        navigationframe.Navigate(New Page_inv_reporteInv(Me))
+        btn_ReporteInv.IsEnabled = False
+        'navigationframe.Navigate(New Page_inv_resumen(Me))
+        'btn_resumen.IsEnabled = False
     End Sub
     Private Sub actividadButons()
         btn_agregarInv.IsEnabled = True
@@ -23,9 +28,11 @@ Class Page_Inventario
         btn_bajosInv.IsEnabled = True
         btn_ReporteInv.IsEnabled = True
         btn_MovimientoInv.IsEnabled = True
+        btn_resumen.IsEnabled = True
     End Sub
 
-    Private Sub btn_clicks(sender As Object, e As RoutedEventArgs) Handles btn_agregarInv.Click, btn_remplazarInv.Click, btn_bajosInv.Click, btn_MovimientoInv.Click, btn_ReporteInv.Click, btn_bajaInv.Click
+    '********** EVENTOS UI **********
+    Private Sub btn_clicks(sender As Object, e As RoutedEventArgs) Handles btn_agregarInv.Click, btn_remplazarInv.Click, btn_bajosInv.Click, btn_MovimientoInv.Click, btn_ReporteInv.Click, btn_bajaInv.Click, btn_resumen.Click
         actividadButons()
         CType(sender, Button).IsEnabled = False
         Select Case sender.name
@@ -46,6 +53,10 @@ Class Page_Inventario
 
             Case "btn_MovimientoInv"
                 navigationframe.Navigate(New Page_inv_movimientos)
+
+            Case "btn_resumen"
+                navigationframe.Navigate(New Page_inv_resumen(Me))
+
         End Select
 
     End Sub

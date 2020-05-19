@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"             
-    StartupUri="Form_LogIn.xaml">
+    StartupUri="Form_LogIn.xaml"
+ShutdownMode="OnLastWindowClose">
     <Application.Resources>
         
         <system:Double x:Key="fontSize_normal">12</system:Double>
@@ -75,6 +76,41 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="FormatString" Value="G"/>
             <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="Border_Button">            
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />            
+            <Setter Property="Margin" Value="40,0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="#888888" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#D0D0D0" Offset="0"/>
+                        <GradientStop Color="#EAEAEA" Offset="0.1"/>
+                        <GradientStop Color="#EAEAEA" Offset="0.83"/>
+                        <GradientStop Color="#C0C0C0" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#c0c0c0" Offset="0"/>
+                                <GradientStop Color="#dAdAdA" Offset="0.1"/>
+                                <GradientStop Color="#dAdAdA" Offset="0.83"/>
+                                <GradientStop Color="#b0b0b0" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>                                
+            </Style.Triggers>
         </Style>
 
     </Application.Resources>    

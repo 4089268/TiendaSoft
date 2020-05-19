@@ -30,7 +30,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="CATALAGO DEPARTAMENTOS" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="18"/>
+        <Label Content="CATALOGO DEPARTAMENTOS" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="18"/>
         
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="-150,0,0,0">
 
@@ -93,5 +93,3 @@
 
     </Grid>
 </Page>
-
-    

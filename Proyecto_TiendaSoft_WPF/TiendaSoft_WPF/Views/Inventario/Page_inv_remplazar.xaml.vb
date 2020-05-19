@@ -4,6 +4,14 @@ Imports System.Data
 Class Page_inv_remplazar
     Dim isOk As Boolean = False
 
+    Public Sub New()
+        InitializeComponent()
+    End Sub
+    Public Sub New(codigo As String)
+        InitializeComponent()
+        tb_search.Text = codigo
+    End Sub
+
     Sub buttons_click(sender As Object, e As RoutedEventArgs) Handles btn_search.Click, btn_agregar.Click
 
         Select Case sender.name

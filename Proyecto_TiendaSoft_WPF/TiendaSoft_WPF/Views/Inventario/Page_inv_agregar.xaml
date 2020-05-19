@@ -6,7 +6,7 @@
       mc:Ignorable="d" 
      d:DesignHeight="600" d:DesignWidth="700"
       Title="Page_conf_cajeros">
-        <Grid Name="rootLayout" Background="WhiteSmoke">
+    <Grid Name="rootLayout" Background="WhiteSmoke">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="2"/>

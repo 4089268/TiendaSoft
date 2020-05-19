@@ -64,7 +64,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logoBlock.ico</ApplicationIcon>
+    <ApplicationIcon>Imagenes\cash_register.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>9702CA20F45C3FFEB4035E9518C409F890D34F08</ManifestCertificateThumbprint>
@@ -218,6 +218,9 @@
     <Compile Include="Views\Inventario\Page_Inventario.xaml.vb">
       <DependentUpon>Page_Inventario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Inventario\Page_inv_resumen.xaml.vb">
+      <DependentUpon>Page_inv_resumen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Productos\UserControl1.xaml.vb">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
@@ -363,6 +366,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Inventario\Page_Inventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventario\Page_inv_resumen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1081,6 +1088,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\database_download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\table.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

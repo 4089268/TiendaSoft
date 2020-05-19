@@ -3,9 +3,32 @@ Imports System.Data
 Imports System.Globalization
 
 Class Page_inv_movimientos
+
+    Private cargar As Boolean = False
+
+    Public Sub New()
+        InitializeComponent()
+    End Sub
+    Public Sub New(codigo As String)
+        InitializeComponent()
+        tb_search.SearchText = codigo
+        cargar = True
+    End Sub
+
     Private Sub rootLayout_loaded() Handles rootLayout.Loaded
         cargarUI()
         cargarDatos()
+
+        If cargar Then
+            Dim dataview As DataView = myDatagrid.ItemsSource
+            Dim regex As New System.Text.RegularExpressions.Regex("[^0-9]+")
+            If (regex.IsMatch(tb_search.SearchText)) Then
+                DataView.RowFilter = String.Format("descripcion like '%{0}%'", tb_search.SearchText)
+            Else
+                DataView.RowFilter = String.Format("codigo = '{0}'", tb_search.SearchText)
+            End If
+            myDatagrid.ItemsSource = DataView
+        End If
     End Sub
 
     Private Sub cargarUI()
@@ -26,7 +49,6 @@ Class Page_inv_movimientos
         dp_fecha1.SelectedDate = Date.Now
         dp_fecha2.SelectedDate = Date.Now
     End Sub
-
     Private Function crear_datagridColumn(binding As String, ancho As Integer, cabecera As String, moneda As Boolean) As DataGridTextColumn
 
         Dim myStyle As New Style
@@ -43,12 +65,12 @@ Class Page_inv_movimientos
         myColumn.HeaderStyle = myStyle
         myColumn.Width = ancho
 
-
-
         Return myColumn
     End Function
 
-    Private Sub cargarDatos() Handles btn_buscar.Click
+
+    '*********** EVENTOS UI ***********
+    Private Sub cargarDatos() Handles btn_buscar.MouseLeftButtonUp
         If (Mi_conexion.Conectar) Then
             Dim SqlComand = New SqlCommand
             SqlComand.CommandTimeout = 500
@@ -78,7 +100,14 @@ Class Page_inv_movimientos
             If (e.Key = Key.Enter) Then
                 If (tb_search.SearchText <> "") Then
                     Dim dataview As DataView = myDatagrid.ItemsSource
-                    dataview.RowFilter = String.Format("descripcion like '%" & tb_search.SearchText & "%'")
+
+                    Dim regex As New System.Text.RegularExpressions.Regex("[^0-9]+")
+                    If (regex.IsMatch(tb_search.SearchText)) Then
+                        dataview.RowFilter = String.Format("descripcion like '%{0}%'", tb_search.SearchText)
+                    Else
+                        dataview.RowFilter = String.Format("codigo = '{0}'", tb_search.SearchText)
+                    End If
+
                     myDatagrid.ItemsSource = dataview
                 Else
                     cargarDatos()

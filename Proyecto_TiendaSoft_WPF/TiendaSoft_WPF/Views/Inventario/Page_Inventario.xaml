@@ -19,6 +19,13 @@
         <Label Content="INVENTARIO" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="White" FontWeight="Bold" Background="Gray" Grid.ColumnSpan="2"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="20,0,0,0">
+            <Button Name="btn_resumen" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5" MinWidth="110"  Padding="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/TIENDASOFT;component/Imagenes/table.png" Width="22"/>
+                    <Label Content="Resumen" FontSize="12" FontWeight="Medium"/>
+                </StackPanel>
+            </Button>
+            
             <Button Name="btn_agregarInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_Agregar.png" Width="22"/>
@@ -40,7 +47,7 @@
             <Button Name="btn_bajosInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_bajos.png" Width="22"/>
-                    <Label Content="Productos Bajos en Inventario" FontSize="12" FontWeight="Medium"/>
+                    <Label Content="Bajos en Inventario" FontSize="12" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
             <Button Name="btn_ReporteInv" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0">
