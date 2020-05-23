@@ -1,10 +1,13 @@
-﻿Imports SUT.PrintEngine.Utils
-Imports SUT.PrintEngine.ViewModels
-
-
+﻿
 Class Page_Configuracion
 
     Dim navService As NavigationService
+    Dim xMainWindow As MainWindow
+    Public Sub New(xm As MainWindow)
+        InitializeComponent()
+        Me.xMainWindow = xm
+    End Sub
+
     Sub rootlayout_onLoaded() Handles rootLayout.Loaded
         navService = Me.NavigationService
     End Sub
@@ -12,7 +15,7 @@ Class Page_Configuracion
     Sub buttonsClick(sender As Object, e As RoutedEventArgs) Handles btn_cajeros.Click, btn_Opciones.Click, btn_ticket.Click, btn_datosEmp.Click
         Select Case sender.name
             Case "btn_cajeros"
-                navService.Source = New Uri("Views/Configuracion/Page_conf_cajeros.xaml", UriKind.Relative)
+                navService.Navigate(New Page_conf_cajeros(xMainWindow))
 
             Case "btn_Opciones"
                 pruebaImpresion()
@@ -21,7 +24,7 @@ Class Page_Configuracion
                 navService.Source = New Uri("Views/Configuracion/Page_conf_ticket.xaml", UriKind.Relative)
 
             Case "btn_datosEmp"
-                navService.Source = New Uri("Views/Configuracion/Page_conf_DatosEmpreza.xaml", UriKind.Relative)
+                navService.Navigate(New Page_conf_DatosEmpreza(xMainWindow))
         End Select
 
     End Sub

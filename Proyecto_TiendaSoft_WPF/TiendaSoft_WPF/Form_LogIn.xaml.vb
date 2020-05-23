@@ -4,24 +4,11 @@ Imports System.Data
 Public Class Form_LogIn
 
     Private Sub me_loadedDone() Handles Me.Loaded
-        ''Verificar La conexion de la base de Datos
-
-        Mi_conexion = New Conexion_Sql
-        If (Not Mi_conexion.Conectar) Then
-            ''Formulario Confugurar Conexion
-            Dim conexionForm As New Frm_Conexion
-            Dim xres As Boolean = False
-            xres = conexionForm.ShowDialog()
-            If (xres) Then
-                Dim xl As New Form_LogIn
-                xl.Show()
-                Me.Close()
-            Else
-                Me.Close()
-            End If
+        If Not IsNothing(DatosEmpresa.Logo) Then
+            Me.img_logo.Source = DatosEmpresa.Logo
         End If
 
-        Me.lbl_name.Content = xNombre
+        Me.lbl_name.Content = DatosEmpresa.Nombre
         tb_usuario.Focus()
     End Sub
 

@@ -152,12 +152,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clases\DM_DatosEmpresa.vb" />
     <Compile Include="Clases\Conexion_Sql.vb" />
     <Compile Include="Clases\itemProducto.vb" />
     <Compile Include="Clases\MiModulo.vb" />
     <Compile Include="Clases\productoPaquete.vb" />
     <Compile Include="Form_LogIn.xaml.vb">
       <DependentUpon>Form_LogIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Iniciando.xaml.vb">
+      <DependentUpon>Iniciando.xaml</DependentUpon>
     </Compile>
     <Compile Include="Page_Reportes.xaml.vb">
       <DependentUpon>Page_Reportes.xaml</DependentUpon>
@@ -273,6 +277,10 @@
     <Compile Include="Views\Ventas\uc_frmTicket.xaml.vb">
       <DependentUpon>uc_frmTicket.xaml</DependentUpon>
     </Compile>
+    <Page Include="Iniciando.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

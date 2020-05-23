@@ -17,7 +17,7 @@
 
 
             <StackPanel Grid.Row="0" Background="#424242" Orientation="Horizontal">
-                <Image Source="Imagenes/cash_register.png" Width="50" HorizontalAlignment="Left" Margin="45,0,0,0"/>
+                <Image x:Name="img_logo" Source="Imagenes/cash_register.png" Width="50" HorizontalAlignment="Left" Margin="45,0,0,0"/>
                 <Label Name="lbl_name" Content="PUNTO DE VENTA" VerticalAlignment="Center" FontSize="20" Margin="18,0,0,0" Foreground="WhiteSmoke" FontWeight="Medium"/>
             </StackPanel>
 

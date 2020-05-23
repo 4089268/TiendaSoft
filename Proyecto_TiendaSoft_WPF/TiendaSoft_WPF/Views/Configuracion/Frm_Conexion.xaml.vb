@@ -11,6 +11,8 @@ Public Class Frm_Conexion
     End Sub
 
     Private Sub btn_reconectar_Click(sender As Object, e As RoutedEventArgs) Handles btn_reconectar.Click
+        Me.Cursor = Cursors.Wait
+
         rectangleStatus.Fill = Brushes.Yellow
         lbl_status.Content = "PROBANDO CONEXION .....!"
 
@@ -34,6 +36,9 @@ Public Class Frm_Conexion
             conectada = False
             rectangleStatus.Fill = Brushes.Red
             lbl_status.Content = "¡NO CONECTADO CON EL SERVIDOR!"
+
+        Finally
+            Me.Cursor = Cursors.Arrow
         End Try
 
     End Sub

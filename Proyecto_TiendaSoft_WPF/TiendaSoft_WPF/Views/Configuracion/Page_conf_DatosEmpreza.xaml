@@ -4,8 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="700"
+      d:DesignHeight="550" d:DesignWidth="900"
       Title="Page_conf_DatosEmpreza">
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="CharacterCasing" Value="Upper"/>
+        </Style>
+    </Page.Resources>
     
     <Grid Name="rootLayout" Background="White">
         <Grid.RowDefinitions>
@@ -42,38 +50,40 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Nombre:"        Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" />
-            <Label Content="Direccion:"     Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
-            <Label Content="Colonia:"       Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" />
-            <Label Content="Ciudad:"        Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" />
-            <Label Content="Estado:"        Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" />
-            <Label Content="Codigo Postal:" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" />
-            <Label Content="RFC:"           Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" />
-            <Label Content="Telefono:"      Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" />
+            <Label Content="Nombre:"        Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Medium"/>
+            <Label Content="Direccion:"     Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Medium"/>
+            <Label Content="Colonia:"       Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Medium"/>
+            <Label Content="Ciudad:"        Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Medium"/>
+            <Label Content="Estado:"        Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Medium"/>
+            <Label Content="Codigo Postal:" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Medium"/>
+            <Label Content="RFC:"           Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Medium"/>
+            <Label Content="Telefono:"      Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Medium"/>
 
-            <TextBox Grid.Row="0"  Grid.Column="1" Width="280" Margin="3" HorizontalAlignment="Left" x:Name="tb_nombre"         CharacterCasing="Upper"/>
-            <TextBox Grid.Row="1"  Grid.Column="1" Width="280" Margin="3" HorizontalAlignment="Left" x:Name="tb_direccion"      CharacterCasing="Upper"/>
-            <TextBox Grid.Row="2"  Grid.Column="1" Width="200" Margin="3" HorizontalAlignment="Left" x:Name="tb_colonia"        CharacterCasing="Upper"/>
-            <TextBox Grid.Row="3"  Grid.Column="1" Width="200" Margin="3" HorizontalAlignment="Left" x:Name="tb_ciudad"         CharacterCasing="Upper"/>
-            <TextBox Grid.Row="4"  Grid.Column="1" Width="200" Margin="3" HorizontalAlignment="Left" x:Name="tb_estado"         CharacterCasing="Upper"/>
-            <TextBox Grid.Row="5"  Grid.Column="1" Width="200" Margin="3" HorizontalAlignment="Left" x:Name="tb_codigoPostal"   CharacterCasing="Upper"/>
-            <TextBox Grid.Row="6"  Grid.Column="1" Width="200" Margin="3" HorizontalAlignment="Left" x:Name="tb_rfc"            CharacterCasing="Upper"/>
-            <TextBox Grid.Row="7"  Grid.Column="1" Width="200" Margin="3" HorizontalAlignment="Left" x:Name="tb_telefono"       CharacterCasing="Upper"/>            
+            <TextBox Grid.Row="0"  Grid.Column="1" Width="280" x:Name="tb_nombre" Text="{Binding Nombre, Mode=TwoWay}"/>
+            <TextBox Grid.Row="1"  Grid.Column="1" Width="280" x:Name="tb_direccion"      Text="{Binding Direccion, Mode=TwoWay}"/>
+            <TextBox Grid.Row="2"  Grid.Column="1" Width="200" x:Name="tb_colonia"        Text="{Binding Colonia , Mode=TwoWay}"/>
+            <TextBox Grid.Row="3"  Grid.Column="1" Width="200" x:Name="tb_ciudad"         Text="{Binding Ciudad, Mode=TwoWay}"/>
+            <TextBox Grid.Row="4"  Grid.Column="1" Width="200" x:Name="tb_estado"         Text="{Binding Estado, Mode=TwoWay}"/>
+            <TextBox Grid.Row="5"  Grid.Column="1" Width="200" x:Name="tb_codigoPostal"   Text="{Binding Codigo_postal , Mode=TwoWay}"/>
+            <TextBox Grid.Row="6"  Grid.Column="1" Width="200" x:Name="tb_rfc"            Text="{Binding Rfc, Mode=TwoWay}"/>
+            <TextBox Grid.Row="7"  Grid.Column="1" Width="200" x:Name="tb_telefono"       Text="{Binding Telefono1, Mode=TwoWay}"/>
 
-            <Button x:Name="btn_Guardar" Background="WhiteSmoke" BorderBrush="white" Margin="120,30,0,0" Grid.Row="9"  Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top"> 
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/TIENDASOFT;component/Imagenes/save.png" Width="25" Margin="2,0,0,0"/>
-                    <Label Margin="2,0,0,0" Content="Guardar Cambios" FontWeight="SemiBold" Foreground="Gray"/>
-                </StackPanel>
-            </Button>                            
-            
+            <Border x:Name="btn_Guardar" Margin="120,30,0,0" Height="40" Width="160" Grid.Row="9"  Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource Border_Button}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/TIENDASOFT;component/Imagenes/modif.png" Width="25" Margin="2,0,0,0"/>
+                    <Label Margin="2,0,0,0" Content="Guardar Cambios" FontWeight="SemiBold" Foreground="Black" />
+                </StackPanel>                
+            </Border>
+                        
             <Border Grid.Column="2" Grid.Row="0" Grid.RowSpan="7" BorderBrush="Gray" BorderThickness="1" Width="300" Height="200" >
                 <Border.Background>
                     <ImageBrush ImageSource="/TIENDASOFT;component/Imagenes/img_icon.png" Stretch="Uniform"/>
                 </Border.Background>
-                <Image Name="img1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Image Name="img1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="{Binding Logo, Mode=TwoWay}" />
             </Border>
-            <Button Name="btn_cargarImagen" Content="Cargar Imagen" Grid.Column="2" Grid.Row="7" Margin="0,2" Width="120"/>
+            <Border Name="btn_cargarImagen" Grid.Column="2" Grid.Row="7" Grid.RowSpan="2" Margin="4,2" Width="120" Height="30" Style="{StaticResource Border_Button}" VerticalAlignment="Top">
+                <TextBlock Text="Cargar Imagen" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>           
 
         </Grid>
     </Grid>

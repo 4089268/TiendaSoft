@@ -5,19 +5,24 @@ Class Page_conf_cajeros
 
     Dim navService As NavigationService
     Dim tablaUsuarios As DataTable
+    Dim xMainWindow As MainWindow
+
+    Public Sub New(xm As MainWindow)
+        InitializeComponent()
+        xMainWindow = xm
+    End Sub
 
     Sub rootlayout_onLoaded() Handles rootLayout.Loaded
         navService = Me.NavigationService
         cargarUi()
         cargarDatos()
         DataGrid1.SelectedIndex = 0
-
     End Sub
 
     Sub buttons_click(sender As Object, e As RoutedEventArgs) Handles btn_regresar.Click, btn_Guardar.Click, btn_Cancelar.Click, btn_nuevo.Click, btn_modif.Click
         Select Case sender.name
             Case "btn_regresar"
-                navService.Navigate(New Page_Configuracion)
+                navService.Navigate(New Page_Configuracion(xMainWindow))
 
             Case "btn_Cancelar"
                 LimpiarDatos()

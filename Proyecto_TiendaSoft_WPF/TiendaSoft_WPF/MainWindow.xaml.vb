@@ -25,7 +25,11 @@ Class MainWindow
             Me.Close()
         End If
 
-        Me.lbl_nombre.Content = xNombre
+        If Not IsNothing(DatosEmpresa.Logo) Then
+            Me.logo.Source = DatosEmpresa.Logo
+        End If
+        Me.lbl_nombre.Content = DatosEmpresa.Nombre
+
 
         ''Mostrar los Productos Bajos en inventario        
         ''Dim xtask As New Tasks.Task(AddressOf mostrarProductosBajos)
@@ -33,12 +37,10 @@ Class MainWindow
         mostrarProductosBajos()
 
     End Sub
-
     Private Sub mostrarProductosBajos()
         Dim xInventBajos As New Inventarios_Bajos
         xInventBajos.Show()
     End Sub
-
     Private Sub VerificarOpciones()
         navFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden
         navFrame.Navigate(New Frm_Ventas)
@@ -95,7 +97,31 @@ Class MainWindow
         barManager.Bars(0).ItemLinks("reportes").IsEnabled = False  ' ** Boton Reportes **
         barManager.Bars(0).ItemLinks("gastos").IsEnabled = False  ' ** Boton Reportes **
     End Sub
+    Private Sub restaurarBotones()
+        btn_ventas.IsEnabled = True
+        btn_productos.IsEnabled = True
+        btn_inventario.IsEnabled = True
+        bnt_factura.IsEnabled = True
+        btn_corte.IsEnabled = True
+        btn_reportes.IsEnabled = True
+        btn_configuracion.IsEnabled = True
+        btn_cuentas.IsEnabled = True
+        btn_gastos.IsEnabled = True
+    End Sub
+    Private Sub MostrarBotones(val As Boolean)
+        For Each item As BarItemLinkBase In barManager.Bars(0).ItemLinks
+            item.IsVisible = val
+            item.IsEnabled = val
+        Next
+    End Sub
+    Public Sub ActualizarDatosEmpresa()
+        If Not IsNothing(DatosEmpresa.Logo) Then
+            Me.logo.Source = DatosEmpresa.Logo
+        End If
+        Me.lbl_nombre.Content = DatosEmpresa.Nombre
+    End Sub
 
+    '*********** EVENTOS UI ***********
     Private Sub actualizar_FechaHora(ByVal sender As Object, ByVal e As EventArgs)
         labelHora.Content = Date.Now.ToString("F")
         CommandManager.InvalidateRequerySuggested()
@@ -110,7 +136,7 @@ Class MainWindow
                 navFrame.Navigate(New Frm_Ventas)
 
             Case "btn_configuracion"
-                navFrame.Navigate(New Page_Configuracion)
+                navFrame.Navigate(New Page_Configuracion(Me))
 
             Case "btn_productos"
                 navFrame.Navigate(New Page_productos)
@@ -135,25 +161,6 @@ Class MainWindow
                 restaurarBotones()
                 Me.Close()
         End Select
-    End Sub
-
-    Private Sub restaurarBotones()
-        btn_ventas.IsEnabled = True
-        btn_productos.IsEnabled = True
-        btn_inventario.IsEnabled = True
-        bnt_factura.IsEnabled = True
-        btn_corte.IsEnabled = True
-        btn_reportes.IsEnabled = True
-        btn_configuracion.IsEnabled = True
-        btn_cuentas.IsEnabled = True
-        btn_gastos.IsEnabled = True
-    End Sub
-
-    Private Sub MostrarBotones(val As Boolean)
-        For Each item As BarItemLinkBase In barManager.Bars(0).ItemLinks
-            item.IsVisible = val
-            item.IsEnabled = val
-        Next
     End Sub
 
     Private Sub saliendo(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
