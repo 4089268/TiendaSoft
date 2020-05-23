@@ -36,18 +36,20 @@ Class Page_product_catalagoProducto
         tb_minimo.IsEnabled = False
 
         If (_p1.Length > 0) Then
-            tb_search.Text = _p1
             Try
                 tmpListaProductos.Clear()
 
                 For Each xpr In listaProductos
-                    If xpr.descripcion.Contains("tb_search.SearchText") Then
+                    'If xpr.descripcion.Contains("tb_search.SearchText") Then
+                    If xpr.codigo = _p1 Then
+                        tb_search.Text = xpr.descripcion
                         Dim xnewProd As itemProducto = xpr
                         tmpListaProductos.Add(xnewProd)
                     End If
                 Next
                 DataGrid1.ItemsSource = Nothing
                 DataGrid1.ItemsSource = tmpListaProductos
+                DataGrid1.SelectedIndex = 0
             Catch ex As Exception
             End Try
         End If

@@ -3,48 +3,129 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="700"
+      d:DesignHeight="600" d:DesignWidth="1100"
       Title="Page_inv_reporteInv">
     
     <Grid Name="rootLayout" Background="WhiteSmoke">
         <Grid.RowDefinitions>
+            <RowDefinition Height="38"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="45"/>            
+            <RowDefinition Height="32"/>            
             <RowDefinition  Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="REPORTE INVENTARIO" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="#1c1c1c" FontWeight="Medium" Background="#d8d8d8"/>
-       
-        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="80,0,0,0" Orientation="Vertical" HorizontalAlignment="Left">
-            <Label Content="Costo del inventario" HorizontalAlignment="Center"/>
-            <Label Content="$0.00" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center" Name="lbl_costoTotal"/>
+        <Label Content="REPORTE INVENTARIO" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="#1c1c1c" FontWeight="Medium" Background="#d8d8d8"/>        
+        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="5,0" Orientation="Horizontal" >
+            <Label Content="0.00" FontSize="18" FontWeight="Medium" HorizontalAlignment="Center" Name="lbl_costoTotal" Margin="0,0,20,0">
+                <Label.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="Costo del inventario: " />
+                            <TextBlock Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Label.ContentTemplate>
+            </Label>
+
+            <Label Content="0" FontSize="18" FontWeight="Medium" HorizontalAlignment="Center" Name="lbl_productTotal" Margin="0,0,20,0">
+                <Label.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="Productos Usan Inventario: " />
+                            <TextBlock Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Label.ContentTemplate>
+            </Label>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="300,00,0,0" Orientation="Vertical" HorizontalAlignment="Left">
-            <Label Content="Productos Usan Inventario"  HorizontalAlignment="Center"/>
-            <Label Content="0" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center" Name="lbl_productTotal" Height="30" Padding="0,-1"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="5,0">
+            <dxe:SearchControl Name="tb_search"     Grid.Row="2" Width="300" Margin="0"/>
+            
+            <Label Margin="50,0,0,0" FontWeight="Medium" VerticalAlignment="Stretch">
+                <Label.Content>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                        <TextBlock Text="Producto vendido calculado a partir de los ultimos " VerticalAlignment="Center"/>
+                        <toolkit:IntegerUpDown Value="7" VerticalAlignment="Center" Width="50" Name="dp_dias" Minimum="1" Maximum="365"/>
+                        <TextBlock Text=" dias" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Label.Content>
+            </Label>
+            
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom">
-            <dxe:SearchControl Name="tb_search"     Grid.Row="2" Width="300"             Margin="5,0,0,0"/>
-            <Button Grid.Row="2" Width="150" Height="30" Margin="30,0,0,0" Name="btn_agregar">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_Agregar.png" Width="20" Margin="1,0,0,0"/>
-                    <Label Content="Agregar Inventario"/>
-                </StackPanel>
-            </Button>
-            <Button Grid.Row="2" Width="150" Height="30" Margin="10,0,0,0" Name="btn_editar">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/TIENDASOFT;component/Imagenes/modif.png" Width="20" Margin="1,0,0,0"/>
-                    <Label Content="Modificar Producto"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>  
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            
+            <DataGrid Name="myDatagrid" Grid.Column="0"  Background="White" Margin="5,10" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight" Value="Medium"/>
+                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="4,0"/>
+                        <Setter Property="FontWeight" Value="Medium"/>
+                    </Style>
+                    <Style TargetType="DataGridCell" x:Key="text_der">
+                        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                    </Style>
+                    <Style TargetType="DataGridCell" x:Key="text_cent">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CODIGO"         Width="2*" Binding="{Binding codigo}" />
+                    <DataGridTextColumn Header="DESCRIPCION"    Width="3*" Binding="{Binding descripcion}"/>
+                    <DataGridTextColumn Header="PRECIO COMPRA"  Width="1*" Binding="{Binding precio_c, StringFormat=c}" CellStyle="{StaticResource text_der}"/>
+                    <DataGridTextColumn Header="PRECIO VENTA"   Width="1*" Binding="{Binding precio_v, StringFormat=c}" CellStyle="{StaticResource text_der}"/>
+                    <DataGridTextColumn Header="EXISTENCIA"     Width="1*" Binding="{Binding existencia}" CellStyle="{StaticResource text_cent}"/>
+                    <DataGridTextColumn Header="MINIMO"         Width="1*" Binding="{Binding minimo}" CellStyle="{StaticResource text_cent}"/>
+                    <DataGridTextColumn Header="VENDIDOS"       Width="1*" Binding="{Binding vendidos}" CellStyle="{StaticResource text_cent}"/>
+                </DataGrid.Columns>            
+            </DataGrid>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1" Margin="5,10">
+                <Border Name="btn_agregar" Style="{StaticResource Border_Button}" HorizontalAlignment="Stretch" Margin="2,5" Height="40" IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_Agregar.png" Width="20" Margin="1,0,0,0"/>
+                        <Label Content="Agregar Inventario"/>
+                    </StackPanel>                    
+                </Border>
+
+                <Border Name="btn_editar" Style="{StaticResource Border_Button}" HorizontalAlignment="Stretch" Margin="2,5" Height="40" IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/TIENDASOFT;component/Imagenes/modif.png" Width="20" Margin="1,0,0,0"/>
+                        <Label Content="Modificar Producto"/>
+                    </StackPanel>
+                </Border>
+
+
+                <Border Name="btn_ajuste" Style="{StaticResource Border_Button}" HorizontalAlignment="Stretch" Margin="2,5" Height="40" IsEnabled="False" >
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_ajustar.png" Width="20" Margin="1,0,0,0"/>
+                        <Label Content="Ajustar Inventario"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Name="btn_movim" Style="{StaticResource Border_Button}" HorizontalAlignment="Stretch" Margin="2,5" Height="40" IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Source="/TIENDASOFT;component/Imagenes/Inventario/inv_movimientos.png" Width="20" Margin="1,0,0,0"/>
+                        <Label Content="Movimientos" />
+                    </StackPanel>
+                </Border>
+                
+            </StackPanel>
         
-        <DataGrid Name="myDatagrid" Grid.Row="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Background="White" Margin="10"/>
-        
+        </Grid>
+
+        <toolkit:BusyIndicator x:Name="busyI" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="10" Grid.RowSpan="10" BusyContent="CARGANDO DATOS..." IsBusy="False" />
+
     </Grid>
         
 </Page>

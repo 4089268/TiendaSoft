@@ -3,7 +3,7 @@
 Module MiModulo
     Public Const strApp As String = "POINT"
     Public Const strBasedeDatos As String = "PDV"
-    Public xversion As String = "2.1.24"
+    Public xversion As String = "2.1.25"
     Public DatosEmpresa As New DM_DatosEmpresa
 
     Public xOpererador As Int32 = 0

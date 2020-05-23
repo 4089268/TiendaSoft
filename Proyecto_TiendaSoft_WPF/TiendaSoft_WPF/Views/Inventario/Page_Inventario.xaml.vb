@@ -14,12 +14,10 @@ Class Page_Inventario
     End Sub
 
     Private Sub rootLayout() Handles rotLayout.Loaded
-        'navigationframe.Navigate(New Page_inv_agregar)
-        'btn_agregarInv.IsEnabled = False
+        btn_resumen.Visibility = Visibility.Collapsed
+
         navigationframe.Navigate(New Page_inv_reporteInv(Me))
         btn_ReporteInv.IsEnabled = False
-        'navigationframe.Navigate(New Page_inv_resumen(Me))
-        'btn_resumen.IsEnabled = False
     End Sub
     Private Sub actividadButons()
         btn_agregarInv.IsEnabled = True
@@ -33,8 +31,8 @@ Class Page_Inventario
 
     '********** EVENTOS UI **********
     Private Sub btn_clicks(sender As Object, e As RoutedEventArgs) Handles btn_agregarInv.Click, btn_remplazarInv.Click, btn_bajosInv.Click, btn_MovimientoInv.Click, btn_ReporteInv.Click, btn_bajaInv.Click, btn_resumen.Click
-        actividadButons()
-        CType(sender, Button).IsEnabled = False
+        'actividadButons()
+        'CType(sender, Button).IsEnabled = False
         Select Case sender.name
             Case "btn_bajaInv"
                 navigationframe.Navigate(New Page_inv_darBaja)
@@ -60,7 +58,24 @@ Class Page_Inventario
         End Select
 
     End Sub
+    Private Sub navigationframe_navigate(sender As Object, e As NavigationEventArgs) Handles navigationframe.Navigated
+        actividadButons()
+        Select Case e.Content.ToString
+            Case "TIENDASOFT.Page_inv_agregar"
+                btn_agregarInv.IsEnabled = False
+            Case "TIENDASOFT.Page_inv_remplazar"
+                btn_remplazarInv.IsEnabled = False
+            Case "TIENDASOFT.Page_inv_bajos"
+                btn_bajosInv.IsEnabled = False
+            Case "TIENDASOFT.Page_inv_reporteInv"
+                btn_ReporteInv.IsEnabled = False
+            Case "TIENDASOFT.Page_inv_movimientos"
+                btn_MovimientoInv.IsEnabled = False
+            Case "TIENDASOFT.Page_inv_resumen"
+                btn_resumen.IsEnabled = False
+        End Select
 
+    End Sub
     '' Abre la opcion de productos
     Sub editarProdcuto(p1 As String)
         _mainWindow.editarProducto(p1)
