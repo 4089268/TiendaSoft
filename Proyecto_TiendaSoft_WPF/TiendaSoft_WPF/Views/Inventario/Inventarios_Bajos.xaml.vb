@@ -10,30 +10,10 @@ Public Class Inventarios_Bajos
     End Sub
 
     Private Sub me_loadedDonde() Handles Me.Loaded
+        Dim dataT As DataTable = cargandoProductosBajos()
 
-        datagrid.AutoGenerateColumns = False
-        datagrid.IsReadOnly = True
-
-        Dim c1 As New DataGridTextColumn
-        c1.Header = "PRODUCTO"
-        c1.Binding = New Binding("descripcion")
-        c1.Width = 300
-        datagrid.Columns.Add(c1)
-
-        Dim c2 As New DataGridTextColumn
-        c2.Header = "EXISTENCIA"
-        c2.Binding = New Binding("existencia")
-        c2.Width = 170
-        datagrid.Columns.Add(c2)
-
-        Me.xdt = cargandoProductosBajos()
-
-        If Me.xdt.Rows.Count > 0 Then
-            datagrid.ItemsSource = xdt.DefaultView
-        Else
-            Me.Close()
-        End If
-
+        datagrid.ItemsSource = dataT.DefaultView
+        tb_total.Text = dataT.Rows.Count
     End Sub
 
     Function cargandoProductosBajos() As DataTable

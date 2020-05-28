@@ -211,7 +211,7 @@
                                 <Label Content="Total de Entradas: "  Style="{StaticResource dataLabel}"/>
                                 <Label Name="TotalEntradas" Content="0" HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
                             </StackPanel>
-                            <DataGrid Grid.Row="2" Name="dg_entradas">
+                            <DataGrid Grid.Row="2" Name="dg_entradas" >
                                 <DataGrid.Columns>
                                     <DataGridTextColumn x:Name="dg_entradas_nombre" Header="Nombre" Binding="{Binding nombre}" Width="120*"/>
                                     <DataGridTextColumn x:Name="dg_entradas_hora" Header="Hora" Binding="{Binding fecha}" Width="80" CellStyle="{Binding dg_cell_center}"/>
@@ -234,7 +234,7 @@
                                 <Label Content="Total de Salidas: "  Style="{StaticResource dataLabel}"/>
                                 <Label Name="totalSalidas"  Content="0" HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
                             </StackPanel>
-                            <DataGrid Grid.Row="2" Name="dg_salidas">
+                            <DataGrid Grid.Row="2" Name="dg_salidas" >
                                 <DataGrid.Columns>
                                     <DataGridTextColumn x:Name="dg_salidas_nombre" Header="Nombre" Binding="{Binding nombre}" Width="120*"/>
                                     <DataGridTextColumn x:Name="dg_salidas_hora" Header="Hora" Binding="{Binding fecha}" Width="80" CellStyle="{Binding dg_cell_center}"/>
@@ -257,7 +257,7 @@
                                 <Label Content="Numero de Ventas: "  Style="{StaticResource dataLabel}"/>
                                 <Label Name="TotalVentas" Content="0" HorizontalAlignment="Right" Style="{StaticResource dataLabel}"/>
                             </StackPanel>
-                            <DataGrid Grid.Row="2" Name="dg_ventas">
+                            <DataGrid Grid.Row="2" Name="dg_ventas" Cursor="Hand">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="id" Binding="{Binding id_venta}" Visibility="Collapsed"/>
                                     <DataGridTextColumn Header="Nombre" Binding="{Binding nombre}"  Width="300*" x:Name="dg_ventas_nombre"/>

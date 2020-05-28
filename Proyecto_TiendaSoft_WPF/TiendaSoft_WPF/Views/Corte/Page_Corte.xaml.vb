@@ -138,7 +138,7 @@ Class Page_Corte
                 executar_corteCaja(2)
         End Select
     End Sub
-    Private Sub DetalleVenta_click(Sender As Object, e As RoutedEventArgs) Handles dg_ventas.SelectionChanged
+    Private Sub DetalleVenta_click(Sender As Object, e As RoutedEventArgs) Handles dg_ventas.MouseLeftButtonUp
         If Not IsNothing(dg_ventas.SelectedItem) Then
             Dim idVenta As Integer = dg_ventas.SelectedItem.Row.item("id_venta")
             Dim xform As New Frm_DetalleVenta(idVenta.ToString)
