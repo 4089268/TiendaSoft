@@ -81,7 +81,7 @@
                 </StackPanel>
             </Button>
 
-            <Button x:Name="btn_cancelarVenta" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" Width="100" FontWeight="Medium">
+            <Button x:Name="btn_cancelarVenta" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" Width="125" FontWeight="Medium">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/cancel_ticket.png" Height="20"/>
                     <Label Content="Cancelar Venta"/>
