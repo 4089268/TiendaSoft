@@ -42,7 +42,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                <dxe:SearchControl Name="tb_search" Width="200" />
+                <dxe:SearchControl Name="tb_search" Width="230" Height="30"  Margin="0,0" HorizontalContentAlignment="Center" VerticalAlignment="Bottom"/>
                 
                 <Button Name="btn_nuevo" Background="White" BorderBrush="WhiteSmoke" Margin="40,0,0,0" IsEnabled ="True">
                     <StackPanel Orientation="Horizontal">

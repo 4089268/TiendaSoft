@@ -27,7 +27,6 @@ Class Frm_Ventas
     Private Sub ExecutedCustomCommand(ByVal sender As Object, ByVal e As ExecutedRoutedEventArgs)
         MessageBox.Show("Custom Command Executed")
     End Sub
-
     Private Sub CanExecuteCustomCommand(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
         Dim target As Control = TryCast(e.Source, Control)
 
@@ -37,7 +36,6 @@ Class Frm_Ventas
             e.CanExecute = False
         End If
     End Sub
-
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
         System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = "."
 
@@ -51,7 +49,6 @@ Class Frm_Ventas
         btn_imprimir.Visibility = Windows.Visibility.Collapsed
         limpiar_Campos()
     End Sub
-
     Private Sub limpiar_Campos()
         txt_desc.Text = ""
         txt_desc.Tag = ""
@@ -72,7 +69,6 @@ Class Frm_Ventas
 
 
     End Sub
-
     Private Sub renombrarTickets()
         For i As Integer = 0 To (tc_tickets.Items.Count - 2)
             Dim xtab As TabItem = CType(tc_tickets.Items(i), TabItem)
@@ -80,6 +76,7 @@ Class Frm_Ventas
             CType(xtab.Content, uc_frmTicket).index = i
         Next
     End Sub
+
 
     '********** EVENTOS UI **********
     Private Sub txt_codigo_TextChanged() Handles txt_codigo.TextChanged
@@ -415,7 +412,10 @@ Class Frm_Ventas
             frm_salidaDiner = Nothing
         End If
     End Sub
-
+    Private Sub Btn_CancelarVenta_Click() Handles btn_cancelarVenta.Click
+        Dim formCV As New Frm_CancelarTicket
+        formCV.ShowDialog()
+    End Sub
     Public Sub crear_log(data As String)
         If Not EventLog.SourceExists("TiendaSoft") Then
             EventLog.CreateEventSource("TiendaSoft", "TiendaSoft_log")

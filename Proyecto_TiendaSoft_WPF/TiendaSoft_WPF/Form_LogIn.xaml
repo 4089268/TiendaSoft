@@ -5,8 +5,6 @@
         Title="LOG IN" Width="400" Height="240" BorderThickness="0" UseLayoutRounding="False" ResizeMode="NoResize" 
         ShowInTaskbar="True" Background="WhiteSmoke"  Icon="Imagenes/keyIcon.png" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
 
-    
-
     <Border BorderBrush="#424242" BorderThickness="2">
         <Grid x:Name="rootGrid">
             <Grid.RowDefinitions>
@@ -15,14 +13,13 @@
                 <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
 
-
             <StackPanel Grid.Row="0" Background="#424242" Orientation="Horizontal">
                 <Image x:Name="img_logo" Source="Imagenes/cash_register.png" Width="50" HorizontalAlignment="Left" Margin="45,0,0,0"/>
                 <Label Name="lbl_name" Content="PUNTO DE VENTA" VerticalAlignment="Center" FontSize="20" Margin="18,0,0,0" Foreground="WhiteSmoke" FontWeight="Medium"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0">
-                <Label Content="Comenzar Nuevo Turno"  HorizontalAlignment="Left" FontSize="20" FontWeight="Medium" Margin="45,0,0,0"/>
+                <Label Name="lbl_titulo" Content="Comenzar Nuevo Turno"  HorizontalAlignment="Left" FontSize="20" FontWeight="Medium" Margin="45,0,0,0"/>
 
                 <StackPanel Orientation="Horizontal" Margin="10,0" Height="50" HorizontalAlignment="Center">
                     <Image  Grid.Row="1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="30" Source="Imagenes/user.png" />

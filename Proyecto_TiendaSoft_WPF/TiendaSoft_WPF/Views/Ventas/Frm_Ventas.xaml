@@ -54,38 +54,45 @@
                 </StackPanel>
             </Button>
             <Label Content="CODIGO:" FontSize="12" FontWeight="Medium" VerticalAlignment="Center" Margin="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" />
-            <TextBox Name="txt_codigo" Text="" BorderThickness="1,1,1,1" Margin="4" FontSize="16" VerticalContentAlignment="Center" Padding="1" Width="300"/>
-            <Button Margin="4" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="10"  Name="btn_enter" FontWeight="Medium" Width="80">
+            <TextBox Name="txt_codigo" Text="" BorderThickness="1,1,1,1" Margin="4" FontSize="16" VerticalContentAlignment="Center" Padding="1" Width="290"/>
+            <Button Margin="4" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12"  Name="btn_enter" FontWeight="Medium" Width="80">
                 <StackPanel  Orientation="Horizontal">
                     <!--<Image Source="/TIENDASOFT;component/Imagenes/new.png" Height="20"/>-->
                     <Image Name="btn_enter_image" Source="{StaticResource img2}" Height="20"/>
                     <Label Name="btn_enter_label" Content="Cargar"/>
                 </StackPanel>
             </Button>
-            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0"   x:Name="btn_imprimir" Width="100">
+            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0"  x:Name="btn_imprimir" Width="100" FontWeight="Medium">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/printer.png" Height="20"/>
                     <Label Content="Imprimir"/>
                 </StackPanel>
             </Button>
-            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_entrada" Width="110">
+            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_entrada" Width="110" FontWeight="Medium">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/money_int.png" Height="20"/>
                     <Label Content="[F7] Entradas"/>
                 </StackPanel>
             </Button>
-            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_salida" Width="100">
+            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" x:Name="btn_salida" Width="100" FontWeight="Medium">
                 <StackPanel  Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/money_out.png" Height="20"/>
                     <Label Content="[F8] Salidas"/>
                 </StackPanel>
-            </Button>            
+            </Button>
+
+            <Button x:Name="btn_cancelarVenta" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="4" Padding="5,0" Width="100" FontWeight="Medium">
+                <StackPanel  Orientation="Horizontal">
+                    <Image Source="/TIENDASOFT;component/Imagenes/cancel_ticket.png" Height="20"/>
+                    <Label Content="Cancelar Venta"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
 
         <Grid x:Name="grd_prod" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="390"/>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="60"/>

@@ -250,6 +250,9 @@
     <Compile Include="Views\Ventas\Frm_Busqueda.xaml.vb">
       <DependentUpon>Frm_Busqueda.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Ventas\Frm_CancelarTicket.xaml.vb">
+      <DependentUpon>Frm_CancelarTicket.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Ventas\Frm_Cobrar.xaml.vb">
       <DependentUpon>Frm_Cobrar.xaml</DependentUpon>
     </Compile>
@@ -412,6 +415,10 @@
     <Page Include="Views\Ventas\Frm_Busqueda.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Ventas\Frm_CancelarTicket.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Ventas\Frm_Cobrar.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1099,6 +1106,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\cancel_ticket.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\minimize_2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

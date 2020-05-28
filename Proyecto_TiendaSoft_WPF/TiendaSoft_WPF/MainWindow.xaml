@@ -9,7 +9,17 @@
         Title="MainWindow" 
         Height="600" Width="1100"
         WindowStyle="None" ResizeMode="NoResize"  
-        WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="Imagenes/cash_register.ico">    
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="Imagenes/cash_register.ico">
+    <Window.Resources>
+        <Style TargetType="Border" x:Key="borde_salir">
+            <Setter Property="Opacity" Value="0.9"/>
+            <Style.Triggers>
+                <Trigger Property = "IsMouseOver" Value = "True">
+                    <Setter Property = "Opacity" Value = "1" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Grid x:Name="rootGrid">
         <Grid.RowDefinitions>
@@ -25,11 +35,21 @@
             <Label Name="lbl_nombre" Content="TIENDA SOFT"  FontSize="40" FontWeight="Bold" />
             <TextBlock Name="tb_version" Text="x.x.x" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" Margin="5,0,0,9"/>
         </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="3,3,3,3">
+            <Border Margin="5" x:Name="border_minimizar" Cursor="Hand" Style="{StaticResource borde_salir}">
+                <Image Source="Imagenes/minimize_2.png"  Height="20"/>
+            </Border>
+            <Border Margin="5" x:Name="border_salir" Cursor="Hand" Style="{StaticResource borde_salir}">
+                <Image Source="Imagenes/exit.png"  Height="20" />
+            </Border>
+        </StackPanel>
         
-        <StackPanel Orientation="Horizontal"    Grid.Row="0" HorizontalAlignment="Right" Margin="0,8,10,8" VerticalAlignment="Center" Background="#eeeeee" Height="64" FlowDirection="RightToLeft">
-            <Label Name="label_NombreOperador" Content="*** ****** *** *******" FontSize="15" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-            <Label Content=":" FontSize="15" VerticalAlignment="Center" Margin="0" FontWeight="Bold"/>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,80,0" VerticalAlignment="Bottom">
             <Label Content="Atiende " FontSize="15" VerticalAlignment="Center" Margin="0,5" FontWeight="Bold"/>
+            <Label Content=":" FontSize="15" VerticalAlignment="Center" Margin="0" FontWeight="Bold"/>
+            <Label Name="label_NombreOperador" Content="*** ****** *** *******" FontSize="15" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
         </StackPanel>
 
         <!-- Row 1 MENU -->
@@ -93,13 +113,6 @@
                     </dxb:BarButtonItem.ContentTemplate>
                 </dxb:BarButtonItem>
                 
-                <dxb:BarButtonItem Content="Salir"          Name="btn_Salir" Glyph="Imagenes/exit.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
-                    <dxb:BarButtonItem.ContentTemplate>
-                        <DataTemplate>
-                            <Label Content="SALIR" FontSize="14" FontWeight="Medium"/>
-                        </DataTemplate>
-                    </dxb:BarButtonItem.ContentTemplate>
-                </dxb:BarButtonItem>
                 <dxb:BarButtonItem Content="Configuracion"  Name="btn_configuracion" Glyph="Imagenes/gear.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
                     <dxb:BarButtonItem.ContentTemplate>
                         <DataTemplate>
@@ -132,8 +145,7 @@
                         <dxb:BarButtonItemLink      BarItemName="btn_corte"         Name="corte"/>
                         
                         
-                        <dxb:BarButtonItemLink      BarItemName="btn_configuracion" Name="config" Alignment="Far"/>
-                        <dxb:BarButtonItemLink      BarItemName="btn_Salir"         Name="salir" Alignment="Far"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_configuracion" Name="config" Alignment="Far"/>                        
                     </dxb:Bar.ItemLinks>
                 </dxb:Bar>
             </dxb:BarManager.Bars>

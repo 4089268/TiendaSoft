@@ -25,15 +25,12 @@ Class MainWindow
             Me.Close()
         End If
 
+        '******* CARGAR EL LOGO Y EL NOMBRE DE LA EMPRESA
         If Not IsNothing(DatosEmpresa.Logo) Then
             Me.logo.Source = DatosEmpresa.Logo
         End If
         Me.lbl_nombre.Content = DatosEmpresa.Nombre
 
-
-        ''Mostrar los Productos Bajos en inventario        
-        ''Dim xtask As New Tasks.Task(AddressOf mostrarProductosBajos)
-        ''xtask.Start()
         mostrarProductosBajos()
 
     End Sub
@@ -89,7 +86,6 @@ Class MainWindow
         barManager.Bars(0).ItemLinks("corte").IsVisible = CBool(opcion8)
 
         barManager.Bars(0).ItemLinks("config").IsVisible = xAdmin
-        barManager.Bars(0).ItemLinks("salir").IsVisible = True
 
 
         ''**** DESACTIVADOS HASTA TERMINARLOS ****
@@ -127,7 +123,7 @@ Class MainWindow
         CommandManager.InvalidateRequerySuggested()
     End Sub
 
-    Private Sub Button_Click(sender As Object, e As RoutedEventArgs) Handles btn_ventas.ItemClick, btn_productos.ItemClick, btn_Salir.ItemClick, btn_configuracion.ItemClick, btn_corte.ItemClick, btn_inventario.ItemClick, btn_cuentas.ItemClick, btn_reportes.ItemClick, btn_gastos.ItemClick
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs) Handles btn_ventas.ItemClick, btn_productos.ItemClick, btn_configuracion.ItemClick, btn_corte.ItemClick, btn_inventario.ItemClick, btn_cuentas.ItemClick, btn_reportes.ItemClick, btn_gastos.ItemClick
         restaurarBotones()
         sender.IsEnabled = False
 
@@ -156,29 +152,25 @@ Class MainWindow
             Case "btn_gastos"
                 navFrame.Navigate(New Page_Gastos)
 
-
-            Case "btn_Salir"
-                restaurarBotones()
-                Me.Close()
         End Select
     End Sub
-
+    Private Sub BorderSalir_clik() Handles border_salir.MouseLeftButtonUp
+        Me.Close()
+    End Sub
+    Private Sub Minimizar_click() Handles border_minimizar.MouseLeftButtonUp
+        Me.WindowState = WindowState.Minimized
+    End Sub
     Private Sub saliendo(sender As Object, e As ComponentModel.CancelEventArgs) Handles Me.Closing
 
         Dim formSaliendo As New Frm_Saliendo
 
         If (Not formSaliendo.ShowDialog()) Then
-            btn_Salir.IsEnabled = True
             e.Cancel = True
         End If
 
-        'If (formSaliendo.ShowDialog()) Then
-        '    Dim form As New Form_LogIn
-        '    form.Show()
-        'Else
-        '    btn_Salir.IsEnabled = True
-        '    e.Cancel = True
-        'End If
+    End Sub
+    Private Sub Me_update() Handles Me.SizeChanged
+        Me.WindowState = WindowState.Maximized
     End Sub
 
     Private Sub Salir_desdeCorte()

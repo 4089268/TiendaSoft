@@ -8,10 +8,10 @@ Public Class uc_frmTicket
     Property xFrmVentas As Frm_Ventas = Nothing
     Private listaProductos As New List(Of dataModel_ticketProduct)
 
+
     Public Sub me_loaded_done() Handles Me.Loaded
         HotkeyManager.Current.AddOrReplace("Nuevoticket", Key.F10, Nothing, AddressOf btn_cobrar_Click)
     End Sub
-
     Public Sub agregarProducto(p As dataModel_ticketProduct)
         Dim encontrado As Boolean = False
         For Each x In listaProductos
@@ -83,7 +83,6 @@ Public Class uc_frmTicket
         dg_venta.ItemsSource = Nothing
         dg_venta.ItemsSource = listaProductos
     End Sub
-
     Public Sub calcularTotal()
         Dim xcount As Integer = 0
         Dim totl As Double = 0
@@ -98,6 +97,7 @@ Public Class uc_frmTicket
         lbl_articulos.Content = xcount
     End Sub
 
+
     ''*************  EVENTOS UI *************
     Private Sub grd_venta_UnloadingRow(sender As Object, e As DataGridRowEventArgs) Handles dg_venta.UnloadingRow
         calcularTotal()
@@ -107,7 +107,6 @@ Public Class uc_frmTicket
             e.Row.Style = CType(FindResource("componente"), Style)
         End If
     End Sub
-
     Private Sub btn_cobrar_Click() Handles btn_cobrar.Click
         If Me.IsLoaded Then
             Dim xform As New Frm_Cobrar(total)
@@ -177,15 +176,16 @@ Public Class uc_frmTicket
                     dss.Tables.Add(dt2)
 
                     Dim xxml As String = dss.GetXml()
+
                     Dim cmd As New SqlCommand()
                     cmd.CommandType = CommandType.StoredProcedure
-                    cmd.CommandText = "dbo.usp_guarda_xml"
+                    cmd.CommandText = "[Global].[SP_Ventas]"
                     cmd.Connection = Mi_conexion.conexion
                     cmd.Parameters.Clear()
-                    cmd.Parameters.AddWithValue("@cAlias", "VENTAS")
-                    cmd.Parameters.AddWithValue("@cAccion", "1")
-                    cmd.Parameters.AddWithValue("@xmlTables", dss.GetXml())
-                    cmd.Parameters.AddWithValue("@xidCredito", xform.idCuentaCredito)
+                    cmd.Parameters.AddWithValue("@Alias", "VENTAS")
+                    cmd.Parameters.AddWithValue("@Accion", "1")
+                    cmd.Parameters.AddWithValue("@XmlTables", dss.GetXml())
+                    cmd.Parameters.AddWithValue("@IdCredito", xform.idCuentaCredito)
 
                     Try
                         cmd.ExecuteNonQuery()
@@ -198,12 +198,12 @@ Public Class uc_frmTicket
             End If
         End If
     End Sub
-
     Private Sub cerrarTicket() Handles btn_cancelar.Click
         If Not IsNothing(xFrmVentas) Then
             xFrmVentas.btn_cerrarTicketClick(index)
         End If
     End Sub
+
 
     ''** BORRAR PRODUCTO **
     Private Sub Dg_venta_KeyUp(sender As Object, e As KeyEventArgs) Handles dg_venta.KeyUp
