@@ -12,7 +12,7 @@ Class Page_Configuracion
         navService = Me.NavigationService
     End Sub
 
-    Sub buttonsClick(sender As Object, e As RoutedEventArgs) Handles btn_cajeros.Click, btn_Opciones.Click, btn_ticket.Click, btn_datosEmp.Click
+    Sub buttonsClick(sender As Object, e As RoutedEventArgs) Handles btn_cajeros.Click, btn_Opciones.Click, btn_ticket.Click, btn_datosEmp.Click, btn_respaldos.Click
         Select Case sender.name
             Case "btn_cajeros"
                 navService.Navigate(New Page_conf_cajeros(xMainWindow))
@@ -25,6 +25,10 @@ Class Page_Configuracion
 
             Case "btn_datosEmp"
                 navService.Navigate(New Page_conf_DatosEmpreza(xMainWindow))
+
+            Case "btn_respaldos"
+                navService.Navigate(New Page_conf_BaseDatos(xMainWindow))
+
         End Select
 
     End Sub

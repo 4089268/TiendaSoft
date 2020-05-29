@@ -112,6 +112,14 @@
                         </DataTemplate>
                     </dxb:BarButtonItem.ContentTemplate>
                 </dxb:BarButtonItem>
+
+                <dxb:BarButtonItem Content="Ejecutar Respaldo"  Name="btn_respaldo" Glyph="Imagenes/database_download.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
+                    <dxb:BarButtonItem.ContentTemplate>
+                        <DataTemplate>
+                            <Label Content="EJECUTAR RESPALDO" FontSize="14" FontWeight="Medium" />
+                        </DataTemplate>
+                    </dxb:BarButtonItem.ContentTemplate>
+                </dxb:BarButtonItem>
                 
                 <dxb:BarButtonItem Content="Configuracion"  Name="btn_configuracion" Glyph="Imagenes/gear.png" GlyphSize="Large"  BarItemDisplayMode="ContentAndGlyph" >
                     <dxb:BarButtonItem.ContentTemplate>
@@ -143,9 +151,9 @@
                         <dxb:BarButtonItemLink      BarItemName="btn_reportes"      Name="reportes"/>
                         <dxb:BarItemLinkSeparator   BarItemName="separador"         Name="sreportes"/>
                         <dxb:BarButtonItemLink      BarItemName="btn_corte"         Name="corte"/>
-                        
-                        
-                        <dxb:BarButtonItemLink      BarItemName="btn_configuracion" Name="config" Alignment="Far"/>                        
+
+                        <dxb:BarButtonItemLink      BarItemName="btn_respaldo"      Name="respaldo" Alignment="Far"/>
+                        <dxb:BarButtonItemLink      BarItemName="btn_configuracion" Name="config" Alignment="Far"/>
                     </dxb:Bar.ItemLinks>
                 </dxb:Bar>
             </dxb:BarManager.Bars>

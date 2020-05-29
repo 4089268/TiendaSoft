@@ -85,6 +85,7 @@ Class MainWindow
         barManager.Bars(0).ItemLinks("sreportes").IsVisible = CBool(opcion7)
         barManager.Bars(0).ItemLinks("corte").IsVisible = CBool(opcion8)
 
+        barManager.Bars(0).ItemLinks("respaldo").IsVisible = xAdmin
         barManager.Bars(0).ItemLinks("config").IsVisible = xAdmin
 
 
@@ -116,6 +117,42 @@ Class MainWindow
         End If
         Me.lbl_nombre.Content = DatosEmpresa.Nombre
     End Sub
+    Private Sub EjecutarRespaldo()
+        Me.Cursor = Cursors.Wait
+        If (Mi_conexion.Conectar) Then
+            Try
+                Dim res As DataTable = Mi_conexion.Ejecutar_query("EXEC [Global].[usp_Respaldar] ")
+                If res.Rows.Count > 0 Then
+                    If (res.Rows(0).Item("Error").ToString = "0") Then
+                        Dim ruta As String = res.Rows(0).Item("Mensaje").ToString
+                        Dim msg As String = String.Format("Respaldo realizado en la ruta {0}", ruta)
+                        MessageBox.Show(msg, "", MessageBoxButton.OK, MessageBoxImage.Information)
+
+                        Dim x = ruta.Split("\")
+                        Dim xn As String = ""
+
+                        For i = 0 To (x.Count - 2)
+                            xn = xn & x(i) & "\"
+                        Next
+                        Process.Start(xn)
+                    Else
+                        MessageBox.Show("No se pudor hacer el respaldo." & vbNewLine & res.Rows(0).Item("Mensaje"), "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                    End If
+
+                End If
+
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            End Try
+
+        Else
+            MessageBox.Show("No se pudo conectar a la base de datos", "", MessageBoxButton.OK, MessageBoxImage.Error)
+        End If
+        Me.Cursor = Cursors.Arrow
+        restaurarBotones()
+
+    End Sub
+
 
     '*********** EVENTOS UI ***********
     Private Sub actualizar_FechaHora(ByVal sender As Object, ByVal e As EventArgs)
@@ -123,7 +160,7 @@ Class MainWindow
         CommandManager.InvalidateRequerySuggested()
     End Sub
 
-    Private Sub Button_Click(sender As Object, e As RoutedEventArgs) Handles btn_ventas.ItemClick, btn_productos.ItemClick, btn_configuracion.ItemClick, btn_corte.ItemClick, btn_inventario.ItemClick, btn_cuentas.ItemClick, btn_reportes.ItemClick, btn_gastos.ItemClick
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs) Handles btn_ventas.ItemClick, btn_productos.ItemClick, btn_configuracion.ItemClick, btn_corte.ItemClick, btn_inventario.ItemClick, btn_cuentas.ItemClick, btn_reportes.ItemClick, btn_gastos.ItemClick, btn_respaldo.ItemClick
         restaurarBotones()
         sender.IsEnabled = False
 
@@ -151,6 +188,9 @@ Class MainWindow
 
             Case "btn_gastos"
                 navFrame.Navigate(New Page_Gastos)
+
+            Case "btn_respaldo"
+                EjecutarRespaldo
 
         End Select
     End Sub

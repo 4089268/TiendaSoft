@@ -166,6 +166,9 @@
     <Compile Include="Page_Reportes.xaml.vb">
       <DependentUpon>Page_Reportes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Configuracion\Page_conf_BaseDatos.xaml.vb">
+      <DependentUpon>Page_conf_BaseDatos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Corte\Frm_DetalleVenta.xaml.vb">
       <DependentUpon>Frm_DetalleVenta.xaml</DependentUpon>
     </Compile>
@@ -301,6 +304,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Page_Reportes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Configuracion\Page_conf_BaseDatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1115,6 +1122,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\minimize_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

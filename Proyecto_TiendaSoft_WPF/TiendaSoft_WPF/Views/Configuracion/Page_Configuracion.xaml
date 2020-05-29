@@ -41,8 +41,15 @@
                     <Image Source="/TIENDASOFT;component/Imagenes/conf_options.png" Margin="0" Height="30" />
                     <Label Content="OPCIONES" FontSize="12"  HorizontalContentAlignment="Center" />
                 </StackPanel>
-            </Button>            
-            
+            </Button>
+
+            <Button Name="btn_respaldos"  Width="110" Margin="10" Background="Snow" BorderBrush="Snow" >
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="2" IsEnabled="True">
+                    <Image Source="/TIENDASOFT;component/Imagenes/database.png" Margin="0" Height="30" />
+                    <Label Content="BASE DE DATOS" FontSize="12"  HorizontalContentAlignment="Center" />
+                </StackPanel>
+            </Button>
+
         </StackPanel>
 
         <StackPanel Grid.Row="4" Background="WhiteSmoke" Orientation="Horizontal">
