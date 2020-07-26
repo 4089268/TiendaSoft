@@ -14,7 +14,7 @@
 
 <style lang="scss">
   html{
-    font-size: 14px;
+    font-size: 12px;
   }
   .cabecera{
     height: 80px;
