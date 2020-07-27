@@ -12,7 +12,7 @@
                 <div style="width:400px;">
                     <div class="ui icon fluid input">
                         <i class="search icon"></i>
-                        <input type="text" placeholder="Search..."/>
+                        <input type="text" placeholder="Search..." v-on:keyup="BusquedaKeyPressed" v-model="PalabraBusqueda"/>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-    var thisComponent;
+import { mapState } from 'vuex'
+var thisComponent;
 export default {
     name: 'Cabecera',
     props: {},
@@ -69,6 +70,21 @@ export default {
                 { title: 'Refrescos' },
                 { title: 'Sorprendeme' }                
             ]
+        }
+    },
+    computed: {
+        PalabraBusqueda:{
+            get(){return thisComponent.$store.state.Busqueda.PalabraBusqueda},
+            set(val){thisComponent.$store.state.Busqueda.PalabraBusqueda = val}
+        }
+    },
+    methods: {
+        BusquedaKeyPressed:(e)=>{
+            if(e.key == "Enter"){
+                if(thisComponent.PalabraBusqueda.length >0){
+                    thisComponent.$store.dispatch("Busqueda");
+                }
+            }
         }
     },
     mounted(){

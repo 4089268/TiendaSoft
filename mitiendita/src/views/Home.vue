@@ -2,34 +2,30 @@
   <div class="home">
 
     <div class="ui four column centered doubling grid">
-      <div class="three wide column">
-        <CartaProducto Imagen="http:/host.com/a/imagen?x=102" Titulo="Doritos Nachos" Descripcion="Bolsa Doritos Nachos de 55 grs." :Precio="18.20" :CartaClickCallback="CartaClick"/>
+      
+      <div class="three wide column" v-for="(item,index) in Productos" :key="index">
+        <CartaProducto Imagen="http:/host.com/a/imagen?x=102"
+          :Titulo="item.Descripcion"
+          :Descripcion="item.Descripcion"
+          :Precio="66.66" 
+          :CartaClickCallback="CartaClick"/>
       </div>
-      <div class="three wide column">
-        <CartaProducto Imagen="http:/host.com/a/imagen?x=102" Titulo="Doritos Nachos" Descripcion="Bolsa Doritos Nachos de 55 grs." :Precio="9.50" :Promocion="true" :PrecioPromocion="8.2" :CartaClickCallback="CartaClick"/>
-      </div>
-      <div class="three wide column">
-        <CartaProducto Imagen="http:/host.com/a/imagen?x=102" Titulo="Doritos Nachos" Descripcion="Bolsa Doritos Nachos de 55 grs." :Precio="18.20" :CartaClickCallback="CartaClick"/>
-      </div>
-      <div class="three wide column">
-        <CartaProducto Imagen="http:/host.com/a/imagen?x=102" Titulo="Doritos Nachos" Descripcion="Bolsa Doritos Nachos de 55 grs." :Precio="18.20" :CartaClickCallback="CartaClick"/>
-      </div>
-      <div class="three wide column">
-        <CartaProducto Imagen="http:/host.com/a/imagen?x=102" Titulo="Doritos Nachos" Descripcion="Bolsa Doritos Nachos de 55 grs." :Precio="18.20" :CartaClickCallback="CartaClick"/>
-      </div>
-      <div class="three wide column">
-        <CartaProducto Imagen="http:/host.com/a/imagen?x=102" Titulo="Doritos Nachos" Descripcion="Bolsa Doritos Nachos de 55 grs." :Precio="9.50" :Promocion="true" :PrecioPromocion="8.2" :CartaClickCallback="CartaClick"/>
-      </div>
-      <div class="three wide column">
-        <CartaProducto Imagen="http:/host.com/a/imagen?x=102" Titulo="Doritos Nachos" Descripcion="Bolsa Doritos Nachos de 55 grs." :Precio="18.20" :CartaClickCallback="CartaClick"/>
-      </div>
-      <div class="three wide column">
-        <CartaProducto Imagen="http:/host.com/a/imagen?x=102" Titulo="Doritos Nachos" Descripcion="Bolsa Doritos Nachos de 55 grs." :Precio="18.20" :CartaClickCallback="CartaClick"/>
-      </div>
-    </div>    
+
+    </div>
+      
+    <div class="nodatos">
+      <img class="ui small image" src="@/assets/sad.png" />
+      <h2 class="ui header">        
+        <div class="content">
+          Sin Productos
+          <div class="sub header">No hay productos que concuerden con la busqueda.</div>
+        </div>
+      </h2>
+    </div>
+
     
 
-    <div class="ui small modal">      
+    <div class="ui small modal">
       <div class="content">
         
         <div class="ui grid ">
@@ -73,10 +69,24 @@
 
 <script>
 import CartaProducto from "@/components/CartaProducto.vue"
+import { mapState } from 'vuex'
+
 var thisComponent;
 export default {
   name: 'Home',
   components: { CartaProducto},
+  data() {
+    return {
+    }
+  },
+  computed: {
+    ObtenerProductos:()=>{      
+      console.dir(thisComponent)
+      return thisComponent.$store.Productos;
+    },
+    ...mapState(['Productos'])
+
+  },  
   methods: {
     CartaClick:(e)=>{
       $('.ui.modal').modal('show');
@@ -87,15 +97,26 @@ export default {
   },
   mounted() {
     $('.ui.modal').modal({centered: true});
+    var opciones ={};
+    thisComponent.$store.dispatch("ObtenerProductos",opciones);    
+
   }  
 }
 </script>
 <style lang="scss">
 
-.home{
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;  
-}
+  .home{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+  }
+  .nodatos{
+    height: 70vh;
+    width:100%;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
