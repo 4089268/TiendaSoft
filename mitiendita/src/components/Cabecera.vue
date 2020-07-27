@@ -22,14 +22,14 @@
                     <div class="text">Categorias</div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <div class="item">Abarrotes</div>
-                        <div class="item">Frutas y Verduras</div>
-                        <div class="item">Enlatados</div>
-                        <div class="item">Licores</div>
-                        <div class="item">Limpieza</div>
+                        <div class="item"><router-link to="/">Abarrotes</router-link></div>
+                        <div class="item"><router-link to="/">Frutas y Verduras</router-link></div>
+                        <div class="item"><router-link to="/">Enlatados</router-link></div>
+                        <div class="item"><router-link to="/">Licores</router-link></div>
+                        <div class="item"><router-link to="/">Limpieza</router-link></div>
                     </div>
                 </div>            
-                <router-link to="/">Ofertas</router-link>             
+                <router-link to="/">Ofertas</router-link>
                 <router-link to="/">Historial</router-link>            
                 <router-link to="/about">Ayuda</router-link>
             </div>
