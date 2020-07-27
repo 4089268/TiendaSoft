@@ -2,7 +2,7 @@
     <div class="root">
 
         <div class="col1">
-            <img src="@/assets/logo.png" style="height:100%; width:auto;"/>
+            <img src="@/assets/logo2.png" style="height:90%; width:auto; margin-top:2px;"/>
         </div>
 
         <div class="col2">
