@@ -7,8 +7,8 @@
                 <i class="heart icon"></i> PROMOCION
             </div>
             -->
-            
-            <img src="@/assets/productos/papas.jpg">
+            <img loading=lazy  :src="ObtenerUrlImage()" style="max-height:340px;">
+
         </div>
 
         <div class="center aligned content">
@@ -32,7 +32,7 @@
 var thisComponent;
 export default {
     props:{
-        Imagen:String,
+        IdProducto:String,
         Titulo:String,
         Meta:String,
         Descripcion:String,
@@ -42,6 +42,12 @@ export default {
         CartaClickCallback:Function
     },
     methods: {
+        ObtenerUrlImage:()=>{
+            // console.dir(thisComponent);            
+            //var tmpImage = "http://127.0.0.1:5000/imagen/666"           
+            var tmpImage ="http://127.0.0.1:5000/imagen/" + thisComponent._props.IdProducto
+            return tmpImage;
+        },
         FormatNumber:(parm)=>{
             if(parm =="promo"){
                 return "$ " +  thisComponent.PrecioPromocion.toFixed(2).toString();
@@ -66,6 +72,6 @@ export default {
             font-size: 1rem;
             text-decoration: line-through;
         }
-    }   
-
+    }
+    
 </style>
