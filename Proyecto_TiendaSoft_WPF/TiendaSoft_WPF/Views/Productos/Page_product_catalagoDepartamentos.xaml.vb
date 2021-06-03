@@ -29,7 +29,7 @@ Class Page_product_catalagoDepartamentos
             SqlComand.CommandType = CommandType.StoredProcedure
             SqlComand.CommandText = "[Global].[Sys_Departamentos]"
             SqlComand.Parameters.Clear()
-            SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "CARGARCATALAGO"))
+            SqlComand.Parameters.Add(New SqlClient.SqlParameter("@cAlias", "CARGAR_CATALOGO"))
 
             SqlComand.Connection = Mi_conexion.conexion
             Dim DataAdapter As New SqlDataAdapter(SqlComand)

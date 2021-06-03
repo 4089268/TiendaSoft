@@ -49,6 +49,7 @@ Public Class Frm_CancelarTicket
         params.Add(New SqlParameter("@IdVenta", id_venta))
         Mi_conexion.Ejecutar_Procedimiento_dataAdapter("[Global].[SP_Ventas]", params).Fill(DatosDetVentas)
         Me.grid_detVentas.ItemsSource = DatosDetVentas.DefaultView
+
     End Sub
     Private Sub LimpiarCampos()
         Me.lbl_total.Content = "$0.00"
@@ -93,7 +94,6 @@ Public Class Frm_CancelarTicket
                     End Try
 
                     CargarDatos()
-
                 End If
 
             Else

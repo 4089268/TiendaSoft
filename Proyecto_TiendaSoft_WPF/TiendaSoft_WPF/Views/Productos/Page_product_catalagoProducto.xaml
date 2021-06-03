@@ -86,7 +86,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Content="Codigo de Barras:"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
-                <Label Content="Descripcion:"       Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Descripción:"       Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
                 <Label Content="Se vende por:"      Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
                 <Label Content="Tipo producto:"     Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
                 <Label Content="Precio Costo:"      Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
@@ -97,7 +97,7 @@
                 <Label Content="Minimo:"             Grid.Row="11" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_min" Style="{StaticResource lbl_normal}"/>
 
                 <TextBox Grid.Row="0"  Grid.Column="1" Width="280" x:Name="tb_codigo" MaxLength="14" Style="{StaticResource tb_normal}"/>
-                <TextBox Grid.Row="1"  Grid.Column="1" Width="350" x:Name="tb_descripcion" MaxLength="180" CharacterCasing="Upper" Style="{StaticResource tb_normal}"/>
+                <TextBox Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="2" x:Name="tb_descripcion" MaxLength="180" CharacterCasing="Upper" Style="{StaticResource tb_normal}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
                 
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                     <CheckBox x:Name="cb_unidad" Content="Unidad/Pza"  Margin="10,0" Style="{StaticResource chb_normal}"/>
@@ -123,13 +123,13 @@
                     
                 </StackPanel>
 
-                <Border Grid.Column="2" Grid.Row="0" Grid.RowSpan="8" Margin="2,2,10,2" BorderBrush="Gray" BorderThickness="1" Height="140" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                <Border Grid.Column="2" Grid.Row="2" Grid.RowSpan="8" Margin="2,2,10,2" BorderBrush="Gray" BorderThickness="1" Height="140" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                     <Border.Background>
                         <ImageBrush ImageSource="/TIENDASOFT;component/Imagenes/img_icon.png" Stretch="Uniform" />
                     </Border.Background>
                     <Image Name="img1" HorizontalAlignment="Stretch" />
                 </Border>
-                <Button Name="btn_cargarImagen" Content="Cargar Imagen" Grid.Column="2" Grid.Row="0" Grid.RowSpan="10" Margin="2,155,0,10" HorizontalAlignment="Center" VerticalAlignment="Top" Height="24" Width="120" FontSize="{StaticResource fontSize_normal}" FontWeight="Medium" Background="#EFEBE9"/>
+                <Button Name="btn_cargarImagen" Content="Cargar Imagen" Grid.Column="2" Grid.Row="2" Grid.RowSpan="10" Margin="2,155,0,10" HorizontalAlignment="Center" VerticalAlignment="Top" Height="24" Width="120" FontSize="{StaticResource fontSize_normal}" FontWeight="Medium" Background="#EFEBE9"/>
 
             </Grid>
         </Border>
