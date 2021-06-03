@@ -118,6 +118,12 @@ Class MainWindow
         Me.lbl_nombre.Content = DatosEmpresa.Nombre
     End Sub
     Private Sub EjecutarRespaldo()
+
+        Dim resp = MessageBox.Show("¿Desear continuar con el respaldo de la base de datos?", "Respaldo", MessageBoxButton.OKCancel, MessageBoxImage.Information)
+        If (Not resp = MessageBoxButton.OK) Then
+            Return
+        End If
+
         Me.Cursor = Cursors.Wait
         If (Mi_conexion.Conectar) Then
             Try
