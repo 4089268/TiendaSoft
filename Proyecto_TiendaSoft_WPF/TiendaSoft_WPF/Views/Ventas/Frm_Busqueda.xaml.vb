@@ -38,10 +38,17 @@ Public Class Frm_Busqueda
         TextBoxColumn4.Binding = New Binding("existencia")
         TextBoxColumn4.IsReadOnly = True
 
+        Dim TextBoxColumn5 As New DataGridTextColumn
+        TextBoxColumn5.Header = "Ubicacion"
+        TextBoxColumn5.Width = 120
+        TextBoxColumn5.Binding = New Binding("ubicacion")
+        TextBoxColumn5.IsReadOnly = True
+
         grd_productos.Columns.Add(TextBoxColumn1)
         grd_productos.Columns.Add(TextBoxColumn2)
         grd_productos.Columns.Add(TextBoxColumn3)
         grd_productos.Columns.Add(TextBoxColumn4)
+        grd_productos.Columns.Add(TextBoxColumn5)
 
         txt_prod.Focus()
 
@@ -52,7 +59,7 @@ Public Class Frm_Busqueda
             Try
                 If Mi_conexion.Conectar Then
                     cmd.CommandType = CommandType.Text
-                    cmd.CommandText = "select codigo,descripcion,isnull(precio_v,0) as precio_v,isnull(existencia,0) as existencia from Opr_Productos where isnull(inactivo,0)=0 and descripcion like '%" + Me.txt_prod.Text + "%'"
+                    cmd.CommandText = String.Format("Exec [Global].[Sys_Productos] @cAlias = 'BUSQUEDA_RAPIDA', @Descripcion = '{0}'", Me.txt_prod.Text)
                     cmd.Connection = Mi_conexion.conexion
                     cmd.Parameters.Clear()
                     xBusqueda.Clear()
@@ -64,6 +71,12 @@ Public Class Frm_Busqueda
                                 xRec.descripcion = IIf(IsDBNull(reader("descripcion")), "", reader("descripcion"))
                                 xRec.precio_v = IIf(IsDBNull(reader("precio_v")), 0, reader("precio_v"))
                                 xRec.existencia = IIf(IsDBNull(reader("existencia")), 0, reader("existencia"))
+                                Try
+                                    xRec.ubicacion = reader("ubicacion")
+                                Catch ex As Exception
+                                    xRec.ubicacion = ""
+                                End Try
+
                                 xBusqueda.Add(xRec)
                             End While
                         End If
@@ -135,4 +148,5 @@ Public Class Cls_Busqueda
     Public Property descripcion As String
     Public Property precio_v As Decimal
     Public Property existencia As Decimal
+    Public Property ubicacion As String
 End Class

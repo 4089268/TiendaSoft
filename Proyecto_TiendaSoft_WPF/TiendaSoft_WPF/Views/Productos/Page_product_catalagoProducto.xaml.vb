@@ -100,6 +100,21 @@ Class Page_product_catalagoProducto
             cb_departa.ItemsSource = dataSet2.Tables(0).DefaultView
             cb_departa.SelectedIndex = 0
 
+
+            '******* CARGAR CATALAGOS DE UBICACIONES *******
+            Dim SqlComand3 = New SqlCommand
+            SqlComand3.CommandTimeout = 500
+            SqlComand3.CommandType = CommandType.Text
+            SqlComand3.CommandText = "Exec [Global].[Sys_Productos] @cAlias = 'CATALOGO_UBICACIONES'"
+
+            SqlComand3.Connection = Mi_conexion.conexion
+            Dim DataAdapter3 As New SqlDataAdapter(SqlComand3)
+            Dim dataSet3 As New DataSet
+            DataAdapter3.Fill(dataSet3, "Resultado")
+
+            cb_ubicacion.ItemsSource = dataSet3.Tables(0).DefaultView
+            cb_ubicacion.SelectedIndex = 0
+
         Else
             MessageBox.Show("Error al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         End If
@@ -122,6 +137,18 @@ Class Page_product_catalagoProducto
                 xProdct.tipoProducto = CType(xrow.item("tipoProducto"), Integer)
                 xProdct.precio_c = CType(xrow.item("precio_c"), Double)
                 xProdct.precio_v = CType(xrow.item("precio_v"), Double)
+
+                Try
+                    xProdct.id_ubicacion = Integer.Parse(xrow("id_ubicacion").ToString)
+                Catch ex As Exception
+                    xProdct.id_ubicacion = 0
+                End Try
+                Try
+                    xProdct.subUbicacion = xrow("sub_ubicacion")
+                Catch ex As Exception
+                    xProdct.subUbicacion = ""
+                End Try
+
                 listaProductos.Add(xProdct)
             Next
         End If
@@ -162,6 +189,10 @@ Class Page_product_catalagoProducto
         tipo3.IsEnabled = val
         btn_modificarpaquete.IsEnabled = val
 
+        tb_subUbicacion.IsEnabled = val
+        cb_ubicacion.IsEnabled = val
+
+
         If (val) Then
             btn_Guardar.Visibility = Windows.Visibility.Visible
             btn_Cancelar.Visibility = Windows.Visibility.Visible
@@ -192,6 +223,9 @@ Class Page_product_catalagoProducto
             cb_invent.IsChecked = xproducto.usaInventario
             cb_unidad.IsChecked = Not xproducto.agranel
             cb_granel.IsChecked = xproducto.agranel
+
+            cb_ubicacion.SelectedValue = xproducto.id_ubicacion
+            tb_subUbicacion.Text = xproducto.subUbicacion
 
             Select Case xproducto.tipoProducto
                 Case -1 To 0
@@ -312,11 +346,12 @@ Class Page_product_catalagoProducto
         xmlProducto = ""
         img1.Source = Nothing
 
+        tb_subUbicacion.Text = ""
+
     End Sub
 
     Private Sub GuardarCambios()
         Try
-
 
             Dim ok As Boolean = True
             If (tb_codigo.Text.Length <= 0 And tb_descripcion.Text.Length <= 0 And tb_precioComp.Text.Length <= 0 And tb_precioVent.Text.Length <= 0) Then
@@ -346,7 +381,7 @@ Class Page_product_catalagoProducto
                         SqlComand.Parameters.Add(New SqlClient.SqlParameter("@id_producto", CType(DataGrid1.SelectedItem, itemProducto).id_producto))
                     End If
 
-                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Codigo", CType(tb_codigo.Text, Int64)))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Codigo", tb_codigo.Text))
                     SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Descripcion", tb_descripcion.Text))
                     SqlComand.Parameters.Add(New SqlClient.SqlParameter("@Granel", cb_granel.IsChecked))
                     SqlComand.Parameters.Add(New SqlClient.SqlParameter("@precioC", System.Convert.ToDecimal(tb_precioComp.Value, us)))
@@ -356,6 +391,8 @@ Class Page_product_catalagoProducto
                     SqlComand.Parameters.Add(New SqlClient.SqlParameter("@minimo", CInt(tb_minimo.Text)))
                     SqlComand.Parameters.Add(New SqlClient.SqlParameter("@idDepartamento", CInt(cb_departa.SelectedValue)))
                     SqlComand.Parameters.Add(New SqlClient.SqlParameter("@xmlProducto", xmlProducto))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@id_ubicacion", cb_ubicacion.SelectedValue))
+                    SqlComand.Parameters.Add(New SqlClient.SqlParameter("@sub_ubicacion", tb_subUbicacion.Text))
 
                     Dim tipoProducto As Int16 = 0
 
@@ -403,6 +440,7 @@ Class Page_product_catalagoProducto
             End If
 
         Catch ex As Exception
+            Console.WriteLine("Error")
         End Try
     End Sub
 
@@ -555,4 +593,5 @@ Class Page_product_catalagoProducto
     Private Sub btn_calcularCost() Handles btn_calcularCosto.Click
         MessageBox.Show(xmlProducto)
     End Sub
+
 End Class

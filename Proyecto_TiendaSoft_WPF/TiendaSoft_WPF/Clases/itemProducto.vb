@@ -10,4 +10,7 @@
     Property minimo As Double = 0
     Property id_familia As Integer = 0
     Property tipoProducto As Integer = 0
+
+    Property id_ubicacion As Integer = 0
+    Property subUbicacion As String = ""
 End Class

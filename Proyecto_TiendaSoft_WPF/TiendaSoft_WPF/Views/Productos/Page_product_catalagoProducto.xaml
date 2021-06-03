@@ -82,6 +82,9 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -93,10 +96,14 @@
                 <Label Content="Precio Venta:"      Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
                 <Label Content="Precio Mayoreo:"    Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
                 <Label Content="Departamento:"      Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
-                <Label Content="Hay:"                Grid.Row="10" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_hay" Style="{StaticResource lbl_normal}"/>
-                <Label Content="Minimo:"             Grid.Row="11" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_min" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Hay:"               Grid.Row="10" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_hay" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Minimo:"            Grid.Row="11" Grid.Column="0" HorizontalAlignment="Right" Name="lb_invt_min" Style="{StaticResource lbl_normal}"/>
 
-                <TextBox Grid.Row="0"  Grid.Column="1" Width="280" x:Name="tb_codigo" MaxLength="14" Style="{StaticResource tb_normal}"/>
+                <Label Content="Ubicacion:"         Grid.Row="13" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+                <Label Content="Sub Ubicacion:"     Grid.Row="14" Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource lbl_normal}"/>
+
+                
+                <TextBox Grid.Row="0"  Grid.Column="1" Width="280" x:Name="tb_codigo" MaxLength="19" Style="{StaticResource tb_normal}"/>
                 <TextBox Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="2" x:Name="tb_descripcion" MaxLength="180" CharacterCasing="Upper" Style="{StaticResource tb_normal}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
                 
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
@@ -118,6 +125,9 @@
                 <CheckBox               Grid.Row="9"  Grid.Column="1" Width="220" x:Name="cb_invent" Content="Este producto utiliza inventario" Style="{StaticResource chb_normal}"/>
                 <toolkit:IntegerUpDown  Grid.Row="10" Grid.Column="1" Width="150" x:Name="tb_existencia"  ShowButtonSpinner="True" Style="{StaticResource tk_int_normal}"/>
                 <toolkit:IntegerUpDown  Grid.Row="11" Grid.Column="1" Width="150" x:Name="tb_minimo"      ShowButtonSpinner="True" Style="{StaticResource tk_int_normal}"/>
+                
+                <ComboBox               Grid.Row="13"  Grid.Column="1" Width="220" x:Name="cb_ubicacion" DisplayMemberPath = "descripcion" SelectedValuePath = "id" Style="{StaticResource cb_normal}"/>
+                <TextBox                Grid.Row="14"  Grid.Column="1" Width="220" x:Name="tb_subUbicacion" CharacterCasing="Upper" IsEnabled="False" Style="{StaticResource tb_normal}" />
 
                 <StackPanel Grid.Row="12"  Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30"  Margin="0,40,0,0">
                     
