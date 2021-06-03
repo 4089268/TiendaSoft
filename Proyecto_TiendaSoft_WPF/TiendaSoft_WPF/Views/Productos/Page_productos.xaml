@@ -32,13 +32,20 @@
                 </StackPanel>
             </Button>
 
+            <Button Name="btn_ubicaciones" Width="130" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0" IsEnabled="True">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/TIENDASOFT;component/Imagenes/packing.png" Height="20"/>
+                    <Label Content="UBICACIONES" FontWeight="Medium"/>
+                </StackPanel>
+            </Button>
+            
             <Button Name="btn_promocion" Width="130" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0" IsEnabled="False">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/start.png" Height="20"/>
                     <Label Content="PROMOCIONES" FontWeight="Medium"/>
                 </StackPanel>
             </Button>
-
+            
             <Button Name="btn_impportar" Width="100" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="5"  Padding="5,0" IsEnabled="False">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/TIENDASOFT;component/Imagenes/database.png" Height="20"/>

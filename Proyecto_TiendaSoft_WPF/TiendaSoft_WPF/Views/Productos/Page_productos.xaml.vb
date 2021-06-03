@@ -21,7 +21,7 @@
 
     End Sub
 
-    Sub buttonsClick(sender As Object, e As RoutedEventArgs) Handles btn_catalagoP.Click, btn_deapartamento.Click
+    Sub buttonsClick(sender As Object, e As RoutedEventArgs) Handles btn_catalagoP.Click, btn_deapartamento.Click, btn_ubicaciones.Click
         restaurarBotones()
         sender.IsEnabled = False
 
@@ -30,6 +30,8 @@
                 Product_Frame.Source = New Uri("/TIENDASOFT;component/Views/Productos/Page_product_catalagoProducto.xaml", UriKind.Relative)
             Case "btn_deapartamento"
                 Product_Frame.Source = New Uri("/TIENDASOFT;component/Views/Productos/Page_product_catalagoDepartamentos.xaml", UriKind.Relative)
+            Case "btn_ubicaciones"
+                Product_Frame.Source = New Uri("/TIENDASOFT;component/Views/Productos/Page_product_catalogoUbicaciones.xaml", UriKind.Relative)
 
         End Select
     End Sub
@@ -37,9 +39,11 @@
     Private Sub restaurarBotones()
         btn_catalagoP.IsEnabled = True
         btn_deapartamento.IsEnabled = True
+        btn_ubicaciones.IsEnabled = True
 
         btn_promocion.IsEnabled = False
         btn_impportar.IsEnabled = False
+
     End Sub
 
     
