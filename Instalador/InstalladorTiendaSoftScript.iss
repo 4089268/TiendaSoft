@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TiendaSoft"
-#define MyAppVersion "2.1.29"
+#define MyAppVersion "2.1.31"
 #define MyAppPublisher "Soluciones Nerus"
 #define MyAppExeName "TIENDASOFT.exe"
 
