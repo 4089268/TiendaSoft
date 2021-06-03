@@ -18,9 +18,9 @@ DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=C:\Users\chava\Proyectos\TiendaSoft\Instalador
+OutputDir=C:\Proyectos\TiendaSoft\Instalador
 OutputBaseFilename={#MyAppName}_{#MyAppVersion}
-SetupIconFile=C:\Users\chava\Proyectos\TiendaSoft\Instalador\icono.ico
+SetupIconFile=C:\Proyectos\TiendaSoft\Instalador\icono.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -32,7 +32,7 @@ Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\chava\Proyectos\TiendaSoft\Proyecto_TiendaSoft_WPF\TiendaSoft_WPF\bin\Debug\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Proyectos\TiendaSoft\Proyecto_TiendaSoft_WPF\TiendaSoft_WPF\bin\Debug\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
