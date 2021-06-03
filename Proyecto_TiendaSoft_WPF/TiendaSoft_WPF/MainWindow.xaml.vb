@@ -119,8 +119,8 @@ Class MainWindow
     End Sub
     Private Sub EjecutarRespaldo()
 
-        Dim resp = MessageBox.Show("¿Desear continuar con el respaldo de la base de datos?", "Respaldo", MessageBoxButton.OKCancel, MessageBoxImage.Information)
-        If (Not resp = MessageBoxButton.OK) Then
+        Dim resp = MessageBox.Show("¿Desear continuar con el respaldo de la base de datos?", "Respaldo", MessageBoxButton.YesNo, MessageBoxImage.Information)
+        If (Not resp = MessageBoxResult.Yes) Then
             Return
         End If
 
