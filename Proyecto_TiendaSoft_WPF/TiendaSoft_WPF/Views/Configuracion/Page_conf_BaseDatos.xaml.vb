@@ -59,6 +59,8 @@ Class Page_conf_BaseDatos
     End Sub
 
     Private Sub Boton_GuardarCambios_Click() Handles btn_Guardar.MouseLeftButtonUp
+
+        '*** Validar si la ruta existe
         If tb_rutaRes.Text.Length > 2 Then
             Dim tmpRuta As String = tb_rutaRes.Text
             If tmpRuta.ToArray(tmpRuta.ToArray.Count - 1) <> "\" Then
@@ -68,7 +70,10 @@ Class Page_conf_BaseDatos
             Dim xf As New System.IO.DirectoryInfo(rutaNueva)
 
             If Not xf.Exists Then
-                MessageBox.Show("Ruta no disponible, asegurece de tener los permisos suficientes o que exista el directiorio.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                Dim res = MessageBox.Show("La ruta no existe o no es accesible, ¿Desea guardar los cambios de todas formas?.", "Error", MessageBoxButton.YesNo, MessageBoxImage.Error)
+                If (res = MessageBoxResult.Yes) Then
+                    GuardarConfiguracion()
+                End If
                 tb_rutaRes.Focus()
                 Return
             End If

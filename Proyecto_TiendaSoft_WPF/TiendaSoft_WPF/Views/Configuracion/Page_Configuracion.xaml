@@ -53,7 +53,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4" Background="WhiteSmoke" Orientation="Horizontal">
-            <Label Content="PERZONALIZAR" Padding="30,0" FontSize="16" Foreground="Black" FontWeight="Normal"  VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
+            <Label Content="PERSONALIZAR" Padding="30,0" FontSize="16" Foreground="Black" FontWeight="Normal"  VerticalAlignment="Center" HorizontalContentAlignment="Left"/>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" >

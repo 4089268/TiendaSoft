@@ -161,8 +161,10 @@ Class MainWindow
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs) Handles btn_ventas.ItemClick, btn_productos.ItemClick, btn_configuracion.ItemClick, btn_corte.ItemClick, btn_inventario.ItemClick, btn_cuentas.ItemClick, btn_reportes.ItemClick, btn_gastos.ItemClick, btn_respaldo.ItemClick
-        restaurarBotones()
-        sender.IsEnabled = False
+        If (Not sender.name = "btn_respaldo") Then
+            restaurarBotones()
+            sender.IsEnabled = False
+        End If
 
         Select Case sender.name
             Case "btn_ventas"
