@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Server" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ds</Value>
+      <Value Profile="(Default)">127.0.0.1</Value>
     </Setting>
     <Setting Name="Database" Type="System.String" Scope="User">
       <Value Profile="(Default)">PDV</Value>
@@ -12,7 +12,7 @@
       <Value Profile="(Default)">asd</Value>
     </Setting>
     <Setting Name="password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">j6r3uwb9</Value>
+      <Value Profile="(Default)">pass</Value>
     </Setting>
   </Settings>
 </SettingsFile>
