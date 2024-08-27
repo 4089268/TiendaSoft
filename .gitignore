@@ -250,3 +250,4 @@ MigrationBackup/
 Proyecto_TiendaSoft_WPF/TiendaSoft_WPF/bin/
 Proyecto_TiendaSoft_WPF/TiendaSoft_WPF/obj/
 Instalador/*.exe
+Instalador/InstalladorTiendaSoftScript.iss
