@@ -91,7 +91,7 @@ Class MainWindow
 
         ''**** DESACTIVADOS HASTA TERMINARLOS ****
         barManager.Bars(0).ItemLinks("factura").IsEnabled = False   ' ** Boton Factura ** 
-        barManager.Bars(0).ItemLinks("reportes").IsEnabled = False  ' ** Boton Reportes **
+        'barManager.Bars(0).ItemLinks("reportes").IsEnabled = False  ' ** Boton Reportes **
         barManager.Bars(0).ItemLinks("gastos").IsEnabled = False  ' ** Boton Reportes **
     End Sub
     Private Sub restaurarBotones()
