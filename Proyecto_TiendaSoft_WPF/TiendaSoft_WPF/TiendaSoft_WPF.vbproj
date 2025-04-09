@@ -166,9 +166,11 @@
     <Compile Include="Iniciando.xaml.vb">
       <DependentUpon>Iniciando.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modelos\Venta.vb" />
     <Compile Include="Page_Reportes.xaml.vb">
       <DependentUpon>Page_Reportes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Servicios\VentasService.vb" />
     <Compile Include="Views\Configuracion\Page_conf_BaseDatos.xaml.vb">
       <DependentUpon>Page_conf_BaseDatos.xaml</DependentUpon>
     </Compile>

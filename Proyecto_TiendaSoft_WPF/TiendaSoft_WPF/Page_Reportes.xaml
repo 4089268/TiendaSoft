@@ -16,26 +16,27 @@
 
         <Label Content="REPORTES" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="White" FontWeight="Bold" Background="Gray" Grid.ColumnSpan="2"/>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="5,0,0,0">
-
+        <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="5,0,0,0">
             <DatePicker Name="datePicker1" Width="160" Margin="4,0,0,0" Padding="4,2" Height="24" Background="White" />
-            
-            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="7.5" Padding="10,0">
+
+            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="7.5" Padding="10,0" Click="OnProcessClick">
                 <Label Content="Procesar" FontSize="12" FontWeight="Medium"/>
             </Button>
-            
+
+            <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="7.5, 7.5, 7.5, 7.5" Padding="10,0" Click="OnExportClick">
+                <Label Content="Exportar Datos" FontSize="12" FontWeight="Medium"/>
+            </Button>
         </StackPanel>
 
-        <DataGrid Name="myDatagrid" Grid.Row="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Background="White" Margin="10,0,10,10">
+        <DataGrid Name="myDatagrid" AutoGenerateColumns="False" IsReadOnly="True"  Grid.Row="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Background="White" Margin="10,0,10,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Width="50" />
-                <DataGridTextColumn Header="Fecha" Width="200" />
-                <DataGridTextColumn Header="Usuario" Width="*" />
-                <DataGridTextColumn Header="Total Productos" Width="220" />
-                <DataGridTextColumn Header="Tipo de cobro" Width="220" />
-                <DataGridTextColumn Header="Total" Width="180" />
-                <DataGridTextColumn Header="Pago" Width="180" />
-                <DataGridTextColumn Header="Cambio" Width="180" />
+                <DataGridTextColumn Header="#" Binding="{Binding IdVenta}" Width="50" />
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Width="200" />
+                <DataGridTextColumn Header="Usuario" Binding="{Binding Operador}" Width="*" />
+                <DataGridTextColumn Header="Tipo" Binding="{Binding Total}" Width="220" />
+                <DataGridTextColumn Header="Pago" Width="180" Binding="{Binding Pago}"  />
+                <DataGridTextColumn Header="Cambio" Width="180" Binding="{Binding Cambio }"/>
+                <DataGridTextColumn Header="Cambio" Width="180" Binding="{Binding TipoCobro  }"/>
                 <DataGridTextColumn Header="Acciones" Width="180" />
             </DataGrid.Columns>
         </DataGrid>
