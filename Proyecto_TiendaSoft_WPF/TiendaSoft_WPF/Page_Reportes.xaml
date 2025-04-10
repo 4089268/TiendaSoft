@@ -17,7 +17,7 @@
         <Label Content="REPORTES" Padding="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="White" FontWeight="Bold" Background="Gray" Grid.ColumnSpan="2"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="5,0,0,0">
-            <DatePicker Name="datePicker1" Width="160" Margin="4,0,0,0" Padding="4,2" Height="24" Background="White" />
+            <DatePicker Name="datePicker1" SelectedDate="{Binding FechaSeleccionada}"  Width="160" Margin="4,0,0,0" Padding="4,2" Height="24" Background="White" />
 
             <Button VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="12" Margin="7.5" Padding="10,0" Click="OnProcessClick">
                 <Label Content="Procesar" FontSize="12" FontWeight="Medium"/>
